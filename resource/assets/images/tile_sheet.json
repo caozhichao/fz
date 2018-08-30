@@ -1,0 +1,7 @@
+{"file":"tile_sheet.png","frames":{
+"tile0":{"x":0,"y":0,"w":180,"h":127,"offX":0,"offY":0,"sourceW":180,"sourceH":127},
+"tile1":{"x":0,"y":311,"w":184,"h":104,"offX":0,"offY":0,"sourceW":184,"sourceH":104},
+"tile2":{"x":129,"y":417,"w":102,"h":85,"offX":0,"offY":0,"sourceW":102,"sourceH":85},
+"tile3":{"x":120,"y":129,"w":131,"h":127,"offX":0,"offY":0,"sourceW":131,"sourceH":127},
+"tile4":{"x":0,"y":129,"w":118,"h":180,"offX":0,"offY":0,"sourceW":118,"sourceH":180},
+"tile5":{"x":0,"y":417,"w":127,"h":83,"offX":0,"offY":0,"sourceW":127,"sourceH":83}}}
