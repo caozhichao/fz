@@ -334,8 +334,12 @@ module test {
 
 		public updatePostion(tileVo:TileVo):void{
 			let pos:egret.Point = tileVo.screenPostion;
-			this.x = pos.x + TileVo.WIDTH / 2;
-			this.y = pos.y + TileVo.HEIGHT / 2;
+			// this.x = pos.x + TileVo.WIDTH / 2;
+			// this.y = pos.y + TileVo.HEIGHT / 2;
+			let tx = pos.x + TileVo.WIDTH / 2;
+			let ty = pos.y + TileVo.HEIGHT / 2;
+
+			egret.Tween.get(this).to({x:tx,y:ty},100);
 		}
 
 	}

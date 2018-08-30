@@ -1,7 +1,7 @@
 {
 	"groups": [
 		{
-			"keys": "description_json,map2_png,p1_png,tile_sheet_json",
+			"keys": "map2_png,p1_png,tile_sheet_json,description_json",
 			"name": "preload"
 		}
 	],
