@@ -201,15 +201,41 @@ module fz {
 			super();
 			// this._row = pos.row;
 			// this._col = pos.col;
-			this._data = data;			
+			// this._data = data;			
 			this.initUI();
+			this.updateData(data);
+		}
+
+		public updateData(data:TileVo):void{
+			this._data = data;
+			//更新坐标
+			let pos:egret.Point = this._data.screenPostion;
+			this.x = pos.x;
+			this.y = pos.y;
+			//更新显示
+			this._img.texture = RES.getRes('tile_sheet_json.tile0');
+			this._img.anchorOffsetX = 75;
+			this._img.anchorOffsetY = 43;
+			this._img.x = TileVo.WIDTH / 2;
+			this._img.y = TileVo.HEIGHT / 2;
+
+			if(this._data.id != 0){
+				this._obstacleImg.texture = RES.getRes('tile_sheet_json.tile' + this._data.id);
+				this._obstacleImg.anchorOffsetX = this._obstacleImg.width / 2;
+				this._obstacleImg.anchorOffsetY = this._obstacleImg.height;
+				this._obstacleImg.x = TileVo.WIDTH / 2;
+				this._obstacleImg.y = TileVo.HEIGHT / 2 + 15;		
+			}else {
+				this._obstacleImg.texture = null;
+			}
+
 		}
 
 		public initUI():void{
 
-			let pos:egret.Point = this._data.screenPostion;
-			this.x = pos.x;
-			this.y = pos.y;
+			// let pos:egret.Point = this._data.screenPostion;
+			// this.x = pos.x;
+			// this.y = pos.y;
 
 			/*
 			let lineShape:egret.Shape = new egret.Shape();
@@ -248,7 +274,7 @@ module fz {
 			}
 			*/
 
-			// /*
+			/*
 			// this._img = RES.getRes('tile_png');
 			this._img = new egret.Bitmap(RES.getRes('tile_sheet_json.tile0'));
 
@@ -267,7 +293,14 @@ module fz {
 				this._obstacleImg.y = TileVo.HEIGHT / 2 + 15;				
 				this.addChild(this._obstacleImg);
 			}
-			// */
+			*/
+
+			this._img = new egret.Bitmap();
+			this._obstacleImg = new egret.Bitmap();
+			this.addChild(this._img);
+			this.addChild(this._obstacleImg);
+			
+
 
 
 			/*
