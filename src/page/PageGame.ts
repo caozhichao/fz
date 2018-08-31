@@ -202,6 +202,9 @@ module fz {
 		private _obstacleImg:egret.Bitmap;
 		
 		private _data:TileVo;
+
+		private isTest:boolean = true;
+		private testShape:egret.Shape
 		public constructor(data:TileVo=null){
 			super();
 			// this._row = pos.row;
@@ -219,27 +222,54 @@ module fz {
 			let pos:egret.Point = this._data.screenPostion;
 			this.x = pos.x;
 			this.y = pos.y;
-			//更新显示
-			this._img.texture = RES.getRes('tile_sheet_json.tile0');
-			this._img.anchorOffsetX = 75;
-			this._img.anchorOffsetY = 43;
-			this._img.x = TileVo.WIDTH / 2;
-			this._img.y = TileVo.HEIGHT / 2;
+			if(!this.isTest){
+				//更新显示
+				this._img.texture = RES.getRes('tile_sheet_json.tile0');
+				this._img.anchorOffsetX = 75;
+				this._img.anchorOffsetY = 43;
+				this._img.x = TileVo.WIDTH / 2;
+				this._img.y = TileVo.HEIGHT / 2;
 
-			if(this._data.id != 0){
-				this._obstacleImg.texture = RES.getRes('tile_sheet_json.tile' + this._data.id);
-				this._obstacleImg.anchorOffsetX = this._obstacleImg.width / 2;
-				this._obstacleImg.anchorOffsetY = this._obstacleImg.height;
-				this._obstacleImg.x = TileVo.WIDTH / 2;
-				this._obstacleImg.y = TileVo.HEIGHT / 2 + 15;		
-			}else {
-				this._obstacleImg.texture = null;
+				if(this._data.id != 0){
+					this._obstacleImg.texture = RES.getRes('tile_sheet_json.tile' + this._data.id);
+					this._obstacleImg.anchorOffsetX = this._obstacleImg.width / 2;
+					this._obstacleImg.anchorOffsetY = this._obstacleImg.height;
+					this._obstacleImg.x = TileVo.WIDTH / 2;
+					this._obstacleImg.y = TileVo.HEIGHT / 2 + 15;		
+				}else {
+					this._obstacleImg.texture = null;
+				}
+			} else {
+
+				this._lable.text = this._data.toString();
+
+
 			}
 
 		}
 
 		public initUI():void{
+			if(this.isTest){
+				this.testShape = new egret.Shape();
+				this.testShape.graphics.lineStyle(1,0xff0000);
+				// this.testShape.graphics.beginFill(0x0)
+				this.testShape.graphics.moveTo(0,0);
+				this.testShape.graphics.lineTo(TileVo.WIDTH,0);
+				this.testShape.graphics.lineTo(TileVo.WIDTH,TileVo.HEIGHT);
+				this.testShape.graphics.lineTo(0,TileVo.HEIGHT);
+				this.testShape.graphics.lineTo(0,0);	
+				this.testShape.graphics.endFill();		
+				this.addChild(this.testShape);
 
+				this._lable = new eui.Label();
+				this._lable.width = TileVo.WIDTH;
+				this._lable.height = TileVo.HEIGHT;
+				this._lable.textAlign = egret.HorizontalAlign.CENTER;
+				this._lable.verticalAlign = egret.VerticalAlign.MIDDLE;
+				this._lable.size = 30;
+				this.addChild(this._lable);
+
+			}
 			// let pos:egret.Point = this._data.screenPostion;
 			// this.x = pos.x;
 			// this.y = pos.y;
@@ -394,15 +424,10 @@ module fz {
 		/**
 		 * 所有格子数据
 		 */
-		private allList:any[][];
-		/***
-		 * 可行格子列表
-		 */
-		private openList:TileVo[];
-		
+		private allList:any[][];		
+		//第一个
 		private _firstTileVo:TileVo;
-		private _lastRow:number;
-		private _lastCol:number;
+		//最后一个
 		private _lastTileVo:TileVo;
 		//行走的对象
 		private _curTileVo:TileVo;
@@ -420,18 +445,12 @@ module fz {
 		}
 
 		private initMap():void{
-
 			eg.log('initMap');
-			this._lastRow = 0;
-			this._lastCol = 0;
-			this.openList = [];
 			this.allList = [];
-
 			// //设置起点格子
 			this._firstTileVo = new TileVo(0,0,0);
 			this._curTileVo = this._firstTileVo;
 			this._lastTileVo = this._firstTileVo;
-			this.openList[0] = this._lastTileVo;
 			this.allList[0] = [this._lastTileVo];
 
 			for(let i:number = 0;i < 7;i++){
@@ -449,11 +468,8 @@ module fz {
 			} else {
 				tileVo = this._lastTileVo.rightTile;
 			}
-			//this.openList.push(tileVo);
 			this._lastTileVo.nextTile = tileVo;
 			this._lastTileVo = tileVo;
-			this._lastRow = this._lastTileVo.row;
-			this._lastCol = this._lastTileVo.col;
 			let list = [];
 			list.push(tileVo);
 			//2.添加同行的其他格子
@@ -474,7 +490,7 @@ module fz {
 				i++
 			}
 			//保存所有数据
-			this.allList[this._lastRow] = list;			
+			this.allList[this._lastTileVo.row] = list;			
 		}
 
 		/**
@@ -483,7 +499,7 @@ module fz {
 		public get nextRowTile():TileVo[]{
 			// eg.log('nextRowTile:' + egret.getTimer());
 			let list;
-			if(this.curShowRow >= this._lastRow){
+			if(this.curShowRow >= this._lastTileVo.row){
 				list = this.allList[this.curShowRow];		
 				eg.log('list1:' + list);
 				this.curShowRow--;
@@ -491,9 +507,9 @@ module fz {
 			return list;
 		}
 
-		public get startTileVo():TileVo{
-			return this.openList[0];
-		}	
+		// public get startTileVo():TileVo{
+		// 	return this.openList[0];
+		// }	
 
 		public get firstTileVo():TileVo{
 			return this._firstTileVo;

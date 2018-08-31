@@ -12,7 +12,6 @@
 		"bin-debug/Main.js",
 		"bin-debug/page/PageGame.js",
 		"bin-debug/page/PageTest.js",
-		"bin-debug/page/PageTips.js",
-		"bin-debug/utils/Pool.js"
+		"bin-debug/page/PageTips.js"
 	]
 }
