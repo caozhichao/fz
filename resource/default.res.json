@@ -122,16 +122,6 @@
 			"name": "track_sb_png"
 		},
 		{
-			"url": "assets/bg.jpg",
-			"type": "image",
-			"name": "bg_jpg"
-		},
-		{
-			"url": "assets/egret_icon.png",
-			"type": "image",
-			"name": "egret_icon_png"
-		},
-		{
 			"url": "config/description.json",
 			"type": "json",
 			"name": "description_json"
@@ -151,16 +141,6 @@
 			"type": "sheet",
 			"name": "tile_sheet_json",
 			"subkeys": "tile0,tile1,tile2,tile3,tile4,tile5"
-		},
-		{
-			"url": "assets/media/bg.mp3",
-			"type": "sound",
-			"name": "bg_mp3"
-		},
-		{
-			"url": "assets/media/blank.mp3",
-			"type": "sound",
-			"name": "blank_mp3"
 		}
 	]
 }

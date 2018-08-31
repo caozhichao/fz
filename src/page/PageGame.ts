@@ -42,6 +42,7 @@ module fz {
 			this.t1 = egret.getTimer();
 			this.addEventListener(egret.Event.ENTER_FRAME,this.onEnterFrame,this);	
 			this.stage.addEventListener(egret.TouchEvent.TOUCH_BEGIN,this.onTap,this);
+			this.touchEnabled = this.touchChildren = false;
 			// */			
 		}
 
@@ -54,7 +55,7 @@ module fz {
 		}
 
 		private onTap(evt:egret.TouchEvent):void{
-			eg.log(evt.stageX);
+			eg.log(evt.stageX);			
 			//点击的位置 0 左边 1右边
 			let clickDir:number = 0;
 			if(evt.stageX > eg.Config.STAGE_W / 2){
@@ -71,7 +72,7 @@ module fz {
 				//添加一行格子
 				this._tileMapVo.addNextRowTile(0);
 				this.updateBgMap();
-			}
+			}			
 		}
 
 		private updateBgMap():void{
@@ -414,6 +415,7 @@ module fz {
 			let tx = pos.x + TileVo.WIDTH / 2;
 			let ty = pos.y + TileVo.HEIGHT / 2;
 
+			egret.Tween.removeTweens(this);
 			egret.Tween.get(this).to({x:tx,y:ty},100);
 		}
 
