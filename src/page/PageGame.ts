@@ -203,7 +203,7 @@ module fz {
 		
 		private _data:TileVo;
 
-		private isTest:boolean = true;
+		private isTest:boolean = false;
 		private testShape:egret.Shape
 		public constructor(data:TileVo=null){
 			super();
@@ -563,6 +563,7 @@ module fz {
 		private _col:number;
 		private _id; //格子类型id
 		private _nextTile:TileVo;
+		private _pos:egret.Point;
 		public constructor(row:number,col:number,id:number){
 			this._row = row;
 			this._col = col;
@@ -580,7 +581,12 @@ module fz {
 		public get screenPostion():egret.Point{
 			let x = this._col*TileVo.WIDTH+(this._row&1)*TileVo.WIDTH/2;
 			let y = this._row*TileVo.HEIGHT/2;
-			return new egret.Point(x,y);
+			if(this._pos == null){
+				this._pos = new egret.Point();
+			} 
+			this._pos.x = x;
+			this._pos.y = y;
+			return this._pos;
 		}
 
 		public get row():number{
