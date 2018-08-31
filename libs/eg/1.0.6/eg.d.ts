@@ -1,6 +1,8 @@
 declare module eg {
-    class WXSoundProcessor {
+    class WXTextProcessor implements RES.processor.Processor {
         constructor();
+        onLoadStart(host: RES.ProcessHost, resource: RES.ResourceInfo): Promise<void>;
+        onRemoveStart(host: RES.ProcessHost, resource: RES.ResourceInfo): Promise<void>;
     }
 }
 declare namespace eg {
@@ -393,6 +395,11 @@ declare module eg {
         onRemoveStart(host: RES.ProcessHost, resource: RES.ResourceInfo): Promise<void>;
     }
 }
+declare module eg {
+    class WXSoundProcessor {
+        constructor();
+    }
+}
 declare namespace eg {
     class Config {
         static STAGE_W: number;
@@ -410,13 +417,6 @@ declare namespace eg {
         constructor();
         static init(main: egret.DisplayObject): void;
         static isWxgame(): boolean;
-    }
-}
-declare module eg {
-    class WXTextProcessor implements RES.processor.Processor {
-        constructor();
-        onLoadStart(host: RES.ProcessHost, resource: RES.ResourceInfo): Promise<void>;
-        onRemoveStart(host: RES.ProcessHost, resource: RES.ResourceInfo): Promise<void>;
     }
 }
 declare namespace eg {
@@ -771,6 +771,21 @@ declare module util {
         readonly pageStr: String;
         readonly pageSize: number;
         dispose(): void;
+    }
+}
+declare module eg {
+    /**
+     * 通用对象池
+     */
+    class Pool {
+        private static _instance;
+        private _poolDic;
+        constructor();
+        static readonly Instance: Pool;
+        private getPoolBySign(sign);
+        getItemByClass(cls: any): any;
+        recover(item: any): void;
+        getItemByCreateFun(cls: any, createFun: Function, thisObject: any): any;
     }
 }
 declare module eg {

@@ -10,7 +10,7 @@ module fz {
 			// eg.Pool.Instance.recover(spr);
 			// spr = eg.Pool.Instance.getItemByClass(egret.Sprite);
 			// eg.log(spr.hashCode);
-			let spr:egret.HashObject = eg.Pool.Instance.getItemByCreateFun(egret.Sprite,this.createFun,this);
+			let spr:egret.HashObject = eg2.Pool.Instance.getItemByCreateFun(egret.Sprite,this.createFun,this);
 			eg.log(spr.hashCode);
 			// this.addEventListener(this.a,)
 		}

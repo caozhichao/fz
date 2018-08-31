@@ -150,6 +150,7 @@ module fz {
 				this._tileContainer.removeChild(element);
 				let index2 = this._fallDownList.indexOf(element);
 				this._fallDownList.splice(index2,1);
+				element.dispose();
 			});		
 		}
 
@@ -171,7 +172,11 @@ module fz {
 		 * 添加一个Tile
 		 */
 		private addTile(tileVo:TileVo):void{
-			let tile:Tile = new Tile(tileVo);	
+			// let tile:Tile = new Tile(tileVo);	
+			let tile:Tile;
+			tile = eg.Pool.Instance.getItemByClass(Tile);
+			tile.updateData(tileVo);
+
 			let ty:number = tile.y;
 			tile.y -= 300;
 			egret.Tween.get(tile).to({y:ty},500);
@@ -185,7 +190,7 @@ module fz {
 
 	}
 
-	class Tile extends egret.Sprite{	
+	class Tile extends egret.Sprite implements eg.IDispose{	
 		//掉落的速度
 		public static speed:number = 600;
 		private _bg:egret.Shape;
@@ -197,13 +202,15 @@ module fz {
 		private _obstacleImg:egret.Bitmap;
 		
 		private _data:TileVo;
-		public constructor(data:TileVo){
+		public constructor(data:TileVo=null){
 			super();
 			// this._row = pos.row;
 			// this._col = pos.col;
 			// this._data = data;			
 			this.initUI();
-			this.updateData(data);
+			if(data){
+				this.updateData(data);
+			}
 		}
 
 		public updateData(data:TileVo):void{
@@ -324,6 +331,11 @@ module fz {
 		}
 		public get col():number{
 			return this._data.col;
+		}
+
+		public dispose():void{
+			eg.log('dispose');
+			eg.Pool.Instance.recover(this);
 		}
 	}
 

@@ -1,13 +1,6 @@
 var __reflect = (this && this.__reflect) || function (p, c, t) {
     p.__class__ = c, t ? t.push(c) : t = [c], p.__types__ = p.__types__ ? t.concat(p.__types__) : t;
 };
-var __extends = this && this.__extends || function __extends(t, e) { 
- function r() { 
- this.constructor = t;
-}
-for (var i in e) e.hasOwnProperty(i) && (t[i] = e[i]);
-r.prototype = e.prototype, t.prototype = new r();
-};
 var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, generator) {
     return new (P || (P = Promise))(function (resolve, reject) {
         function fulfilled(value) { try { step(generator.next(value)); } catch (e) { reject(e); } }
@@ -43,15 +36,36 @@ var __generator = (this && this.__generator) || function (thisArg, body) {
         if (op[0] & 5) throw op[1]; return { value: op[0] ? op[1] : void 0, done: true };
     }
 };
+var __extends = this && this.__extends || function __extends(t, e) { 
+ function r() { 
+ this.constructor = t;
+}
+for (var i in e) e.hasOwnProperty(i) && (t[i] = e[i]);
+r.prototype = e.prototype, t.prototype = new r();
+};
 var eg;
 (function (eg) {
-    var WXSoundProcessor = (function () {
-        function WXSoundProcessor() {
+    var WXTextProcessor = (function () {
+        function WXTextProcessor() {
         }
-        return WXSoundProcessor;
+        WXTextProcessor.prototype.onLoadStart = function (host, resource) {
+            return __awaiter(this, void 0, void 0, function () {
+                return __generator(this, function (_a) {
+                    return [2 /*return*/];
+                });
+            });
+        };
+        WXTextProcessor.prototype.onRemoveStart = function (host, resource) {
+            return __awaiter(this, void 0, void 0, function () {
+                return __generator(this, function (_a) {
+                    return [2 /*return*/];
+                });
+            });
+        };
+        return WXTextProcessor;
     }());
-    eg.WXSoundProcessor = WXSoundProcessor;
-    __reflect(WXSoundProcessor.prototype, "eg.WXSoundProcessor");
+    eg.WXTextProcessor = WXTextProcessor;
+    __reflect(WXTextProcessor.prototype, "eg.WXTextProcessor", ["RES.processor.Processor"]);
 })(eg || (eg = {}));
 //////////////////////////////////////////////////////////////////////////////////////
 //
@@ -350,26 +364,6 @@ var eg;
             // eg.log("STAGE_W|STAGE_H:" + eg.Config.STAGE_W + "|" + eg.Config.STAGE_H);
             eg.log("document.body.clientWidth|document.body.clientHeight" + document.body.clientWidth + "|" + document.body.clientHeight);
         };
-        // /***
-        //  * 
-        //  * 语言包数据，需要使用语言包，重写该方法，设置语言数据
-        //  */
-        // protected get languageData():any{
-        // 	return {};
-        // }
-        // /**
-        //  * 活动埋点模版数据
-        //  */
-        // protected get logTemplateData():any{
-        // 	return {};
-        // }
-        // /**
-        //  * 埋点数据接口地址
-        //  * 
-        //  */
-        // protected get logUrl():string{
-        // 	return "";
-        // }
         /***
          * 加载资源配置文件
          *
@@ -381,21 +375,6 @@ var eg;
                 });
             });
         };
-        // /**
-        //  * 配置语言包数据
-        //  */
-        // protected configLanguageData():void{
-        // 	//设置语言包
-        // 	LanguageManager.Instance.languageData = this.languageData;	
-        // }
-        // /**
-        //  * 配置埋点数据
-        //  */
-        // protected configActLog():void{
-        // 	//设置活动埋点数据模版
-        // 	ActLog.Instance.logUrl = this.logUrl;
-        // 	ActLog.Instance.templateData = this.logTemplateData;
-        // }
         /**
          * 创建场景 重写该方法
          */
@@ -425,45 +404,6 @@ var eg;
          *
          */
         EgMain.prototype.customEXMLProcessor = function () {
-            // var customProcessor:RES.processor.Processor = {
-            // 	async onLoadStart(host, resource) {                
-            // 		return new Promise((resolve,reject)=>{
-            // 			// EXML.load("resource/" + resource.url,(clazz:any,url:string)=>{
-            // 			if(egret.Capabilities.runtimeType == 'wxgame'){ //微信小游戏模式下，exml会被编译成js文件使用，不必再去加载exml文件(也无法动态加载exml，无法动态转换成js脚本)
-            // 				resolve();
-            // 			} else {
-            // 				EXML.load( resource.root + resource.url,(clazz:any,url:string)=>{
-            // 					// egret.log(egret.getDefinitionByName("BSkin"));
-            // 					//微信客户端中需要手动绑定对象，不然无法找到class对象
-            // 					if(egret.Capabilities.runtimeType == 'web'){
-            // 						let __class__:string = clazz.prototype.__class__;
-            // 						let paths = __class__.split('.');
-            // 						let length = paths.length;
-            // 						let definition = window;                            
-            // 						for(let i = 0; i < length; i++){
-            // 							let path = paths[i];
-            // 							if(definition[path] == null){
-            // 								if(i != length - 1){
-            // 									definition[path] = {};
-            // 								} else {
-            // 									eg.log("注册exml到window:" + __class__);
-            // 									definition[path] = clazz;
-            // 								}
-            // 							}                               
-            // 							definition = definition[path];
-            // 						}
-            // 					}
-            // 					resolve(clazz);
-            // 				},this);
-            // 			}							
-            // 		});
-            // 	},
-            // 	onRemoveStart(host, resource) {
-            // 		return Promise.resolve();
-            // 	}
-            // }
-            //注册自定义加载exml
-            // RES.processor.map("exml",customProcessor);
             RES.processor.map('exml', new eg.EXMLProcessor());
         };
         return EgMain;
@@ -1775,6 +1715,16 @@ var eg;
 })(eg || (eg = {}));
 var eg;
 (function (eg) {
+    var WXSoundProcessor = (function () {
+        function WXSoundProcessor() {
+        }
+        return WXSoundProcessor;
+    }());
+    eg.WXSoundProcessor = WXSoundProcessor;
+    __reflect(WXSoundProcessor.prototype, "eg.WXSoundProcessor");
+})(eg || (eg = {}));
+var eg;
+(function (eg) {
     var Config = (function () {
         function Config() {
         }
@@ -1800,30 +1750,6 @@ var eg;
     }());
     eg.Config = Config;
     __reflect(Config.prototype, "eg.Config");
-})(eg || (eg = {}));
-var eg;
-(function (eg) {
-    var WXTextProcessor = (function () {
-        function WXTextProcessor() {
-        }
-        WXTextProcessor.prototype.onLoadStart = function (host, resource) {
-            return __awaiter(this, void 0, void 0, function () {
-                return __generator(this, function (_a) {
-                    return [2 /*return*/];
-                });
-            });
-        };
-        WXTextProcessor.prototype.onRemoveStart = function (host, resource) {
-            return __awaiter(this, void 0, void 0, function () {
-                return __generator(this, function (_a) {
-                    return [2 /*return*/];
-                });
-            });
-        };
-        return WXTextProcessor;
-    }());
-    eg.WXTextProcessor = WXTextProcessor;
-    __reflect(WXTextProcessor.prototype, "eg.WXTextProcessor", ["RES.processor.Processor"]);
 })(eg || (eg = {}));
 var eg;
 (function (eg) {
@@ -2932,6 +2858,50 @@ var util;
     util.Pagination = Pagination;
     __reflect(Pagination.prototype, "util.Pagination");
 })(util || (util = {}));
+var eg;
+(function (eg) {
+    /**
+     * 通用对象池
+     */
+    var Pool = (function () {
+        function Pool() {
+            this._poolDic = {};
+        }
+        Object.defineProperty(Pool, "Instance", {
+            get: function () {
+                if (Pool._instance == null) {
+                    Pool._instance = new Pool();
+                }
+                return Pool._instance;
+            },
+            enumerable: true,
+            configurable: true
+        });
+        Pool.prototype.getPoolBySign = function (sign) {
+            return this._poolDic[sign] || (this._poolDic[sign] = []);
+        };
+        Pool.prototype.getItemByClass = function (cls) {
+            var sign = egret.getQualifiedClassName(cls);
+            var pool = this.getPoolBySign(sign);
+            var rst = pool.length ? pool.pop() : new cls();
+            return rst;
+        };
+        Pool.prototype.recover = function (item) {
+            var sign = egret.getQualifiedClassName(item);
+            var pool = this.getPoolBySign(sign);
+            pool.push(item);
+        };
+        Pool.prototype.getItemByCreateFun = function (cls, createFun, thisObject) {
+            var sign = egret.getQualifiedClassName(cls);
+            var pool = this.getPoolBySign(sign);
+            var rst = pool.length ? pool.pop() : createFun.call(thisObject);
+            return rst;
+        };
+        return Pool;
+    }());
+    eg.Pool = Pool;
+    __reflect(Pool.prototype, "eg.Pool");
+})(eg || (eg = {}));
 // module eg {
 // 	/**
 //  * 长按识别二维码

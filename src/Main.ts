@@ -26,6 +26,9 @@
 //  EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 //
 //////////////////////////////////////////////////////////////////////////////////////
+egret.log('---------------------');
+egret.log(eg);
+egret.log('------------------------');
 
 class Main extends eg.EgMain {   
 
