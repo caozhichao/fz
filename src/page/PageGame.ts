@@ -1,4 +1,4 @@
-module test {
+module fz {
 	export class PageGame extends eg.PageBase{
 		private _container:egret.DisplayObjectContainer;
 		private _tileContainer:egret.DisplayObjectContainer;

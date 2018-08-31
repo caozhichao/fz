@@ -3,7 +3,7 @@
   "compilerVersion": "5.2.8",
   "template": {},
   "target": {
-    "current": "wxgame"
+    "current": "web"
   },
   "eui": {
     "exmlRoot": [
@@ -31,8 +31,8 @@
       "name": "promise"
     },
     {
-      "name":"eg",
-      "path":"libs/eg/1.0.6"
+      "name": "eg",
+      "path": "libs/eg/1.0.6"
     }
   ]
 }
