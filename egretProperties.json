@@ -29,10 +29,6 @@
     },
     {
       "name": "promise"
-    },
-    {
-      "name": "eg",
-      "path": "libs/eg/1.0.6"
     }
   ]
 }
