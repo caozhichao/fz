@@ -205,7 +205,8 @@ module fz {
 		private _data:TileVo;
 
 		private isTest:boolean = false;
-		private testShape:egret.Shape
+		private testShape:egret.Shape;
+		private mc:egret.MovieClip;
 		public constructor(data:TileVo=null){
 			super();
 			// this._row = pos.row;
@@ -232,11 +233,28 @@ module fz {
 				this._img.y = TileVo.HEIGHT / 2;
 
 				if(this._data.id != 0){
-					this._obstacleImg.texture = RES.getRes('tile_sheet_json.tile' + this._data.id);
-					this._obstacleImg.anchorOffsetX = this._obstacleImg.width / 2;
-					this._obstacleImg.anchorOffsetY = this._obstacleImg.height;
-					this._obstacleImg.x = TileVo.WIDTH / 2;
-					this._obstacleImg.y = TileVo.HEIGHT / 2 + 15;		
+					if(this._data.id == 6){
+						if(this.mc == null){
+							this.mc = new egret.MovieClip();
+							this.mc.x = TileVo.WIDTH / 2;
+							this.mc.y = TileVo.HEIGHT / 2 - 45;
+							this.mc.scaleX = this.mc.scaleY = 3;
+							this.mc.frameRate = 12;
+						} 
+						let mcData:any = RES.getRes('gold_json');
+						let mcTexture:egret.Texture = RES.getRes('gold_png');
+						var mcDataFactory:egret.MovieClipDataFactory = new egret.MovieClipDataFactory(mcData, mcTexture);
+						this.mc.movieClipData = mcDataFactory.generateMovieClipData('gold');						
+						this.mc.play(-1);
+						this.addChild(this.mc);
+						
+					} else {
+						this._obstacleImg.texture = RES.getRes('tile_sheet_json.tile' + this._data.id);
+						this._obstacleImg.anchorOffsetX = this._obstacleImg.width / 2;
+						this._obstacleImg.anchorOffsetY = this._obstacleImg.height;
+						this._obstacleImg.x = TileVo.WIDTH / 2;
+						this._obstacleImg.y = TileVo.HEIGHT / 2 + 15;		
+					}
 				}else {
 					this._obstacleImg.texture = null;
 				}
@@ -367,6 +385,13 @@ module fz {
 		public dispose():void{
 			eg.log('dispose');
 			eg.Pool.Instance.recover(this);
+			eg.Pool.Instance.recover(this._data);
+			this._data = null;
+			this._obstacleImg.texture = null;
+			if(this.mc && this.mc.parent){
+				this.mc.stop();		
+				this.removeChild(this.mc);		
+			}
 		}
 	}
 
@@ -417,6 +442,10 @@ module fz {
 
 			egret.Tween.removeTweens(this);
 			egret.Tween.get(this).to({x:tx,y:ty},100);
+			// let middleX:number = this.x + (tx - this.x) / 2;
+			// let middleY:number = this.y + (ty - this.y) / 2;
+
+			// egret.Tween.get(this).to({x:middleX,y:middleY,alpha:0.3},0).wait(150).to({x:tx,y:ty,alpha:1},0);
 		}
 
 	}
@@ -466,10 +495,15 @@ module fz {
 			let seed:number = Math.floor(Math.random() * 2);
 			let tileVo:TileVo;
 			if(seed % 2 == 0){ //左边
-				tileVo = this._lastTileVo.leftTile;
+				tileVo = this._lastTileVo.getLeftTile();
 			} else {
-				tileVo = this._lastTileVo.rightTile;
+				tileVo = this._lastTileVo.getRightTile();
 			}
+
+			if(Math.random() * 100 < 30){
+				tileVo.id = 6;
+			}
+
 			this._lastTileVo.nextTile = tileVo;
 			this._lastTileVo = tileVo;
 			let list = [];
@@ -487,8 +521,11 @@ module fz {
 				let colIndex = Math.floor(Math.random() * colList.length);
 				let col = colList[colIndex];
 				colList.splice(colIndex,1);//避免重复
-				tileVo = new TileVo(tileVo.row,col,types[Math.floor(Math.random() * types.length)]);
-				list.push(tileVo);
+				// tileVo = new TileVo(tileVo.row,col,types[Math.floor(Math.random() * types.length)]);
+				let vo:TileVo = eg.Pool.Instance.getItemByClass(TileVo);
+				vo.updateData(tileVo.row,col,types[Math.floor(Math.random() * types.length)]);
+				// list.push(tileVo);
+				list.push(vo);
 				i++
 			}
 			//保存所有数据
@@ -527,20 +564,20 @@ module fz {
 			return this._curTileVo;
 		}
 
-		public get leftTile():TileVo{
-			return this._curTileVo.leftTile;
-		}
+		// public get leftTile():TileVo{
+		// 	return this._curTileVo.leftTile;
+		// }
 
-		public get rightTile():TileVo{
-			return this._curTileVo.rightTile;
-		}
+		// public get rightTile():TileVo{
+		// 	return this._curTileVo.rightTile;
+		// }
 
 		public checkDir(dir:number):any[]{
-			let tile:TileVo;
+			let tile:TileVo = new TileVo(0,0,0);
 			if(dir == 0){
-				tile = this._curTileVo.leftTile;
+				tile = this._curTileVo.getLeftTile(tile);
 			} else if(dir == 1){
-				tile = this._curTileVo.rightTile;
+				tile = this._curTileVo.getRightTile(tile);
 			}
 
 			let ret = [];
@@ -559,14 +596,21 @@ module fz {
 	}
 
 	class TileVo{
-		public static WIDTH:number = 192;
-		public static HEIGHT:number = 190;
+		public static WIDTH:number = 256;
+		public static HEIGHT:number = 256;
 		private _row:number;
 		private _col:number;
 		private _id; //格子类型id
 		private _nextTile:TileVo;
 		private _pos:egret.Point;
 		public constructor(row:number,col:number,id:number){
+			// this._row = row;
+			// this._col = col;
+			// this._id = id;
+			this.updateData(row,col,id);
+		}
+
+		public updateData(row:number,col:number,id:number){
 			this._row = row;
 			this._col = col;
 			this._id = id;
@@ -603,11 +647,15 @@ module fz {
 			return this._id;
 		}
 
+		public set id(value:number){
+			this._id = value;
+		}
+
 		/**
 		 * 获取下一行的左边的位置
 		 * 
 		 */
-		public get leftTile():TileVo{
+		public getLeftTile(vo?:TileVo):TileVo{
 			eg.log('leftTile');
 			let leftRow:number;
 			let leftCol:number;
@@ -617,14 +665,19 @@ module fz {
 			} else { //奇数行				
 				leftCol = this._col;				
 			}
-			return new TileVo(leftRow,leftCol,0);
+			// return new TileVo(leftRow,leftCol,0);
+			if(vo == null){
+				vo = eg.Pool.Instance.getItemByClass(TileVo);
+			}
+			vo.updateData(leftRow,leftCol,0);
+			return vo;
 		}
 
 		/**
 		 * 获取下一行的右边的位置
 		 * 
 		 */
-		public get rightTile():TileVo{
+		public getRightTile(vo?:TileVo):TileVo{
 			eg.log('rightTile');
 			let rightRow:number;
 			let rightCol:number;
@@ -634,13 +687,18 @@ module fz {
 			} else { //奇数行							
 				rightCol = this._col +1;											
 			}
-			return new TileVo(rightRow,rightCol,0);
+			// return new TileVo(rightRow,rightCol,0);
+			if(vo == null){
+				vo = eg.Pool.Instance.getItemByClass(TileVo);
+			}
+			vo.updateData(rightRow,rightCol,0);
+			return vo;
 		}
 
-		public clone():TileVo{
-			let tileVo:TileVo = new TileVo(this._row,this._col,this._id);
-			return tileVo;
-		}
+		// public clone():TileVo{
+		// 	let tileVo:TileVo = new TileVo(this._row,this._col,this._id);
+		// 	return tileVo;
+		// }
 
 		public toString():string{			
 			return this._row + "|" + this._col + '|' + this._id;
