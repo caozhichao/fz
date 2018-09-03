@@ -12,7 +12,7 @@
 		"bin-debug/eg/EgMain.js",
 		"bin-debug/eg/base/PageBase.js",
 		"bin-debug/eg/AssetAdapter.js",
-		"bin-debug/eg/loading/ILoadingUI.js",
+		"bin-debug/eg/loading/Loading.js",
 		"bin-debug/eg/ThemeAdapter.js",
 		"bin-debug/eg/api/IDisplayObject.js",
 		"bin-debug/eg/api/IDispose.js",
@@ -36,8 +36,8 @@
 		"bin-debug/eg/loader/wxgame/WXSheetProcessor.js",
 		"bin-debug/eg/loader/wxgame/WXSoundProcessor.js",
 		"bin-debug/eg/loader/wxgame/WXTextProcessor.js",
-		"bin-debug/Main.js",
-		"bin-debug/eg/loading/Loading.js",
+		"bin-debug/eg/loading/ILoadingUI.js",
+		"bin-debug/page/StructTest.js",
 		"bin-debug/eg/loading/LoadingSimpleUI.js",
 		"bin-debug/eg/manager/LanguageManager.js",
 		"bin-debug/eg/manager/RESManager.js",
@@ -60,8 +60,10 @@
 		"bin-debug/eg/utils/Tips.js",
 		"bin-debug/eg/utils/utils.js",
 		"bin-debug/eg/utils/WXUtil.js",
+		"bin-debug/eg/utils/struct/Stack.js",
 		"bin-debug/page/PageGame.js",
 		"bin-debug/page/PageTest.js",
-		"bin-debug/page/PageTips.js"
+		"bin-debug/page/PageTips.js",
+		"bin-debug/Main.js"
 	]
 }
