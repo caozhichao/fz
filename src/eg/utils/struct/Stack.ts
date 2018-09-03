@@ -12,8 +12,8 @@ module eg {
 		/**
 		 * 入栈
 		 */
-		public push(vlaue:T):void{
-			this._items.push(vlaue);
+		public push(element:T):void{
+			this._items.push(element);
 		}
 
 		/**
@@ -27,7 +27,7 @@ module eg {
 		 * 返回栈顶元素，不改变栈
 		 */
 		public peek():T{
-			return this._items[this.size()-1];
+			return this._items[this.size() - 1];
 		}
 
 		/**
@@ -35,6 +35,9 @@ module eg {
 		 */
 		public size():number{
 			return this._items.length;
+		}
+		public toString():string{
+			return this._items.toString();
 		}
 	}
 }

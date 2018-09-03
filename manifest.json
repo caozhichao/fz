@@ -37,7 +37,7 @@
 		"bin-debug/eg/loader/wxgame/WXSoundProcessor.js",
 		"bin-debug/eg/loader/wxgame/WXTextProcessor.js",
 		"bin-debug/eg/loading/ILoadingUI.js",
-		"bin-debug/page/StructTest.js",
+		"bin-debug/Main.js",
 		"bin-debug/eg/loading/LoadingSimpleUI.js",
 		"bin-debug/eg/manager/LanguageManager.js",
 		"bin-debug/eg/manager/RESManager.js",
@@ -60,10 +60,11 @@
 		"bin-debug/eg/utils/Tips.js",
 		"bin-debug/eg/utils/utils.js",
 		"bin-debug/eg/utils/WXUtil.js",
+		"bin-debug/eg/utils/struct/Queue.js",
 		"bin-debug/eg/utils/struct/Stack.js",
 		"bin-debug/page/PageGame.js",
 		"bin-debug/page/PageTest.js",
 		"bin-debug/page/PageTips.js",
-		"bin-debug/Main.js"
+		"bin-debug/page/StructTest.js"
 	]
 }
