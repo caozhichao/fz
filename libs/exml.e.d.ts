@@ -3,6 +3,10 @@ declare module skins{
 	}
 }
 declare module skins{
+	class ParabolaTestSkin extends eui.Skin{
+	}
+}
+declare module skins{
 	class ButtonSkin extends eui.Skin{
 	}
 }

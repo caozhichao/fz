@@ -1,0 +1,4 @@
+<?xml version="1.0" encoding="utf-8"?>
+<e:Skin class="skins.ParabolaTestSkin" width="750" height="1206" xmlns:e="http://ns.egret.com/eui" xmlns:w="http://ns.egret.com/wing">
+	<e:Rect id="p" width="100" height="100" x="118" y="1138" anchorOffsetX="50" anchorOffsetY="50" ellipseWidth="100" ellipseHeight="100"/>
+</e:Skin>

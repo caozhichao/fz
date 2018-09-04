@@ -35,8 +35,9 @@ class Main extends eg.EgMain {
      protected async createGameScene(){
         window['fz'] = fz; //wx 需要主动挂载到window对象上
         eg.log("createGameScene");    
-        eg.UIManager.Instance.showUI('fz.StructTest');     
+        // eg.UIManager.Instance.showUI('fz.StructTest');     
         // eg.UIManager.Instance.showUI(new test.PageTips()); 
         // eg.UIManager.Instance.showUI('test.PageTips'); 
+        eg.UIManager.Instance.showUI('test.ParabolaTest');
     }
 }
