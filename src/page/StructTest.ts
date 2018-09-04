@@ -27,15 +27,18 @@ module fz {
 			// 	return value > 100;		
 			// },this);
 
-			let queue:eg.Queue<number> = new eg.Queue<number>();
-			queue.enqueue(1);
-			queue.enqueue(2);
-			eg.log(queue.toString());
-			eg.log(queue.dequeue());
-			eg.log(queue.dequeue());
+			// let queue:eg.Queue<number> = new eg.Queue<number>();
+			// queue.enqueue(1);
+			// queue.enqueue(2);
+			// eg.log(queue.toString());
+			// eg.log(queue.dequeue());
+			// eg.log(queue.dequeue());
 
-			eg.log(queue.isEmpty());
+			// eg.log(queue.isEmpty());
+
 			
+			
+
 
 
 			eg.log('end');
