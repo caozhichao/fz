@@ -6,6 +6,7 @@ import { UglifyPlugin, IncrementCompilePlugin, CompilePlugin, ManifestPlugin, Ex
 import { WxgamePlugin } from './wxgame/wxgame';
 import { BricksPlugin } from './bricks/bricks';
 import { CustomPlugin } from './myplugin';
+import {VersionPlugin} from './versionplugin'
 
 const config: ResourceManagerConfig = {
 
@@ -47,7 +48,8 @@ const config: ResourceManagerConfig = {
                             { from: "**/*.js", to: "[path][name]_[hash].[ext]" }
                         ]
                     }),
-                    new ManifestPlugin({ output: "manifest.json" })
+                    new ManifestPlugin({ output: "manifest.json" }),
+                    new VersionPlugin(command)
                 ]
             }
         }

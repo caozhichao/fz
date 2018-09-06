@@ -1,12 +1,8 @@
 {
 	"groups": [
 		{
-			"keys": "map2_png,p1_png,tile_sheet_json,description_json,gold_png,gold_json",
+			"keys": "description_json,gold_json,gold_png,map2_png,p1_png,tile_sheet_json",
 			"name": "preload"
-		},
-		{
-			"keys": "p1_png",
-			"name": "ParabolaTest"
 		}
 	],
 	"resources": [
@@ -131,35 +127,30 @@
 			"name": "description_json"
 		},
 		{
-			"url": "assets/images/map2.png",
-			"type": "image",
-			"name": "map2_png"
-		},
-		{
-			"url": "assets/images/p1.png",
-			"type": "image",
-			"name": "p1_png"
-		},
-		{
-			"url": "assets/images/tile_sheet.json",
-			"type": "sheet",
-			"name": "tile_sheet_json",
-			"subkeys": "tile0,tile1,tile2,tile3,tile4,tile5"
-		},
-		{
-			"url": "assets/images/gold.png",
-			"type": "image",
-			"name": "gold_png"
-		},
-		{
-			"url": "assets/images/gold.json",
+			"url": "assets/game/images/gold.json",
 			"type": "json",
 			"name": "gold_json"
 		},
 		{
-			"url": "assets/skins/ParabolaTestSkin.exml",
-			"type": "exml",
-			"name": "ParabolaTestSkin_exml"
+			"url": "assets/game/images/gold.png",
+			"type": "image",
+			"name": "gold_png"
+		},
+		{
+			"url": "assets/game/images/map2.png",
+			"type": "image",
+			"name": "map2_png"
+		},
+		{
+			"url": "assets/game/images/p1.png",
+			"type": "image",
+			"name": "p1_png"
+		},
+		{
+			"url": "assets/game/images/tile_sheet.json",
+			"type": "sheet",
+			"name": "tile_sheet_json",
+			"subkeys": "tile0,tile1,tile2,tile3,tile4,tile5"
 		}
 	]
 }

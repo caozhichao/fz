@@ -16,8 +16,8 @@
 	},
 	"autoGenerateExmlsList": true,
 	"exmls": [
-		"resource/assets/skins/PageTipsSkin.exml",
-		"resource/assets/skins/ParabolaTestSkin.exml",
+		"resource/assets/game/skins/PageTipsSkin.exml",
+		"resource/assets/game/skins/ParabolaTestSkin.exml",
 		"resource/eui_skins/ButtonSkin.exml",
 		"resource/eui_skins/CheckBoxSkin.exml",
 		"resource/eui_skins/HScrollBarSkin.exml",
