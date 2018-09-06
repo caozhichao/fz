@@ -53,7 +53,9 @@ module eg {
 			//加载资源配置文件
 			await this.loadConfig(this.configUrl,this.resourceRoot);
 			//preload资源加载
-			await this.loadRes();		
+			await this.loadRes();	
+			//eui皮肤(debug环境，加载exml文件，正式环境使用exmljs文件)	
+			await this.initTheme();
 			//资源加载完成(处理一些加载后的数据依赖)
 			this.loadResAfter();	
 			//设置配置数据，语言包，埋点数据			
@@ -132,11 +134,11 @@ module eg {
 			// 	await WXCacheManager.Instance.init();
 			// }
 			//资源获取适配器			
-			this.initAssetAdapter();
+			// this.initAssetAdapter();
 			//初始化主题皮肤
-			if(eg.isDebug()){
-				this.initTheme();
-			}
+			// if(eg.isDebug()){
+			// await this.initTheme();
+			// }
 			//声音解码异常处理
 			this.soundException();						
 			 //初始化开始
@@ -164,25 +166,33 @@ module eg {
 
 		/**
 		 * 主题设置
+		 * egret.registerImplementation("eui.IAssetAdapter", assetAdapter);
+		 * egret.registerImplementation("eui.IThemeAdapter", new ThemeAdapter());
+		 * load Theme;
 		 */
-		protected initTheme():void{
-			// let assetAdapter = new AssetAdapter();
-			// egret.registerImplementation("eui.IAssetAdapter", assetAdapter);
-			egret.registerImplementation("eui.IThemeAdapter", new ThemeAdapter());
-			let theme:eui.Theme = new eui.Theme("",this.stage);
-			theme.mapSkin("eui.Button","resource/eui_skins/ButtonSkin.exml");        
-			theme.mapSkin("eui.CheckBox","resource/eui_skins/CheckBoxSkin.exml")
-			theme.mapSkin("eui.HScrollBar","resource/eui_skins/HScrollBarSkin.exml")
-			theme.mapSkin("eui.HSlider","resource/eui_skins/HSliderSkin.exml")
-			theme.mapSkin("eui.Panel","resource/eui_skins/PanelSkin.exml")
-			theme.mapSkin("eui.TextInput","resource/eui_skins/TextInputSkin.exml")
-			theme.mapSkin("eui.ProgressBar","resource/eui_skins/ProgressBarSkin.exml")
-			theme.mapSkin("eui.RadioButton","resource/eui_skins/RadioButtonSkin.exml")
-			theme.mapSkin("eui.Scroller","resource/eui_skins/ScrollerSkin.exml")
-			theme.mapSkin("eui.ToggleSwitch","resource/eui_skins/ToggleSwitchSkin.exml")
-			theme.mapSkin("eui.VScrollBar","resource/eui_skins/VScrollBarSkin.exml")
-			theme.mapSkin("eui.VSlider","resource/eui_skins/VSliderSkin.exml")
-			theme.mapSkin("eui.ItemRenderer","resource/eui_skins/ItemRendererSkin.exml")
+		protected initTheme(){
+			return new Promise((resolve,reject)=>{
+				let assetAdapter = new AssetAdapter();
+				egret.registerImplementation("eui.IAssetAdapter", assetAdapter);
+				egret.registerImplementation("eui.IThemeAdapter", new ThemeAdapter());
+				let theme:eui.Theme = new eui.Theme("resource/default.thm.json",this.stage);
+				theme.once(eui.UIEvent.COMPLETE, () => {
+					resolve();
+				}, this);
+			});
+			// theme.mapSkin("eui.Button","resource/eui_skins/ButtonSkin.exml");        
+			// theme.mapSkin("eui.CheckBox","resource/eui_skins/CheckBoxSkin.exml")
+			// theme.mapSkin("eui.HScrollBar","resource/eui_skins/HScrollBarSkin.exml")
+			// theme.mapSkin("eui.HSlider","resource/eui_skins/HSliderSkin.exml")
+			// theme.mapSkin("eui.Panel","resource/eui_skins/PanelSkin.exml")
+			// theme.mapSkin("eui.TextInput","resource/eui_skins/TextInputSkin.exml")
+			// theme.mapSkin("eui.ProgressBar","resource/eui_skins/ProgressBarSkin.exml")
+			// theme.mapSkin("eui.RadioButton","resource/eui_skins/RadioButtonSkin.exml")
+			// theme.mapSkin("eui.Scroller","resource/eui_skins/ScrollerSkin.exml")
+			// theme.mapSkin("eui.ToggleSwitch","resource/eui_skins/ToggleSwitchSkin.exml")
+			// theme.mapSkin("eui.VScrollBar","resource/eui_skins/VScrollBarSkin.exml")
+			// theme.mapSkin("eui.VSlider","resource/eui_skins/VSliderSkin.exml")
+			// theme.mapSkin("eui.ItemRenderer","resource/eui_skins/ItemRendererSkin.exml")
 		}
 
 		protected log():void{

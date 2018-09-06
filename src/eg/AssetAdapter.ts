@@ -27,11 +27,8 @@
 //
 //////////////////////////////////////////////////////////////////////////////////////
 
-namespace eg{
 
-
-
-export class AssetAdapter implements eui.IAssetAdapter {
+class AssetAdapter implements eui.IAssetAdapter {
     /**
      * @language zh_CN
      * 解析素材
@@ -56,5 +53,4 @@ export class AssetAdapter implements eui.IAssetAdapter {
             RES.getResByUrl(source, onGetRes, this, RES.ResourceItem.TYPE_IMAGE);
         }
     }
-}
 }
