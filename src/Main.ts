@@ -22,9 +22,13 @@ class Main extends eg.EgMain {
         // eg.UIManager.Instance.showUI('fz.StructTest');     
         // eg.UIManager.Instance.showUI(new test.PageTips()); 
         // eg.UIManager.Instance.showUI('test.PageTips'); 
-        eg.UIManager.Instance.showUI('test.ParabolaTest');
+        eg.UIManager.Instance.showUI('fz.CutEffect');
         // eg.log('---------------------------------------------------');
         // eg.log(window['__global']);
-        egret.getDefinitionByName('skins.ButtonSkin');
+        // egret.getDefinitionByName('skins.ButtonSkin');
+
+        // let result = await eg.post('http://wx.dev2.rongyi.com/api/wechat/user/get',{mall:'54f403eae4b002000cf63762',openId:'oaBwkwAd0kREhmXQcZX0DMqsS-xA',timeStamp:Date.now(),sign:'sign'});
+
+        
     }
 }
