@@ -234,7 +234,8 @@ module eg {
 				if(e != null && e.indexOf('sound') > -1){                
 					eg.warn("声音解码失败");
 				} else {
-					WinAlerts(e);
+					// WinAlerts(e);
+					eg.log('soundException:' + e.toString());
 				}
 			}
 		}

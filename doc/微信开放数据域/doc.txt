@@ -1,0 +1,7 @@
+
+提供了，原生排行，带滚动条的方案,实际使用，按具体需求调整   
+开发域数据代码 egret 与 laya 是通用的
+
+1.对照以下2个文件看
+WXOpenDataTest.ts
+platform.js

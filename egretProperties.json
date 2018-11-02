@@ -3,7 +3,7 @@
   "compilerVersion": "5.2.8",
   "template": {},
   "target": {
-    "current": "web"
+    "current": "wxgame"
   },
   "eui": {
     "exmlRoot": [
@@ -31,7 +31,11 @@
       "name": "promise"
     },
     {
-      "name":"game"
+      "name": "game"
+    },
+    {
+      "name": "physics",
+      "path": "libs/physics"
     }
   ]
 }
