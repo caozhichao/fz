@@ -36,6 +36,6 @@ class Main extends eg.EgMain {
         // this.stage.addChild(new p2test.Test2());
         // eg.UIManager.Instance.showUI('fz.ZM');
         // this.stage.addChild(new test.HtmlElementTest());
-        this.stage.addChild(new test.WXOpenDataTest());
+        this.stage.addChild(new test.RayCastingTest());
     }
 }

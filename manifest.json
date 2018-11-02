@@ -78,6 +78,7 @@
 		"bin-debug/page/PageTest.js",
 		"bin-debug/page/PageTips.js",
 		"bin-debug/page/ParabolaTest.js",
+		"bin-debug/page/RayCastingTest.js",
 		"bin-debug/page/RunwayTest.js",
 		"bin-debug/page/StructTest.js",
 		"bin-debug/page/VideoTest .js",
