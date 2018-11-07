@@ -34,9 +34,10 @@ class Main extends eg.EgMain {
         // this.stage.addChild(new EventTest());
         // eg.UIManager.Instance.showUI(new RunwayTest());
         // this.stage.addChild(new p2test.Test2());
-        eg.UIManager.Instance.showUI('fz.ZM');
+        // eg.UIManager.Instance.showUI('fz.ZM');
         // this.stage.addChild(new test.HtmlElementTest());
         // this.stage.addChild(new test.RayCastingTest());
+        this.stage.addChild(new test.ZMCollisionTest());
         
     }
 }
