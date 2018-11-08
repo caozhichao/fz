@@ -69,6 +69,7 @@
 		"bin-debug/p2test/p2DebugDraw.js",
 		"bin-debug/p2test/Test.js",
 		"bin-debug/p2test/Test2.js",
+		"bin-debug/page/BezierTest.js",
 		"bin-debug/page/CodeTest.js",
 		"bin-debug/page/CutEffect.js",
 		"bin-debug/page/EventTest.js",
