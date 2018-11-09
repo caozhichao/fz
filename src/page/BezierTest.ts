@@ -19,9 +19,10 @@ module test {
 									[635,384],[613,277],[473,234],[309,251],[289,356]];
 			MapArray = [[300,300],[400,300],[400,400]];
 
-			// this.initMap(MapArray);
+			this.initMap(MapArray);
 			// this.drawPoints(MapArray);
 
+			/*
 			this.c = new egret.Sprite();
 			this.c.graphics.beginFill(0xff0000);
 			this.c.graphics.drawCircle(0,0,10);
@@ -30,6 +31,7 @@ module test {
 			// this.c.y = MapArray[0][1];
 
 			this.addChild(this.c);
+			*/
 
 			// let vars = {t:0};
 			// egret.Tween.get(vars,{onChange:()=>{
@@ -103,13 +105,13 @@ module test {
 			// }
 			// this.initMap(MapArray);
 
-			this.test();
+			// this.test();
 		}
 
 		/**
 		 * https://blog.csdn.net/kongbu0622/article/details/10123989
 		 * https://zhidao.baidu.com/question/515374396.html
-		 * 均速2次 贝塞尔曲线坐标算法
+		 * 均速2次贝塞尔曲线坐标算法
 		 */
 		private test():void{			
 			let MapArray = [[50,50],[500,600],[800,200]];			

@@ -37,7 +37,7 @@ class Main extends eg.EgMain {
         // eg.UIManager.Instance.showUI('fz.ZM');
         // this.stage.addChild(new test.HtmlElementTest());
         // this.stage.addChild(new test.RayCastingTest());
-        this.stage.addChild(new test.WX_addCard_Test());
+        this.stage.addChild(new test.BezierEdit());
         
     }
 }
