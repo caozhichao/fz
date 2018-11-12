@@ -82,5 +82,31 @@ module eg {
 		public get languageData():any{
 			return this._data.language;
 		}
+
+		/**
+		 * 获取description 中的值
+		 * keys 
+		 * 格式1 key1.key2.key3   
+		 * 格式2 [key1,key2,key3];
+		 */
+		public getValue(keys:string):any;
+		public getValue(keys:string[]):any;
+		public getValue(keys):any{
+			let type = typeof keys;
+			eg.log('type:' + type);	
+			let keyArr:string[];
+			if(type == 'string'){
+				keyArr = (keys as string).split('.');
+			} else {
+				keyArr = keys;
+			} 
+						
+			let value = this._data;
+			let len = keyArr.length;
+			for(let i:number=0; i < len; i++){
+				value = value[keyArr[i]];
+			}
+			return value;
+		}
 	}
 }
