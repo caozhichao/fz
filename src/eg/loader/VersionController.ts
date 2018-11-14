@@ -8,7 +8,7 @@ module eg {
 		public init(){			
 			return new Promise((resolve,reject)=>{
 				this.loadVersion(()=>{
-					RES.registerVersionController(this);
+					// RES.registerVersionController(this); // 注册好了，会在加载配置文件之前获取版本 调用该方法
 					resolve();
 				})
 			});

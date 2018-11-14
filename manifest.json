@@ -12,9 +12,9 @@
 	],
 	"game": [
 		"bin-debug/eg/Config.js",
-		"bin-debug/eg/EgMain.js",
 		"bin-debug/eg/base/PageBase.js",
-		"bin-debug/eg/utils/ShakeTool .js",
+		"bin-debug/eg/EgMain.js",
+		"bin-debug/eg/utils/SoundIcon.js",
 		"bin-debug/eg/ThemeAdapter.js",
 		"bin-debug/eg/api/IDisplayObject.js",
 		"bin-debug/eg/api/IDispose.js",
@@ -56,9 +56,8 @@
 		"bin-debug/eg/utils/Pool.js",
 		"bin-debug/eg/utils/QRCode.js",
 		"bin-debug/eg/utils/rayCasting.js",
-		"bin-debug/eg/utils/ResourceVersion.js",
-		"bin-debug/eg/AssetAdapter.js",
-		"bin-debug/eg/utils/SoundIcon.js",
+		"bin-debug/eg/utils/ShakeTool .js",
+		"bin-debug/qr/QRUtil.js",
 		"bin-debug/eg/utils/SoundMgr.js",
 		"bin-debug/eg/utils/stringToArray.js",
 		"bin-debug/eg/utils/Tips.js",
@@ -103,6 +102,6 @@
 		"bin-debug/qr/QRMode.js",
 		"bin-debug/qr/QRPolynomial.js",
 		"bin-debug/qr/QRRSBlock.js",
-		"bin-debug/qr/QRUtil.js"
+		"bin-debug/eg/AssetAdapter.js"
 	]
 }

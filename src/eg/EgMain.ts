@@ -34,7 +34,10 @@ module eg {
 		protected initBefore(){
 			//获取html页面数据可以放这里
 			eg.log('initBefore');
-			// this.log();						
+			// this.log();
+			//注册版本号控制器
+			let versionController = new eg.VersionController();
+        	RES.registerVersionController(versionController);						
 		}
 
 		/**
@@ -47,8 +50,7 @@ module eg {
 		 */
 		protected async runGame(){
 			eg.log('------------------框架初始化开始-------------------------');
-			await this.initBefore();
-			//初始话版本号
+			this.initBefore();			
 			//框架基础初始化
 			await this.initEg();
 			//加载资源配置文件

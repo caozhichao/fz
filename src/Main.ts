@@ -4,8 +4,8 @@ egret.log(eg);
 egret.log('------------------------');
 class Main extends eg.EgMain {   
 
-    protected async initBefore(){
-		// super.initBefore();
+    protected initBefore(){
+		super.initBefore();
         // egret.log(window);
         //微信h5调试环境中 window['__global'] != window
         //导致挂载到__global中的skins 无法正常获取到 无法正常通过 getDefinitionByName 获取
@@ -13,10 +13,7 @@ class Main extends eg.EgMain {
         // if(window['__global'] != window){ 
         //     window['__global'] = window;
         //     // egret.log(window['__global']);
-        // }   
-        //使用版本控制       
-        let versionController = new eg.VersionController();
-        await versionController.init();
+        // }           
     }
 
     
