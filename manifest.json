@@ -7,7 +7,8 @@
 		"libs/modules/tween/tween.js",
 		"libs/modules/promise/promise.js",
 		"libs/modules/game/game.js",
-		"libs/physics/physics.js"
+		"libs/physics/physics.js",
+		"libs/Protobuf/Protobuf.js"
 	],
 	"game": [
 		"bin-debug/eg/Config.js",
@@ -81,6 +82,7 @@
 		"bin-debug/page/PageTest.js",
 		"bin-debug/page/PageTips.js",
 		"bin-debug/page/ParabolaTest.js",
+		"bin-debug/page/ProtobufTest.js",
 		"bin-debug/page/RayCastingTest.js",
 		"bin-debug/page/RunwayTest.js",
 		"bin-debug/page/StructTest.js",
