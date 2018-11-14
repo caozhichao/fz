@@ -6,7 +6,8 @@ import { UglifyPlugin, IncrementCompilePlugin, CompilePlugin, ManifestPlugin, Ex
 import { WxgamePlugin } from './wxgame/wxgame';
 import { BricksPlugin } from './bricks/bricks';
 import { CustomPlugin } from './myplugin';
-import {VersionPlugin} from './versionplugin'
+// import {VersionPlugin} from './versionplugin'
+import {VersionPlugin2} from './VersionPlugin2'
 
 const config: ResourceManagerConfig = {
 
@@ -27,7 +28,8 @@ const config: ResourceManagerConfig = {
                     //     groupSelector: p => "preload"
                     // }),
                     new ExmlPlugin('debug'), // 非 EUI 项目关闭此设置
-                    new IncrementCompilePlugin(),
+                    new IncrementCompilePlugin()
+                    // ,new VersionPlugin2(outputDir)
                 ]
             }
         }
@@ -49,7 +51,15 @@ const config: ResourceManagerConfig = {
                         ]
                     }),
                     new ManifestPlugin({ output: "manifest.json" }),
-                    new VersionPlugin(command)
+                    // new VersionPlugin(command)
+                    new RenamePlugin({
+                        verbose: true, hash: 'crc32', matchers: [
+                            { from: "resource/assets/game/**/*.*", to: "[path][name]_[hash].[ext]" },                            
+                            { from: "resource/default.res.json", to: "[path][name]_[hash].[ext]" },
+                            { from: "resource/config/description.json", to: "[path][name]_[hash].[ext]" }
+                        ]
+                    }),
+                    new VersionPlugin2('')
                 ]
             }
         }

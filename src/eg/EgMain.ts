@@ -31,7 +31,7 @@ module eg {
 		/**
 		 * 初始化之前
 		 */
-		protected initBefore():void{
+		protected initBefore(){
 			//获取html页面数据可以放这里
 			eg.log('initBefore');
 			// this.log();						
@@ -47,7 +47,8 @@ module eg {
 		 */
 		protected async runGame(){
 			eg.log('------------------框架初始化开始-------------------------');
-			this.initBefore();
+			await this.initBefore();
+			//初始话版本号
 			//框架基础初始化
 			await this.initEg();
 			//加载资源配置文件
@@ -98,6 +99,7 @@ module eg {
 		 * 可以重写该方法设置新的资源配置文件路径
 		 */
 		protected get configUrl():string{
+			/*
 			let version = window['resVersion'] == undefined?Date.now():window['resVersion'];
 			let url:string = 'resource/default.res.json';
 			// if(egret.Capabilities.runtimeType != 'wxgame'){
@@ -105,6 +107,8 @@ module eg {
 				url += '?v=' + version;
 			}
 			return url;
+			*/
+			return 'resource/default.res.json';
 		}
 
 		/**
