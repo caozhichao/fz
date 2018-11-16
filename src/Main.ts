@@ -14,6 +14,7 @@ class Main extends eg.EgMain {
         //     window['__global'] = window;
         //     // egret.log(window['__global']);
         // }           
+        eg.Config.versionUrl = 'http://hf.rongyi.com/o2o/v4/cf/cf_legao/version2.json';
     }
 
     

@@ -34,10 +34,7 @@ module eg {
 		protected initBefore(){
 			//获取html页面数据可以放这里
 			eg.log('initBefore');
-			// this.log();
-			//注册版本号控制器
-			let versionController = new eg.VersionController();
-        	RES.registerVersionController(versionController);						
+			// this.log();			
 		}
 
 		/**
@@ -53,6 +50,7 @@ module eg {
 			this.initBefore();			
 			//框架基础初始化
 			await this.initEg();
+			this.initVersionController();
 			//加载资源配置文件
 			await this.loadConfig(this.configUrl,this.resourceRoot);
 			//preload资源加载
@@ -67,6 +65,14 @@ module eg {
 			eg.log('------------------框架初始化结束---------------------------');
 			//创建场景			
 			this.createGameScene();
+		}
+
+		private initVersionController():void{
+			//注册版本号控制器
+			if(Config.versionUrl){
+				let versionController = new eg.VersionController();
+				RES.registerVersionController(versionController);						
+			}
 		}
 
 		/**
