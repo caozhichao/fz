@@ -52,11 +52,16 @@ module eg {
 		 */
 		public getVirtualUrl(url: string): string{
 			let index = url.indexOf('resource/');
-			let resourceRoot = url.substring(0,index);
-			let path = url.substr(index);
-			let realPath = this.info[path];
-			let realUrl = resourceRoot + (realPath?realPath:path);
-			eg.log('url:' + url + '-> realUrl:' + realUrl);			
+			let realUrl;
+			if(index != -1){
+				let resourceRoot = url.substring(0,index);
+				let path = url.substr(index);
+				let realPath = this.info[path];
+				realUrl = resourceRoot + (realPath?realPath:path);
+				eg.log('url:' + url + '-> realUrl:' + realUrl);			
+			} else {
+				realUrl = url;
+			}
 			return realUrl;
 			// let realURL = this.info[url];
 			// return realURL?realURL:url;
