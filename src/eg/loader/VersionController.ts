@@ -1,4 +1,7 @@
 module eg {
+	/***
+	 * 版本号控制
+	 */
 	export class VersionController implements RES.VersionController{
 		private info:any;
 		public constructor() {
@@ -39,14 +42,24 @@ module eg {
 				loader.removeEventListener(egret.Event.COMPLETE,onComplete, self);
 				loader.removeEventListener(egret.IOErrorEvent.IO_ERROR, onError, self);
 			}
-			var request:egret.URLRequest = new egret.URLRequest('version.json');
+			var request:egret.URLRequest = new egret.URLRequest(eg.Config.versionUrl + '?' + Date.now()); //获取最新版本
 			//开始加载
 			loader.load(request);
 		}
+
+		/**
+		 * 资源加载url变更
+		 */
 		public getVirtualUrl(url: string): string{
-			console.log('url:' + url);
-			let realURL = this.info[url];
-			return realURL?realURL:url;
+			let index = url.indexOf('resource/');
+			let resourceRoot = url.substring(0,index);
+			let path = url.substr(index);
+			let realPath = this.info[path];
+			let realUrl = resourceRoot + (realPath?realPath:path);
+			eg.log('url:' + url + '-> realUrl:' + realUrl);			
+			return realUrl;
+			// let realURL = this.info[url];
+			// return realURL?realURL:url;
 		}
 	}
 }

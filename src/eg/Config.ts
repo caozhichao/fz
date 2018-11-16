@@ -12,6 +12,9 @@ namespace eg{
 		 * 显示log
 		 */
 		public static showLog:boolean = false;
+
+		//版本号路径
+		public static versionUrl:string;
 		
 
 		public constructor() {
