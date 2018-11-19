@@ -2,7 +2,7 @@
 	"groups": [
 		{
 			"keys": "description_json,gold_json,gold_png,map2_png,p1_png,tile_sheet_json,1_png",
-			"name": "preload"
+			"name": "preload1"
 		}
 	],
 	"resources": [
@@ -153,9 +153,9 @@
 			"subkeys": "tile0,tile1,tile2,tile3,tile4,tile5"
 		},
 		{
-			"name": "1_png",
+			"url": "assets/game/images/1.png",
 			"type": "image",
-			"url": "assets/game/images/1.png"
+			"name": "1_png"
 		}
 	]
 }

@@ -16,6 +16,8 @@ namespace eg{
 		//版本号路径
 		public static versionUrl:string;
 		
+		//资源文件配置 可以有多个 [{url1,resourceRoot1},{url2,resourceRoot2}]
+		public static resConfigs:any[] = [{url:'resource/default.res.json',resourceRoot:'resource/'}];
 
 		public constructor() {
 

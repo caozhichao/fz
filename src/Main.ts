@@ -14,7 +14,9 @@ class Main extends eg.EgMain {
         //     window['__global'] = window;
         //     // egret.log(window['__global']);
         // }           
-        eg.Config.versionUrl = 'http://hf.rongyi.com/o2o/v4/cf/cf_legao/version2.json';
+        // eg.Config.versionUrl = 'http://hf.rongyi.com/o2o/v4/cf/cf_legao/version.json';
+        eg.Config.versionUrl = 'version.json';
+        eg.Config.resConfigs = [{url:'resource/default.res.json',resourceRoot:'resource/'},{url:'http://hf.rongyi.com/o2o/v4/cf/cf_legao/resource/outpack.res.json',resourceRoot:'http://hf.rongyi.com/o2o/v4/cf/cf_legao/resource/'}];
     }
 
     
@@ -40,7 +42,7 @@ class Main extends eg.EgMain {
         // eg.UIManager.Instance.showUI('fz.ZM');
         // this.stage.addChild(new test.HtmlElementTest());
         // this.stage.addChild(new test.RayCastingTest());
-        this.stage.addChild(new test.OutPackConfigTest());
+        // this.stage.addChild(new test.OutPackConfigTest());
         
     }
 }
