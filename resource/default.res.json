@@ -1,8 +1,8 @@
 {
 	"groups": [
 		{
-			"keys": "description_json,gold_json,gold_png,map2_png,p1_png,tile_sheet_json,1_png",
-			"name": "preload1"
+			"keys": "description_json1,gold_json,gold_png,map2_png,p1_png,tile_sheet_json,1_png",
+			"name": "preload"
 		}
 	],
 	"resources": [
@@ -124,7 +124,7 @@
 		{
 			"url": "config/description.json",
 			"type": "json",
-			"name": "description_json"
+			"name": "description_json1"
 		},
 		{
 			"url": "assets/game/images/gold.json",

@@ -15,7 +15,7 @@ class Main extends eg.EgMain {
         //     // egret.log(window['__global']);
         // }           
         // eg.Config.versionUrl = 'http://hf.rongyi.com/o2o/v4/cf/cf_legao/version.json';
-        eg.Config.versionUrl = 'version.json';
+        // eg.Config.versionUrl = 'version.json';
         eg.Config.resConfigs = [{url:'resource/default.res.json',resourceRoot:'resource/'},{url:'http://hf.rongyi.com/o2o/v4/cf/cf_legao/resource/outpack.res.json',resourceRoot:'http://hf.rongyi.com/o2o/v4/cf/cf_legao/resource/'}];
     }
 
