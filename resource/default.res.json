@@ -1,7 +1,7 @@
 {
 	"groups": [
 		{
-			"keys": "description_json1,gold_json,gold_png,map2_png,p1_png,tile_sheet_json,1_png",
+			"keys": "kbg_png,kbg1_png,kbg2_png,loadingBg_png,mmm_png",
 			"name": "preload"
 		}
 	],
@@ -156,6 +156,31 @@
 			"url": "assets/game/images/1.png",
 			"type": "image",
 			"name": "1_png"
+		},
+		{
+			"url": "assets/game/images/loading/kbg.png",
+			"type": "image",
+			"name": "kbg_png"
+		},
+		{
+			"url": "assets/game/images/loading/kbg1.png",
+			"type": "image",
+			"name": "kbg1_png"
+		},
+		{
+			"url": "assets/game/images/loading/kbg2.png",
+			"type": "image",
+			"name": "kbg2_png"
+		},
+		{
+			"url": "assets/game/images/loading/loadingBg.png",
+			"type": "image",
+			"name": "loadingBg_png"
+		},
+		{
+			"url": "assets/game/images/loading/mmm.png",
+			"type": "image",
+			"name": "mmm_png"
 		}
 	]
 }

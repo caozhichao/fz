@@ -21,7 +21,7 @@
         }
     </style>
     <script src="http://res.wx.qq.com/open/js/jweixin-1.2.0.js"></script>    
-    <script src="libs/sha1.js"></script>
+    <script src="libs/sha1.js"></script>    
 </head>
 
 <body>
@@ -30,7 +30,7 @@
          data-orientation="auto"
          data-scale-mode="fixedWidth"
          data-frame-rate="60"
-         data-content-width="900"
+         data-content-width="750"
          data-content-height="1206"
          data-multi-fingered="2"
          data-show-fps="false" data-show-log="false"
@@ -69,6 +69,7 @@
     xhr.open('GET', './manifest.json?v=' + Math.random(), true);
     xhr.addEventListener("load", function () {
         var manifest = JSON.parse(xhr.response);
+        manifest.initial.push('resource/default.thm.js');
         var list = manifest.initial.concat(manifest.game);
         loadScript(list, function () {
             /**

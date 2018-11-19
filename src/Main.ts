@@ -5,7 +5,8 @@ egret.log('------------------------');
 class Main extends eg.EgMain {   
 
     protected initBefore(){
-		super.initBefore();
+		super.initBefore();        
+        eg.log(window['skins']);
         // egret.log(window);
         //微信h5调试环境中 window['__global'] != window
         //导致挂载到__global中的skins 无法正常获取到 无法正常通过 getDefinitionByName 获取
@@ -14,14 +15,28 @@ class Main extends eg.EgMain {
         //     window['__global'] = window;
         //     // egret.log(window['__global']);
         // }           
+        //版本号url设置
         // eg.Config.versionUrl = 'http://hf.rongyi.com/o2o/v4/cf/cf_legao/version.json';
-        // eg.Config.versionUrl = 'version.json';
-        eg.Config.resConfigs = [{url:'resource/default.res.json',resourceRoot:'resource/'},{url:'http://hf.rongyi.com/o2o/v4/cf/cf_legao/resource/outpack.res.json',resourceRoot:'http://hf.rongyi.com/o2o/v4/cf/cf_legao/resource/'}];
+        // eg.Config.versionUrl = 'version.json';    
+        //设置资源加载配置
+        // eg.Config.resConfigs = [{url:'resource/default.res.json',resourceRoot:'resource/'},{url:'http://hf.rongyi.com/o2o/v4/cf/cf_legao/resource/outpack.res.json',resourceRoot:'http://hf.rongyi.com/o2o/v4/cf/cf_legao/resource/'}];
+    }
+
+    protected loadResAfter():void{
+        super.loadResAfter();
+        //设置新的LoadingUI
+        eg.Loading.Instance.loadingUI = new test.PageLoadingUI();        
     }
 
     
 
      protected async createGameScene(){
+
+        // if(DEBUG){
+        //     //微信调试工具h5模式 exml 加载模式下
+        //     window['skins'] = window['__global']['skins'];
+        // }
+
         window['fz'] = fz; //wx 需要主动挂载到window对象上
         eg.log("createGameScene");    
         // eg.UIManager.Instance.showUI('fz.StructTest');     
@@ -43,6 +58,8 @@ class Main extends eg.EgMain {
         // this.stage.addChild(new test.HtmlElementTest());
         // this.stage.addChild(new test.RayCastingTest());
         // this.stage.addChild(new test.OutPackConfigTest());
+
+        // this.stage.addChild(new test.PageLoadingUI());
         
     }
 }

@@ -1,4 +1,8 @@
 declare module skins{
+	class LoadingUISkin extends eui.Skin{
+	}
+}
+declare module skins{
 	class PageTipsSkin extends eui.Skin{
 	}
 }

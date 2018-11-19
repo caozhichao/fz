@@ -16,6 +16,7 @@
 	},
 	"autoGenerateExmlsList": true,
 	"exmls": [
+		"resource/assets/game/skins/LoadingUISkin.exml",
 		"resource/assets/game/skins/PageTipsSkin.exml",
 		"resource/assets/game/skins/ParabolaTestSkin.exml",
 		"resource/eui_skins/ButtonSkin.exml",

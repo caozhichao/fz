@@ -47,16 +47,16 @@ module eg {
 		 */
 		protected async runGame(){
 			eg.log('------------------框架初始化开始-------------------------');
-			this.initBefore();			
 			//框架基础初始化
 			// await this.initEg();
 			Eg.getInstance().init(this);
+			this.initBefore();			
 			//注册版本控制器
 			this.initVersionController();
 			//加载资源配置文件
 			await this.loadConfigs();						
 			//preload资源加载
-			await this.loadRes();	
+			// await this.loadRes();	
 			//eui皮肤(debug环境，加载exml文件，正式环境使用exmljs文件)	
 			await this.initTheme();
 			this.log();
