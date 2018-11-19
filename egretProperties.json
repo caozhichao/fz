@@ -3,7 +3,7 @@
   "compilerVersion": "5.2.8",
   "template": {},
   "target": {
-    "current": "web"
+    "current": "wxgame"
   },
   "eui": {
     "exmlRoot": [
@@ -42,7 +42,7 @@
       "path": "libs/Protobuf"
     },
     {
-      "name":"socket"
+      "name": "socket"
     }
   ]
 }

@@ -17,7 +17,7 @@ class Main extends eg.EgMain {
         // }           
         //版本号url设置
         // eg.Config.versionUrl = 'http://hf.rongyi.com/o2o/v4/cf/cf_legao/version2.json';
-        // eg.Config.versionUrl = 'version.json';    
+        eg.Config.versionUrl = 'version.json';    
         //设置资源加载配置
         // eg.Config.resConfigs = [{url:'resource/default.res.json',resourceRoot:'resource/'},{url:'http://hf.rongyi.com/o2o/v4/cf/cf_legao/resource/outpack.res.json',resourceRoot:'http://hf.rongyi.com/o2o/v4/cf/cf_legao/resource/'}];
     }
@@ -60,8 +60,8 @@ class Main extends eg.EgMain {
         // this.stage.addChild(new test.OutPackConfigTest());
         // eg.UIManager.Instance.showUI(new test.OutPackConfigTest());
 
-        // this.stage.addChild(new test.PageLoadingUI());
-        new test.WSTest();
+        this.stage.addChild(new test.PageLoadingUI());
+        // new test.WSTest();
         
     }
 }
