@@ -40,6 +40,9 @@
     {
       "name": "Protobuf",
       "path": "libs/Protobuf"
+    },
+    {
+      "name":"socket"
     }
   ]
 }

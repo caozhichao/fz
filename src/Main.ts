@@ -16,10 +16,10 @@ class Main extends eg.EgMain {
         //     // egret.log(window['__global']);
         // }           
         //版本号url设置
-        eg.Config.versionUrl = 'http://hf.rongyi.com/o2o/v4/cf/cf_legao/version2.json';
+        // eg.Config.versionUrl = 'http://hf.rongyi.com/o2o/v4/cf/cf_legao/version2.json';
         // eg.Config.versionUrl = 'version.json';    
         //设置资源加载配置
-        eg.Config.resConfigs = [{url:'resource/default.res.json',resourceRoot:'resource/'},{url:'http://hf.rongyi.com/o2o/v4/cf/cf_legao/resource/outpack.res.json',resourceRoot:'http://hf.rongyi.com/o2o/v4/cf/cf_legao/resource/'}];
+        // eg.Config.resConfigs = [{url:'resource/default.res.json',resourceRoot:'resource/'},{url:'http://hf.rongyi.com/o2o/v4/cf/cf_legao/resource/outpack.res.json',resourceRoot:'http://hf.rongyi.com/o2o/v4/cf/cf_legao/resource/'}];
     }
 
     protected loadResAfter():void{
@@ -58,9 +58,10 @@ class Main extends eg.EgMain {
         // this.stage.addChild(new test.HtmlElementTest());
         // this.stage.addChild(new test.RayCastingTest());
         // this.stage.addChild(new test.OutPackConfigTest());
-        eg.UIManager.Instance.showUI(new test.OutPackConfigTest());
+        // eg.UIManager.Instance.showUI(new test.OutPackConfigTest());
 
         // this.stage.addChild(new test.PageLoadingUI());
+        new test.WSTest();
         
     }
 }
