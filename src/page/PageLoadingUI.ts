@@ -17,6 +17,7 @@ module test {
 			eg.log(cur + '/' + total);
 			if(this._progressMask){
 				this._progressMask.width = cur / total * 566;
+				eg.log('this._progressMask.width:' + this._progressMask.width);
 			}
 			// if(this._tf){
 			// 	this._tf.text = cur + '/' + total;
@@ -24,7 +25,7 @@ module test {
 		}
 
 		public show(msg?:string):void{
-
+			
 		}
 
 		public get content():egret.DisplayObject{
@@ -33,6 +34,7 @@ module test {
 
 		public hide():void{
 			eg.log('loading hide');
+			this.dispose();
 		}
 
 		public dispose():void{

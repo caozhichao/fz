@@ -50,7 +50,7 @@ module eg {
 				let count:number = 0;		
 				if( groups != null && groups.length > 0){
 					count = groups.length;
-					eg.QueueLoader.Instance.loadGroupArray(groups,eg.QueueLoader.MAX_PRIORITY,this,onComplete);
+					eg.QueueLoader.Instance.loadGroupArray(groups,eg.QueueLoader.MAX_PRIORITY,this,onComplete,onProgress);
 				} else {
 					// onComplete();
 					resolve();
@@ -61,6 +61,10 @@ module eg {
 						resolve();
 						eg.log("资源加载完成:" + groups);
 					}
+				}
+				function onProgress(progress):void{
+					// {itemsLoaded:evt.itemsLoaded,itemsTotal:evt.itemsTotal}
+					eg.Loading.Instance.progress(progress.itemsLoaded,progress.itemsTotal);
 				}
 			})
 		}

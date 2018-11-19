@@ -1,8 +1,9 @@
 module test {
-	export class OutPackConfigTest extends egret.Sprite{
+	export class OutPackConfigTest extends eg.PageBase{
 		public constructor() {
 			super();
-			this.init();
+			// this.init();
+			this.resName = ['map'];
 		}
 
 		private async init(){
@@ -11,8 +12,8 @@ module test {
 			// eg.QueueLoader.Instance.loadGroup('map',0,this,()=>{
 			// 	console.log('aaa');
 			// })
-			eg.QueueLoader.Instance.loadGroup('preload1');
-			eg.QueueLoader.Instance.loadGroup('map');
+			// eg.QueueLoader.Instance.loadGroup('preload1');
+			// eg.QueueLoader.Instance.loadGroup('map');
 		}
 	}
 }

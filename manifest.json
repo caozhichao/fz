@@ -48,6 +48,7 @@
 		"bin-debug/eg/manager/UIManager.js",
 		"bin-debug/eg/manager/WXCacheManager.js",
 		"bin-debug/eg/manager/WXFileManager.js",
+		"bin-debug/eg/net/WS.js",
 		"bin-debug/eg/utils/ActLog.js",
 		"bin-debug/eg/utils/Description.js",
 		"bin-debug/eg/utils/getDefinition.js",

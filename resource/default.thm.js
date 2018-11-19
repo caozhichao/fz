@@ -52,18 +52,18 @@ window.skins={};
 	_proto._progress_i = function () {
 		var t = new eui.Image();
 		this._progress = t;
-		t.horizontalCenter = 0;
 		t.source = "kbg1_png";
 		t.width = 566;
+		t.x = 92;
 		t.y = 583;
 		return t;
 	};
 	_proto._progressMask_i = function () {
 		var t = new eui.Image();
 		this._progressMask = t;
-		t.horizontalCenter = 0;
 		t.source = "kbg1_png";
 		t.width = 566;
+		t.x = 92;
 		t.y = 583;
 		return t;
 	};
