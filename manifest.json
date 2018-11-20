@@ -13,9 +13,9 @@
 	],
 	"game": [
 		"bin-debug/eg/Config.js",
-		"bin-debug/eg/EgMain.js",
 		"bin-debug/eg/base/PageBase.js",
-		"bin-debug/eg/utils/SoundIcon.js",
+		"bin-debug/eg/EgMain.js",
+		"bin-debug/eg/utils/SoundMgr.js",
 		"bin-debug/Main.js",
 		"bin-debug/eg/ThemeAdapter.js",
 		"bin-debug/eg/api/IDisplayObject.js",
@@ -60,8 +60,8 @@
 		"bin-debug/eg/utils/QRCode.js",
 		"bin-debug/eg/utils/rayCasting.js",
 		"bin-debug/eg/utils/ShakeTool .js",
-		"bin-debug/eg/AssetAdapter.js",
-		"bin-debug/eg/utils/SoundMgr.js",
+		"bin-debug/eg/utils/SoundIcon.js",
+		"bin-debug/qr/QRUtil.js",
 		"bin-debug/eg/utils/stringToArray.js",
 		"bin-debug/eg/utils/Tips.js",
 		"bin-debug/eg/utils/utils.js",
@@ -77,6 +77,7 @@
 		"bin-debug/page/BezierEdit.js",
 		"bin-debug/page/BezierShape.js",
 		"bin-debug/page/BezierTest.js",
+		"bin-debug/page/canvas_toTempFilePath.js",
 		"bin-debug/page/CodeTest.js",
 		"bin-debug/page/CutEffect.js",
 		"bin-debug/page/EventTest.js",
@@ -108,6 +109,6 @@
 		"bin-debug/qr/QRMode.js",
 		"bin-debug/qr/QRPolynomial.js",
 		"bin-debug/qr/QRRSBlock.js",
-		"bin-debug/qr/QRUtil.js"
+		"bin-debug/eg/AssetAdapter.js"
 	]
 }

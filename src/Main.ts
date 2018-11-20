@@ -36,7 +36,7 @@ class Main extends eg.EgMain {
         //     //微信调试工具h5模式 exml 加载模式下
         //     window['skins'] = window['__global']['skins'];
         // }
-
+        window['eg'] = eg;
         window['fz'] = fz; //wx 需要主动挂载到window对象上
         eg.log("createGameScene");    
         // eg.UIManager.Instance.showUI('fz.StructTest');     
@@ -60,7 +60,8 @@ class Main extends eg.EgMain {
         // this.stage.addChild(new test.OutPackConfigTest());
         // eg.UIManager.Instance.showUI(new test.OutPackConfigTest());
 
-        this.stage.addChild(new test.PageLoadingUI());
+        // eg.UIManager.Instance.showUI(new test.canvas_toTempFilePath());
+        this.stage.addChild(new test.MatrixTest());
         // new test.WSTest();
         
     }

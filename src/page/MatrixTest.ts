@@ -34,13 +34,31 @@ module test {
 			b.y = 50;
 			a.addChild(b);
 
-			let p:egret.Point = a.localToGlobal(50,50);
-			console.log(p.toString());
+			// let p:egret.Point = a.localToGlobal(50,50);
+			// console.log(p.toString());
 
 			egret.MainContext.instance.stage.addEventListener(egret.TouchEvent.TOUCH_BEGIN,(evt)=>{
-				console.log(evt);
+				// console.log(evt);
+				console.log(a.matrix);
+				console.log(b.matrix);
+
+				let p:egret.Point = a.localToGlobal(b.x,b.y);
+				console.log(p.toString());
+				let m = new egret.Matrix();
+				m.concat(a.matrix);
+				// m.concat(b.matrix);
+				console.log('----------------');
+				let p2 = m.transformPoint(b.x,b.y);
+				console.log(p2);
+
 			},this);
 
+			let mm = new egret.Matrix();
+			mm.tx = 100;
+			mm.ty = 100;
+			mm.scale(0.5,0.5);
+
+			console.log(mm);
 		}		
 	}
 }
