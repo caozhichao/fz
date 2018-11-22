@@ -61,8 +61,10 @@ class Main extends eg.EgMain {
         // eg.UIManager.Instance.showUI(new test.OutPackConfigTest());
 
         // eg.UIManager.Instance.showUI(new test.canvas_toTempFilePath());
-        this.stage.addChild(new test.MatrixTest());
+        // this.stage.addChild(new test.MatrixTest());
         // new test.WSTest();
+
+        eg.UIManager.Instance.showUI(new test.ButtonTest());
         
     }
 }
