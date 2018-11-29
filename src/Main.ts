@@ -65,7 +65,7 @@ class Main extends eg.EgMain {
         // new test.WSTest();
 
         // eg.UIManager.Instance.showUI(new test.ButtonTest());
-        this.stage.addChild(new test.WXOpenDataTest());
+        this.stage.addChild(new test.MathTest());
         
     }
 }

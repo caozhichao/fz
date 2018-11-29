@@ -1,21 +1,41 @@
 module eg {
-	export class GImageButton extends eui.Image{
+	export class GImageButton extends eui.Image implements eg.IDispose{
+		private flag:boolean;
+		private curMatrix:egret.Matrix;
+		private srcX:number;
+		private srcY:number;
+		private _enabled:boolean;
 		public constructor() {
 			super();
 			this.initUI();
 		}
 
-		private initUI():void{
-			this.touchEnabled = true;
+		private initUI():void{			
 			this.addEventListener(egret.TouchEvent.TOUCH_BEGIN, this.onTouchBegin, this);
+			
 		}
 
 		protected onTouchBegin(event:egret.TouchEvent):void {
-            this.$stage.addEventListener(egret.TouchEvent.TOUCH_CANCEL, this.onTouchCancle, this);
-            this.$stage.addEventListener(egret.TouchEvent.TOUCH_END, this.onStageTouchEnd, this);           
-			this.scaleX = this.scaleY = 0.9;
-			eg.log(this.width + '|' + this.height);
-			//this.x = (1 - 0.9) * this.width;
+			if(!this.flag){
+				this.flag = true;
+				this.srcX = this.x;
+				this.srcY = this.y;
+				eg.log('x:' + this.srcX + 'y:' + this.srcY); 
+				this.$stage.addEventListener(egret.TouchEvent.TOUCH_CANCEL, this.onTouchCancle, this);
+				this.$stage.addEventListener(egret.TouchEvent.TOUCH_END, this.onStageTouchEnd, this);           			
+				let m:egret.Matrix = new egret.Matrix();
+				m.scale(0.9,0.9);
+				m.translate(this.x + this.width * 0.1 / 2,this.y + this.height * 0.1 / 2)			
+				// this.matrix = m;
+
+				//缓动处理
+				let a = this.matrix;
+				egret.Tween.get(a,{onChange:()=>{				
+					this.matrix = a;
+					this.curMatrix = a;
+				}}).to({a:m.a,b:m.b,c:m.c,d:m.d,tx:m.tx,ty:m.ty},100);			
+			}
+
         }
 
 		  /**
@@ -25,12 +45,20 @@ module eg {
         private onStageTouchEnd(event:egret.Event):void {
             let stage = event.$currentTarget;
             stage.removeEventListener(egret.TouchEvent.TOUCH_CANCEL, this.onTouchCancle, this);
-            stage.removeEventListener(egret.TouchEvent.TOUCH_END, this.onStageTouchEnd, this);
-            // if (this.contains(event.target)){
-            //     this.buttonReleased();
-            // }          
-			this.scaleX = this.scaleY = 1;
-			eg.log('onStageTouchEnd');
+            stage.removeEventListener(egret.TouchEvent.TOUCH_END, this.onStageTouchEnd, this);           
+			egret.Tween.removeTweens(this);
+			let m:egret.Matrix = new egret.Matrix();
+			m.scale(1,1);
+			// m.translate(this.x - this.width * 0.1 / 2,this.y - this.height * 0.1 / 2);
+			m.translate(this.srcX,this.srcY);
+			// this.matrix = m;				
+			let a = this.matrix;
+			egret.Tween.get(a,{onChange:()=>{				
+				this.matrix = a;
+			}}).to({a:m.a,b:m.b,c:m.c,d:m.d,tx:m.tx,ty:m.ty},100).call(()=>{
+				this.flag = false;
+			},this);
+
         }
 
 		protected onTouchCancle(event:egret.TouchEvent):void {
@@ -39,6 +67,28 @@ module eg {
             stage.removeEventListener(egret.TouchEvent.TOUCH_END, this.onStageTouchEnd, this);   
 			eg.log('onTouchCancle');         
         }
+
+		public set enabled11(value:boolean){
+			this._enabled = value;			
+			if(!value){
+				var mat:number[] =[0.3086,0.6094,0.082,0,0,0.3086,0.6094,0.082,0,0,0.3086,0.6094,0.082,0,0,0,0,0,1,0];
+				var colorMat:egret.ColorMatrixFilter = new egret.ColorMatrixFilter(mat);
+				this.filters = [colorMat];
+			} else {
+				this.filters = [];
+			}
+		}
+
+		public get enabled11():boolean {
+            // return this.$Component[eui.sys.ComponentKeys.enabled];
+			// return egret.superGetter(eg.GButton,this,'enabled');
+			return this._enabled;
+        }
+
+
+		public dispose():void{
+			this.removeEventListener(egret.TouchEvent.TOUCH_BEGIN, this.onTouchBegin, this);
+		}
 
 	}
 }
