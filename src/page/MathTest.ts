@@ -8,6 +8,8 @@ module test {
 	 * 夹角问题 点移动到4个夹角点 避免 运动的点想象成一个球  球心到边的距离小于半径表明碰撞到了
 	 * 同时碰撞到2个边(按原路径返回)
 	 *
+	 * 碰撞到边反弹  入射角=反射角
+	 * 
 	 * 
 	 * 
 	 */
@@ -19,6 +21,9 @@ module test {
 		private radians:number;
 		private degrees:number;
 		private r:number = 10;
+		//上一个开始移动的点
+		private upX:number;
+		private upY:number;
 		public constructor() {
 			super();
 			this.initUI();
@@ -70,22 +75,71 @@ module test {
 			//右
 			let right:number = 600 - this.ball.x;
 			// console.log('up:' + up + ' down:' + down + ' left:' + left + ' right:' + right);
+			/*
 			if(up < this.r || down < this.r || left < this.r || right < this.r){
 				eg.log('碰到边界了');
 				// this.removeEventListener(egret.Event.ENTER_FRAME,this.onEnterFrame,this);
 				// let radians:number = Math.atan2(50 - this.ball.y, 50 - this.ball.x);
 				// this.radians = radians;
 				// this.radians += 180 *;
-				this.degrees += 180;
-				this.radians = this.degrees * Math.PI / 180;
-				
+				// this.degrees += 180; // 垂直 对角
+				this.degrees *= -1;
+				this.radians = this.degrees * Math.PI / 180;				
 			} 
+			*/
+			let arr = [];
+			if(up < this.r){
+				arr.push('up');
+			} 
+			if(down < this.r){
+				arr.push('down');
+			}
+			if(left < this.r){
+				arr.push('left');
+			}
+			if(right < this.r){
+				arr.push('right');
+			}
+
+			if(arr.length > 0){
+				this.degrees = this.refAngle(arr);
+				this.radians = this.degrees * Math.PI / 180;		
+			}
+
 		}
+
+		/**
+		 * 根据入射角=反射角 计算反弹的角度
+		 * 入射角  与边的夹角
+		 */
+		private refAngle(hits:string[]):number{
+			let angle:number = 0;
+			if(hits.length == 2){
+				angle = this.degrees + 180;
+			} else{
+				let hit = hits[0];
+				if(hit == 'down'){
+					// if(this.degrees > 0 && this.degrees <=90){
+					angle = -this.degrees;
+					// }
+				} else if(hit == 'right'){
+					angle = this.degrees < 0?-180-this.degrees:180-this.degrees;
+				}else if(hit == 'left'){
+					angle = this.degrees < 0?-180-this.degrees:180-this.degrees;
+				}else if(hit == 'up'){
+					angle = -this.degrees;
+				}
+			}
+			return angle;
+		}
+
 
 		private onTap(evt:egret.TouchEvent):void{
 			console.log('onTap');
-			let tx:number = 600;
-			let ty:number = 300;
+			this.upX = this.ball.x;
+			this.upY = this.ball.y;
+			let tx:number = 300;
+			let ty:number = 600;
 			let radians:number = Math.atan2(ty - this.ball.y, tx - this.ball.x);
 			this.radians = radians;
 			this.mX = Math.cos(radians) * this.speed;
