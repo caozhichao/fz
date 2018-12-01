@@ -157,6 +157,7 @@ module eg {
 			eg.log("isMobile:" + egret.Capabilities.isMobile);
 			eg.log("boundingClientWidth:" + egret.Capabilities.boundingClientWidth);
 			eg.log("boundingClientHeight:" + egret.Capabilities.boundingClientHeight);
+			eg.log('宽高比:' + egret.Capabilities.boundingClientWidth / egret.Capabilities.boundingClientHeight);
 			eg.log("navigator.userAgent:" + window.navigator.userAgent);
 			eg.log("window.screen width|height:" + window.screen.width + "|" + window.screen.height);
 			// eg.log("STAGE_W|STAGE_H:" + eg.Config.STAGE_W + "|" + eg.Config.STAGE_H);

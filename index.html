@@ -33,7 +33,7 @@
          data-content-width="750"
          data-content-height="1206"
          data-multi-fingered="2"
-         data-show-fps="false" data-show-log="false"
+         data-show-fps="true" data-show-log="true"
          data-show-fps-style="x:0,y:0,size:12,textColor:0xffffff,bgAlpha:0.9">
     </div>
 <script>
@@ -72,6 +72,7 @@
         manifest.initial.push('resource/default.thm.js');
         var list = manifest.initial.concat(manifest.game);
         loadScript(list, function () {
+            window.FPS = __global.FPS; //微信开发工具h5下 无法获取到FPS  微信开发工具下__global != window
             /**
              * {
              * "renderMode":, //Engine rendering mode, "canvas" or "webgl"
