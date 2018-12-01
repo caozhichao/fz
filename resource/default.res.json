@@ -1,7 +1,7 @@
 {
 	"groups": [
 		{
-			"keys": "kbg_png,kbg1_png,kbg2_png,loadingBg_png,mmm_png",
+			"keys": "kbg_png,kbg1_png,kbg2_png,loadingBg_png,mmm_png,chi_ske_json,chi_tex_json,chi_tex_png,p1_png",
 			"name": "preload"
 		}
 	],
@@ -181,6 +181,21 @@
 			"url": "assets/game/images/loading/mmm.png",
 			"type": "image",
 			"name": "mmm_png"
+		},
+		{
+			"url": "assets/game/images/c/chi_ske.json",
+			"type": "json",
+			"name": "chi_ske_json"
+		},
+		{
+			"url": "assets/game/images/c/chi_tex.json",
+			"type": "json",
+			"name": "chi_tex_json"
+		},
+		{
+			"url": "assets/game/images/c/chi_tex.png",
+			"type": "image",
+			"name": "chi_tex_png"
 		}
 	]
 }

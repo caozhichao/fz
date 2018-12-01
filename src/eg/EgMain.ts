@@ -56,7 +56,7 @@ module eg {
 			//加载资源配置文件
 			await this.loadConfigs();						
 			//preload资源加载
-			// await this.loadRes();	
+			await this.loadRes();	
 			//eui皮肤(debug环境，加载exml文件，正式环境使用exmljs文件)	
 			await this.initTheme();
 			this.log();

@@ -138,7 +138,7 @@ module test {
 			console.log('onTap');
 			this.upX = this.ball.x;
 			this.upY = this.ball.y;
-			let tx:number = 300;
+			let tx:number = 600;
 			let ty:number = 600;
 			let radians:number = Math.atan2(ty - this.ball.y, tx - this.ball.x);
 			this.radians = radians;

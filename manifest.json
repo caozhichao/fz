@@ -7,19 +7,21 @@
 		"libs/modules/tween/tween.js",
 		"libs/modules/promise/promise.js",
 		"libs/modules/game/game.js",
-		"libs/modules/socket/socket.js"
+		"libs/modules/socket/socket.js",
+		"libs/modules/dragonBones/dragonBones.js"
 	],
 	"game": [
-		"bin-debug/eg/Config.js",
-		"bin-debug/eg/EgMain.js",
 		"bin-debug/eg/base/PageBase.js",
+		"bin-debug/eg/EgMain.js",
+		"bin-debug/eg/base/PopupBaseUI.js",
+		"bin-debug/qr/QRUtil.js",
 		"bin-debug/eg/utils/stringToArray.js",
-		"bin-debug/Main.js",
 		"bin-debug/eg/ThemeAdapter.js",
 		"bin-debug/eg/api/IDisplayObject.js",
 		"bin-debug/eg/api/IDispose.js",
 		"bin-debug/eg/base/IPage.js",
 		"bin-debug/eg/Eg.js",
+		"bin-debug/Main.js",
 		"bin-debug/eg/base/UILayer.js",
 		"bin-debug/eg/eui/GBitmapLabel.js",
 		"bin-debug/eg/eui/GButtion2.js",
@@ -79,6 +81,7 @@
 		"bin-debug/page/canvas_toTempFilePath.js",
 		"bin-debug/page/CodeTest.js",
 		"bin-debug/page/CutEffect.js",
+		"bin-debug/page/DragonBonesTest.js",
 		"bin-debug/page/EventTest.js",
 		"bin-debug/page/HtmlElementTest.js",
 		"bin-debug/page/MathTest.js",
@@ -89,6 +92,7 @@
 		"bin-debug/page/PageTest.js",
 		"bin-debug/page/PageTips.js",
 		"bin-debug/page/ParabolaTest.js",
+		"bin-debug/page/PopupBaseUITest.js",
 		"bin-debug/page/ProtobufTest.js",
 		"bin-debug/page/RayCastingTest.js",
 		"bin-debug/page/RunwayTest.js",
@@ -109,6 +113,6 @@
 		"bin-debug/qr/QRMode.js",
 		"bin-debug/qr/QRPolynomial.js",
 		"bin-debug/qr/QRRSBlock.js",
-		"bin-debug/qr/QRUtil.js"
+		"bin-debug/eg/Config.js"
 	]
 }

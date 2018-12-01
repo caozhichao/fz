@@ -130,6 +130,37 @@ window.skins={};
 		return t;
 	};
 	return ParabolaTestSkin;
+})(eui.Skin);generateEUI.paths['resource/assets/game/skins/PopupBaseUITestSkin.exml'] = window.skins.PopupBaseUITestSkin = (function (_super) {
+	__extends(PopupBaseUITestSkin, _super);
+	function PopupBaseUITestSkin() {
+		_super.call(this);
+		this.skinParts = [];
+		
+		this.height = 1206;
+		this.width = 750;
+		this.elementsContent = [this._Group1_i()];
+	}
+	var _proto = PopupBaseUITestSkin.prototype;
+
+	_proto._Group1_i = function () {
+		var t = new eui.Group();
+		t.anchorOffsetX = 375;
+		t.anchorOffsetY = 603;
+		t.height = 1206;
+		t.horizontalCenter = 0;
+		t.verticalCenter = 0;
+		t.width = 750;
+		t.elementsContent = [this._Image1_i()];
+		return t;
+	};
+	_proto._Image1_i = function () {
+		var t = new eui.Image();
+		t.source = "p1_png";
+		t.x = 320;
+		t.y = 520;
+		return t;
+	};
+	return PopupBaseUITestSkin;
 })(eui.Skin);generateEUI.paths['resource/eui_skins/ButtonSkin.exml'] = window.skins.ButtonSkin = (function (_super) {
 	__extends(ButtonSkin, _super);
 	function ButtonSkin() {
