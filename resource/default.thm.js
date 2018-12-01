@@ -134,16 +134,17 @@ window.skins={};
 	__extends(PopupBaseUITestSkin, _super);
 	function PopupBaseUITestSkin() {
 		_super.call(this);
-		this.skinParts = [];
+		this.skinParts = ["_container"];
 		
 		this.height = 1206;
 		this.width = 750;
-		this.elementsContent = [this._Group1_i()];
+		this.elementsContent = [this._container_i()];
 	}
 	var _proto = PopupBaseUITestSkin.prototype;
 
-	_proto._Group1_i = function () {
+	_proto._container_i = function () {
 		var t = new eui.Group();
+		this._container = t;
 		t.anchorOffsetX = 375;
 		t.anchorOffsetY = 603;
 		t.height = 1206;

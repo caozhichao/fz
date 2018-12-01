@@ -125,12 +125,12 @@ module eg {
 				
 				if(self.pageSkinName != "" && self.pageSkinName != null){	
 					//先检查皮肤资源是否存在	
-					// if(egret.getDefinitionByName(self.pageSkinName)){
+					if(egret.getDefinitionByName(self.pageSkinName)){
 						// this.skinName = this.pageSkinName;
 						egret.superSetter(eg.PageBase,self,'skinName',self.pageSkinName);
-					// } else {
-					// 	eg.log(self.pageSkinName + '皮肤资源未找到');
-					// }	
+					} else {
+						eg.log(self.pageSkinName + '皮肤资源未找到');
+					}	
 				} else {					
 					resolve();
 				}

@@ -15,6 +15,8 @@ const config: ResourceManagerConfig = {
         const { target, command, projectName, version } = params;
         const outputDir = `../${projectName}_wxgame`;
         console.log('outputDir:' + outputDir);
+        command ='publish';
+        console.log('command:' + command);
         if (command == 'build') {
             return {
                 outputDir,
