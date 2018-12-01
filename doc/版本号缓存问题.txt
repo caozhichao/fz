@@ -1,0 +1,6 @@
+h5游戏中2个版本号必须实时更新
+1.xhr.open('GET', './manifest.json?v=' + Math.random(), true);
+保证获取的js脚本是最新的
+2.version.json?v=xxx
+保证里面的资源版本号是最新的
+
