@@ -1,12 +1,16 @@
 module eg {
+	/**
+	 * UI 层级划分
+	 * 
+	 */
 	export class UILayer {
 		private static _instance:UILayer;
 
-		public static LAYER_SCENCE:string = "scence"; //基础场景层，最下面的层
-		public static LAYER_FULL_SCREEN_WINDOW:string = "full_screen_window"; //全屏功能窗口层
-		public static LAYER_WINDOW:string = "window"; //功能窗口层
-		public static LAYER_TIPS_WINDOW:string = "tips_window"; //提示窗口层
-		public static LAYER_TIPS_WINDOW_WORDS:string = "tips_words"; //飘字层
+		public static LAYER_SCENCE:string = "scence"; //基础场景层
+		public static LAYER_SCENCE_FUNCTION:string = "function"; //场景功能窗口层
+		public static LAYER_POPUP:string = "popup"; //功能窗口层
+		public static LAYER_ALERT:string = "alert"; //提示窗口层
+		public static LAYER_EFFECT:string = "effect"; //飘字层
 		public static LAYER_LOADING:string = "loading";
 		private layerNames:string[];
 		private layers:any;
@@ -15,7 +19,7 @@ module eg {
 		private _stage:egret.Stage;
 
 		public constructor() {
-			this.layerNames = [UILayer.LAYER_SCENCE,UILayer.LAYER_FULL_SCREEN_WINDOW,UILayer.LAYER_WINDOW,UILayer.LAYER_TIPS_WINDOW,UILayer.LAYER_TIPS_WINDOW_WORDS,UILayer.LAYER_LOADING];
+			this.layerNames = [UILayer.LAYER_SCENCE,UILayer.LAYER_SCENCE_FUNCTION,UILayer.LAYER_POPUP,UILayer.LAYER_ALERT,UILayer.LAYER_EFFECT,UILayer.LAYER_LOADING];
 			this.layers = {};
 			this.layerContainer = new egret.Sprite();
 		}
@@ -27,6 +31,9 @@ module eg {
 			return UILayer._instance;
 		}
 
+		/**
+		 * 初始化显示层
+		 */
 		public init(stage:egret.Stage):void{	
 			this._stage = stage;		
 			let layer:egret.Sprite;
@@ -42,27 +49,27 @@ module eg {
 			return this.layers[layerName];
 		}
 
-		public get layerWindow():egret.Sprite{
-			return this.getLayerByType(UILayer.LAYER_WINDOW);
+		public get popup():egret.Sprite{
+			return this.getLayerByType(UILayer.LAYER_POPUP);
 		}
 
-		public get layerTips():egret.Sprite{
-			return this.getLayerByType(UILayer.LAYER_TIPS_WINDOW);
+		public get alert():egret.Sprite{
+			return this.getLayerByType(UILayer.LAYER_ALERT);
 		}
 
-		public get layerScence():egret.Sprite{
+		public get scence():egret.Sprite{
 			return this.getLayerByType(UILayer.LAYER_SCENCE);
 		}
 
-		public get layerFullScreenWindow():egret.Sprite{
-			return this.getLayerByType(UILayer.LAYER_FULL_SCREEN_WINDOW);
+		public get sceceFunction():egret.Sprite{
+			return this.getLayerByType(UILayer.LAYER_SCENCE_FUNCTION);
 		}
 
-		public get layerTipsWords():egret.Sprite{
-			return this.getLayerByType(UILayer.LAYER_TIPS_WINDOW_WORDS);
+		public get effect():egret.Sprite{
+			return this.getLayerByType(UILayer.LAYER_EFFECT);
 		}
 
-		public get layerLoading():egret.Sprite{
+		public get loading():egret.Sprite{
 			return this.getLayerByType(UILayer.LAYER_LOADING);
 		}
 	}

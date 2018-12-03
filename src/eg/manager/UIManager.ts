@@ -105,8 +105,8 @@ module eg {
 		private uploadPageData(page:IPage):void{
 			let upPage:IPage = this._dic[page.pageType];
 			//如果是提示类型，同层提示不存在，取对应的window层zuozuo
-			if(upPage == null && page.pageType == UILayer.LAYER_TIPS_WINDOW){
-				upPage = this._dic[UILayer.LAYER_WINDOW];
+			if(upPage == null && page.pageType == UILayer.LAYER_POPUP){
+				upPage = this._dic[UILayer.LAYER_SCENCE];
 			}		
 			let curPageName:string = page.pageName;
 			let upPageName:string = upPage?upPage.pageName:"";

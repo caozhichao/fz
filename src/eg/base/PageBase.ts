@@ -14,7 +14,7 @@ module eg {
 		}
 
 		public get pageType():string{
-			return UILayer.LAYER_WINDOW;
+			return UILayer.LAYER_SCENCE;
 		}
 
 		public get pageId():number{

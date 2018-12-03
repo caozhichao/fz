@@ -30,7 +30,7 @@ namespace eg {
 			this.ui.show(msg);
 			// eg.Config.stage.addChild(this.ui.content());
 			// eg.
-			eg.UILayer.Instance.layerLoading.addChild(this.ui.content);
+			eg.UILayer.Instance.loading.addChild(this.ui.content);
 		}
 
 		public progress(cur:number,total:number):void{			

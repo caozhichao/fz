@@ -33,7 +33,7 @@ module eg {
 				egret.Tween.get(msg).wait(700).to({y:msg.y - 200,alpha:1},900).wait(0).call(this.onComplete,this,[msg]);
 				// this._stage.addChild(msg);
 
-				UILayer.Instance.layerTipsWords.addChild(msg);
+				UILayer.Instance.effect.addChild(msg);
 			}
 		}
 
