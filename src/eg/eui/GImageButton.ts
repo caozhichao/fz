@@ -68,8 +68,9 @@ module eg {
 			eg.log('onTouchCancle');         
         }
 
-		public set enabled11(value:boolean){
-			this._enabled = value;			
+		public set enabled(value:boolean){
+			this._enabled = value;		
+			this.touchEnabled = value;	
 			if(!value){
 				var mat:number[] =[0.3086,0.6094,0.082,0,0,0.3086,0.6094,0.082,0,0,0.3086,0.6094,0.082,0,0,0,0,0,1,0];
 				var colorMat:egret.ColorMatrixFilter = new egret.ColorMatrixFilter(mat);
@@ -79,7 +80,7 @@ module eg {
 			}
 		}
 
-		public get enabled11():boolean {
+		public get enabled():boolean {
             // return this.$Component[eui.sys.ComponentKeys.enabled];
 			// return egret.superGetter(eg.GButton,this,'enabled');
 			return this._enabled;
