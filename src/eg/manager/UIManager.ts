@@ -114,5 +114,25 @@ module eg {
 				ActLog.Instance.log({event_type:50,refer_page_name:upPageName,current_page_name:curPageName});
 			}
 		}
+
+		/**
+		 * 根据UI类型关闭界面
+		 */
+		public closeUIByType(pageType:string):void{
+
+			let page:IPage = this._dic[pageType];		
+			if(page && !page.isDispose){
+				page.close();
+			}			
+			this._dic[pageType] = null;
+		}
+
+		/**
+		 * 关闭UI
+		 */
+		public closeUI(page:IPage):void{
+			this.closeUIByType(page.pageType);
+		}
+
 	}
 }
