@@ -134,7 +134,7 @@ window.skins={};
 	__extends(PopupBaseUITestSkin, _super);
 	function PopupBaseUITestSkin() {
 		_super.call(this);
-		this.skinParts = ["_container"];
+		this.skinParts = ["_icon","_container"];
 		
 		this.height = 1206;
 		this.width = 750;
@@ -151,11 +151,12 @@ window.skins={};
 		t.horizontalCenter = 0;
 		t.verticalCenter = 0;
 		t.width = 750;
-		t.elementsContent = [this._Image1_i()];
+		t.elementsContent = [this._icon_i()];
 		return t;
 	};
-	_proto._Image1_i = function () {
+	_proto._icon_i = function () {
 		var t = new eui.Image();
+		this._icon = t;
 		t.source = "p1_png";
 		t.x = 320;
 		t.y = 520;

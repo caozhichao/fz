@@ -17,7 +17,7 @@ module fz {
             super.initUI(data);
             eg.log('CutEffect');
 
-            this.filters = [new egret.GlowFilter(0x00FFCC,1,6,6)];
+            // this.filters = [new egret.GlowFilter(0x00FFCC,1,6,6)];
 
             this.stage.addEventListener(TouchEvent.TOUCH_BEGIN,this.onBegin,this);
         }
