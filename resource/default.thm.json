@@ -17,9 +17,11 @@
 	"autoGenerateExmlsList": true,
 	"exmls": [
 		"resource/assets/game/skins/LoadingUISkin.exml",
+		"resource/assets/game/skins/OrientationModeTestSkin.exml",
 		"resource/assets/game/skins/PageTipsSkin.exml",
 		"resource/assets/game/skins/ParabolaTestSkin.exml",
 		"resource/assets/game/skins/PopupBaseUITestSkin.exml",
+		"resource/assets/game/skins/StageScaleModeTestSkin.exml",
 		"resource/eui_skins/ButtonSkin.exml",
 		"resource/eui_skins/CheckBoxSkin.exml",
 		"resource/eui_skins/HScrollBarSkin.exml",

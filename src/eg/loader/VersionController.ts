@@ -42,11 +42,18 @@ module eg {
 				loader.removeEventListener(egret.Event.COMPLETE,onComplete, self);
 				loader.removeEventListener(egret.IOErrorEvent.IO_ERROR, onError, self);
 			}
-			//微信小游戏本地，不可在后面加版本号
+			//微信小游戏本地资源，不可在后面加版本号
 			let url = eg.Config.versionUrl;
-			if(url.indexOf('http:') != -1 || url.indexOf('https:') != -1){
+			if(egret.Capabilities.runtimeType == egret.RuntimeType.WXGAME){
+				if(url.indexOf('http:') != -1 || url.indexOf('https:') != -1){
+					url += '?' + Date.now();				
+				}
+			} else {
 				url += '?' + Date.now();				
 			}
+			// if(url.indexOf('http:') != -1 || url.indexOf('https:') != -1){
+			// 	url += '?' + Date.now();				
+			// }
 			// var request:egret.URLRequest = new egret.URLRequest(eg.Config.versionUrl + '?' + Date.now()); //获取最新版本
 			var request:egret.URLRequest = new egret.URLRequest(url); //获取最新版本
 			//开始加载

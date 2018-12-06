@@ -1,0 +1,4 @@
+<?xml version="1.0" encoding="utf-8"?>
+<e:Skin class="skins.StageScaleModeTestSkin" width="1206" height="750" xmlns:e="http://ns.egret.com/eui">
+	<e:Rect width="1206" height="750" y="0" x="0"/>
+</e:Skin>

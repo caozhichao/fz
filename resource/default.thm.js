@@ -68,6 +68,36 @@ window.skins={};
 		return t;
 	};
 	return LoadingUISkin;
+})(eui.Skin);generateEUI.paths['resource/assets/game/skins/OrientationModeTestSkin.exml'] = window.skins.OrientationModeTestSkin = (function (_super) {
+	__extends(OrientationModeTestSkin, _super);
+	function OrientationModeTestSkin() {
+		_super.call(this);
+		this.skinParts = [];
+		
+		this.height = 750;
+		this.width = 1206;
+		this.elementsContent = [this._Rect1_i(),this._Image1_i()];
+	}
+	var _proto = OrientationModeTestSkin.prototype;
+
+	_proto._Rect1_i = function () {
+		var t = new eui.Rect();
+		t.anchorOffsetX = 0;
+		t.anchorOffsetY = 0;
+		t.height = 200;
+		t.left = 0;
+		t.top = 0;
+		t.width = 200;
+		return t;
+	};
+	_proto._Image1_i = function () {
+		var t = new eui.Image();
+		t.source = "p1_png";
+		t.x = 209;
+		t.y = 9;
+		return t;
+	};
+	return OrientationModeTestSkin;
 })(eui.Skin);generateEUI.paths['resource/assets/game/skins/PageTipsSkin.exml'] = window.skins.PageTipsSkin = (function (_super) {
 	__extends(PageTipsSkin, _super);
 	function PageTipsSkin() {
@@ -163,6 +193,27 @@ window.skins={};
 		return t;
 	};
 	return PopupBaseUITestSkin;
+})(eui.Skin);generateEUI.paths['resource/assets/game/skins/StageScaleModeTestSkin.exml'] = window.skins.StageScaleModeTestSkin = (function (_super) {
+	__extends(StageScaleModeTestSkin, _super);
+	function StageScaleModeTestSkin() {
+		_super.call(this);
+		this.skinParts = [];
+		
+		this.height = 750;
+		this.width = 1206;
+		this.elementsContent = [this._Rect1_i()];
+	}
+	var _proto = StageScaleModeTestSkin.prototype;
+
+	_proto._Rect1_i = function () {
+		var t = new eui.Rect();
+		t.height = 750;
+		t.width = 1206;
+		t.x = 0;
+		t.y = 0;
+		return t;
+	};
+	return StageScaleModeTestSkin;
 })(eui.Skin);generateEUI.paths['resource/eui_skins/ButtonSkin.exml'] = window.skins.ButtonSkin = (function (_super) {
 	__extends(ButtonSkin, _super);
 	function ButtonSkin() {
