@@ -17,6 +17,11 @@ module test {
 		// private _ty:number = 0;
 		private _mCount:number = 0;
 
+
+		private _virtualJoystick:eg.VirtualJoystick;
+
+		private _flag:boolean;
+
 		public constructor() {
 			super();
 		}
@@ -29,12 +34,52 @@ module test {
 			this.addChild(this._map);
 			this._player = new Player();
 			this._map.addChild(this._player);
-			this._sceneScroll = new eg.SceneScroll(eg.Config.STAGE_W,eg.Config.STAGE_H,750,1448);	
+			this._sceneScroll = new eg.SceneScroll(eg.Config.STAGE_W,eg.Config.STAGE_H,2000,2000);	
 			this.addEventListener(egret.Event.ENTER_FRAME,this.onEnterFrame,this);	
 
-			this._map.touchEnabled = true;
-			this._map.addEventListener(egret.TouchEvent.TOUCH_TAP,this.onMapTap,this);	
+			// this._map.touchEnabled = true;
+			// this._map.addEventListener(egret.TouchEvent.TOUCH_TAP,this.onMapTap,this);	
+
+			//添加食物 保证坐标在圆内
+			for(let i:number=0; i < 300; i++){
+				let food:Food = new Food();
+				// food.x = (Math.random() * 2000) | 0;
+				// food.y = (Math.random() * 2000) | 0;
+				let randomX:number = (Math.random() * 2000) | 0;
+				let randomY:number = (Math.random() * 2000) | 0;
+				let angle:number = Math.atan2(randomY - 1000,randomX - 1000);
+				let dis:number = egret.Point.distance(new egret.Point(randomX,randomY),new egret.Point(1000,1000));
+				if(dis >= 990){
+					dis = 990;
+				}
+				food.x = 1000 + Math.cos(angle) * dis;
+				food.y = 1000 + Math.sin(angle) * dis;
+
+				this._map.addChild(food);
+			}
+
+
+			this._virtualJoystick = new eg.VirtualJoystick();
+			this._virtualJoystick.x = 150;
+			this._virtualJoystick.y = eg.Config.STAGE_H - 150;
+			this.addChild(this._virtualJoystick);
+
+			// this._virtualJoystick.addEventListener('v_start',this.onStart)
+			this._virtualJoystick.addEventListener('v_move',this.onVMove,this);
+			this._virtualJoystick.addEventListener('v_over',this.onVOver,this);
+
 		}
+
+		private onVOver(evt:egret.Event):void{
+			this._flag = false;
+		}
+
+		private onVMove(evt:egret.Event):void{
+			eg.log('angle:' + evt.data);
+			this._radians = evt.data;
+			this._flag = true;
+		}
+
 
 		private onMapTap(evt:egret.TouchEvent):void{
 			// egret.Tween.get(this._player).to({x:evt.localX,y:evt.localY},1000);
@@ -53,10 +98,15 @@ module test {
 			// if(egret.Point.distance(new egret.Point(this._player.x,this._player.y),new egret.Point(this._tx,this._ty)) < 1){
 			// 	return;
 			// }
-			if(this._mCount <= 0){
+			// if(this._mCount <= 0){
+			// 	return;
+			// }
+			// this._mCount--;
+
+			if(!this._flag){
 				return;
 			}
-			this._mCount--;
+
 			this._player.x += Math.cos(this._radians) * this._speed;
 			this._player.y += Math.sin(this._radians) * this._speed;
 
@@ -64,7 +114,7 @@ module test {
 			//更新地图
 			let pos:egret.Point = this._sceneScroll.updatePostion(this._player.x,this._player.y);
 			if(pos.x != this._mapPos.x || pos.y != this._mapPos.y){
-				eg.log(pos.x + '|' + pos.y);
+				// eg.log(pos.x + '|' + pos.y);
 				this._mapPos.x = pos.x;
 				this._mapPos.y = pos.y;
 
@@ -82,12 +132,18 @@ module test {
 	class Map extends egret.Sprite{
 		public constructor(){
 			super();
-			// this.graphics.beginFill(0xffffff);
-			// this.graphics.drawRect(0,0,1000,2000);
-			// this.graphics.endFill();
-			let img:eui.Image = new eui.Image();
-			img.source = 'resource/assets/game/images/bg.png';
-			this.addChild(img);
+			this.graphics.beginFill(0xffffff);
+			this.graphics.drawRect(0,0,2000,2000);
+			this.graphics.endFill();
+			this.graphics.beginFill(0x0);
+			this.graphics.drawCircle(1000,1000,1000);
+			this.graphics.endFill();
+
+			// let img:eui.Image = new eui.Image();
+			// img.source = 'resource/assets/game/images/bg.png';
+			// this.addChild(img);
+
+
 		}
 	}
 	class Player extends egret.Sprite{
@@ -100,4 +156,15 @@ module test {
 
 		}
 	}
+
+	class Food extends egret.Sprite{
+		public constructor(){
+			super();
+			let color:number = Math.ceil(Math.random() * 16777215);
+			this.graphics.beginFill(color);
+			this.graphics.drawCircle(0,0,10);
+			this.graphics.endFill();
+		}
+	}
+
 }

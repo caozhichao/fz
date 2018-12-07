@@ -207,6 +207,7 @@ window.skins={};
 
 	_proto._Rect1_i = function () {
 		var t = new eui.Rect();
+		t.fillColor = 0x0940f9;
 		t.height = 750;
 		t.width = 1206;
 		t.x = 0;

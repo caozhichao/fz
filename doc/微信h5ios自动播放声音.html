@@ -1,0 +1,42 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="format-detection" content="telephone=no"/>
+<title>IOS微信</title>
+<meta name="keywords" content="" />
+<meta name="description" content="" />
+<script type="text/javascript">
+//原来是在微信易信执行Ready之前，先注册事件，所以放在所有请求的最前面
+document.addEventListener("WeixinJSBridgeReady", function () {
+    audioAutoPlay('Jaudio');//给个全局函数
+}, false);
+document.addEventListener('YixinJSBridgeReady', function() {
+    audioAutoPlay('Jaudio');//给个全局函数
+}, false);
+</script>
+<!-- 加载css放这里 -->
+</head>
+<body>
+  
+<audio id="Jaudio" class="media-audio" src="http://game.163.com/weixin/gfxm3_gc/images/bg.mp3" preload loop="loop">
+</audio>
+  
+<script>
+function audioAutoPlay(id){//全局控制播放函数
+    var audio = document.getElementById(id),
+        play = function(){
+            audio.play();
+            document.removeEventListener("touchstart",play, false);
+        };
+    audio.play();
+    document.addEventListener("touchstart",play, false);
+}
+ 
+var isAppInside=/micromessenger/i.test(navigator.userAgent.toLowerCase())||/yixin/i.test(navigator.userAgent.toLowerCase());
+if(!isAppInside){//给非微信易信浏览器
+  audioAutoPlay();
+}
+</script>
+</body>
+</html>
