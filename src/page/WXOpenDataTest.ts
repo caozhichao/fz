@@ -38,6 +38,9 @@ module test {
 			 //主要示例代码开始
 			
 			let bitmap = window['platform'].openDataContext.createDisplayObject(null, 556,830);
+			// 必须设置这个大小
+		// 	sharedCanvas.width = width;
+		// sharedCanvas.height = height
 			bitmap.x = 100;
 			bitmap.y = 200;
             this.addChild(bitmap);

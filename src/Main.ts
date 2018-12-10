@@ -64,9 +64,17 @@ class Main extends eg.EgMain {
         // this.stage.addChild(new test.MatrixTest());
         // new test.WSTest();
 
-        eg.UIManager.Instance.showUI(new test.SceneScrollTest());
-        eg.Config.stage.addEventListener(egret.Event.RESIZE,this.onResize2,this);        
+        // eg.UIManager.Instance.showUI(new test.SceneScrollTest());
+        // eg.Config.stage.addEventListener(egret.Event.RESIZE,this.onResize2,this);        
+
+       this.facade = eg.ApplicationFacade.getInstance();
+       this.facade.startup(this);
+       console.log(this.facade);
+    //    this.addChild(new test.PureMVCViewTest());
+            
     }
+
+    private facade:eg.ApplicationFacade;
 
     private onResize2(evt:egret.Event):void{
         eg.log(eg.Config.stage.stageWidth + '|' + eg.Config.stage.stageHeight);
