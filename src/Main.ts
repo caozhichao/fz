@@ -65,6 +65,10 @@ class Main extends eg.EgMain {
         // new test.WSTest();
 
         eg.UIManager.Instance.showUI(new test.SceneScrollTest());
-        
+        eg.Config.stage.addEventListener(egret.Event.RESIZE,this.onResize2,this);        
+    }
+
+    private onResize2(evt:egret.Event):void{
+        eg.log(eg.Config.stage.stageWidth + '|' + eg.Config.stage.stageHeight);
     }
 }
