@@ -1,0 +1,4 @@
+<?xml version="1.0" encoding="utf-8"?>
+<e:Skin class="skins.Test2Skin" width="750" height="1206" xmlns:e="http://ns.egret.com/eui" xmlns:w="http://ns.egret.com/wing">
+	<e:Button id="btn" label="打开界面1" horizontalCenter="0" verticalCenter="0"/>
+</e:Skin>

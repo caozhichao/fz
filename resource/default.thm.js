@@ -215,6 +215,48 @@ window.skins={};
 		return t;
 	};
 	return StageScaleModeTestSkin;
+})(eui.Skin);generateEUI.paths['resource/assets/game/skins/Test1Skin.exml'] = window.skins.Test1Skin = (function (_super) {
+	__extends(Test1Skin, _super);
+	function Test1Skin() {
+		_super.call(this);
+		this.skinParts = ["btn"];
+		
+		this.height = 1206;
+		this.width = 750;
+		this.elementsContent = [this.btn_i()];
+	}
+	var _proto = Test1Skin.prototype;
+
+	_proto.btn_i = function () {
+		var t = new eui.Button();
+		this.btn = t;
+		t.horizontalCenter = 0;
+		t.label = "打开界面2";
+		t.verticalCenter = 0;
+		return t;
+	};
+	return Test1Skin;
+})(eui.Skin);generateEUI.paths['resource/assets/game/skins/Test2Skin.exml'] = window.skins.Test2Skin = (function (_super) {
+	__extends(Test2Skin, _super);
+	function Test2Skin() {
+		_super.call(this);
+		this.skinParts = ["btn"];
+		
+		this.height = 1206;
+		this.width = 750;
+		this.elementsContent = [this.btn_i()];
+	}
+	var _proto = Test2Skin.prototype;
+
+	_proto.btn_i = function () {
+		var t = new eui.Button();
+		this.btn = t;
+		t.horizontalCenter = 0;
+		t.label = "打开界面1";
+		t.verticalCenter = 0;
+		return t;
+	};
+	return Test2Skin;
 })(eui.Skin);generateEUI.paths['resource/eui_skins/ButtonSkin.exml'] = window.skins.ButtonSkin = (function (_super) {
 	__extends(ButtonSkin, _super);
 	function ButtonSkin() {

@@ -1,20 +1,27 @@
 module eg {
+	/**
+	 * viewComponent -> Mediator 映射关系
+	 */
 	export class ViewMediatorMappingProxy extends puremvc.Proxy{
-		public static NAME:string = 'ViewMediatorMappingProxy';
-		private _views:Object;
-		private _mediators:Object;
+		public static NAME:string = 'ViewMediatorMappingProxy';		
+		private _mapping;
 		public constructor() {
-			super(ViewMediatorMappingProxy.NAME);
-			this._views = {};
-			this._mediators = {};
-			this._views[test.ViewTestMediator.NAME] = test.PureMVCViewTest;
-			this._mediators[test.ViewTestMediator.NAME] = test.ViewTestMediator;
+			super(ViewMediatorMappingProxy.NAME);			
+			this._mapping = {};
 		}
-		public getView(mediatorName:string):Function{
-			return this._views[mediatorName];
+
+		/***
+		 * 添加view - mediator 映射关系
+		 */
+		public addMapping(viewComponentClass,mediatorClass):void{			
+			this._mapping.viewComponentClass = mediatorClass;
 		}
-		public getMediator(mediatorName:string):Function{
-			return this._mediators[mediatorName];
+
+		/**
+		 * 获取Mediator
+		 */
+		public getMediatorClass(viewComponentClass):any{
+			return this._mapping.viewComponentClass;
 		}
 	}
 }

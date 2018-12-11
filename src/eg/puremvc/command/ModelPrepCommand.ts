@@ -5,7 +5,9 @@ module eg {
 		}
 
 		execute( notification:puremvc.INotification ):void{
-			this.facade().registerProxy(new ViewMediatorMappingProxy());
+			let mappingProxy:ViewMediatorMappingProxy = new ViewMediatorMappingProxy();
+			mappingProxy.addMapping(test.PureMVCViewTest,test.ViewTestMediator);
+			this.facade().registerProxy(mappingProxy);
 		}
 	}
 }

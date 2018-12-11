@@ -1,5 +1,7 @@
 module eg {
 	export class PageBase extends eui.Component implements eg.IPage{
+		public static INIT_COMPLETE:string = 'init_complete';
+
 		private _upPageName:string;
 		private _extraData:any;
 		private _upPageExtraData:any;
@@ -27,6 +29,7 @@ module eg {
 
 		public initUI(pageData:any):void{
 			eg.log(pageData);
+			this.dispatchEventWith(PageBase.INIT_COMPLETE);
 		}
 
 		public async pageData(){

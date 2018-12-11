@@ -6,15 +6,14 @@ module eg {
 
 		initializeMacroCommand(){
 			super.initializeMacroCommand();	
-			this.addSubCommand(ModelPrepCommand);
+			// this.addSubCommand(ModelPrepCommand);						
+			for(let i:number=0;i < eg.MVCConfig.initCommands.length;i++){
+				this.addSubCommand(eg.MVCConfig.initCommands[i]);
+			}
 		}
 
 		execute( notification:puremvc.INotification ):void{
-			super.execute(notification);		
-			let fac:puremvc.IFacade = this.facade();
-			fac.registerCommand(UIManagerCommand.NAME,UIManagerCommand);		
-					
-			this.sendNotification(UIManagerCommand.NAME,{mediatorName:test.ViewTestMediator.NAME,type:'open'});			
+			super.execute(notification);					
 		}
 	}
 }

@@ -1,4 +1,7 @@
 module eg {
+	/**
+	 * 多核版本 key 指定 FACADEID
+	 */
 	export class ApplicationFacade extends puremvc.Facade implements puremvc.IFacade{
 		public static FACADEID:string = 'ApplicationFacade';
 		public static STARTUP:string = 'startup';
@@ -9,8 +12,9 @@ module eg {
 
 		public initializeController():void{
 			super.initializeController();
-			eg.log('initializeController');
-			this.registerCommand(ApplicationFacade.STARTUP,StartupCommand);
+			this.registerCommand(UICommand.NAME,UICommand);				
+			//注册StartupCommand			
+			this.registerCommand(ApplicationFacade.STARTUP,StartupCommand);			
 		}
 
 		public static getInstance():ApplicationFacade{

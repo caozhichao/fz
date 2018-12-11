@@ -22,10 +22,10 @@ module eg {
 		/**
 		 * 打开显示一个page页 提供3种参数类型
 		 */
-		public showUI(cla:Function):void;
-		public showUI(page:eg.IPage):void;
-		public showUI(className:string):void;
-		public showUI(param):void{
+		public showUI(cla:Function):IPage;
+		public showUI(page:eg.IPage):IPage;
+		public showUI(className:string):IPage;
+		public showUI(param):IPage{
 
 			let page:IPage;
 
@@ -48,6 +48,7 @@ module eg {
 			this.show(page);
 			//数据上报
 			this.uploadPageData(page);		
+			return page;
 		}
 
 		/**

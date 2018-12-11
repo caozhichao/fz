@@ -68,10 +68,12 @@ class Main extends eg.EgMain {
         // eg.Config.stage.addEventListener(egret.Event.RESIZE,this.onResize2,this);        
 
        this.facade = eg.ApplicationFacade.getInstance();
+       eg.MVCConfig.initCommands.push(game.GameInitCommand);
        this.facade.startup(this);
-       console.log(this.facade);
-    //    this.addChild(new test.PureMVCViewTest());
-            
+    //    console.log(this.facade);
+    //    this.addChild(new test.WXOpenDataTest());
+        // new test.Test();
+
     }
 
     private facade:eg.ApplicationFacade;
