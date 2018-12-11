@@ -5,10 +5,11 @@ module eg {
 		}
 
 		initializeMacroCommand(){
-			super.initializeMacroCommand();	
-			// this.addSubCommand(ModelPrepCommand);						
-			for(let i:number=0;i < eg.MVCConfig.initCommands.length;i++){
-				this.addSubCommand(eg.MVCConfig.initCommands[i]);
+			super.initializeMacroCommand();				
+			var	commands:Function[] =  eg.MVCConfig.initCommands;
+			var	len:number = commands.length;
+			for(let i:number=0;i < len;i++){
+				this.addSubCommand(commands[i]);
 			}
 		}
 
