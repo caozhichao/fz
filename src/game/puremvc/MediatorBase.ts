@@ -1,4 +1,4 @@
-module eg {
+module game {
 	/**
 	 * MediatorBase 
 	 */
@@ -20,7 +20,7 @@ module eg {
 		}
 
 		public uiInitComplete(evt:egret.Event):void{
-			
+			eg.log(this.mediatorName + '->uiInitComplete');
 		}
 
 		public onRemoved(evt:egret.Event):void{

@@ -73,8 +73,8 @@ class Main extends eg.EgMain {
         // eg.UIManager.Instance.showUI(new test.SceneScrollTest());
         // eg.Config.stage.addEventListener(egret.Event.RESIZE,this.onResize2,this);        
 
-       this.facade = eg.ApplicationFacade.getInstance();
-       eg.MVCConfig.initCommands.push(game.GameInitCommand);
+       this.facade = game.ApplicationFacade.getInstance();
+       game.MVCConfig.initCommands.push(game.GameInitCommand);
        this.facade.startup(this);
     //    console.log(this.facade);
     //    this.addChild(new test.WXOpenDataTest());
@@ -82,7 +82,7 @@ class Main extends eg.EgMain {
 
     }
 
-    private facade:eg.ApplicationFacade;
+    private facade:game.ApplicationFacade;
 
     private onResize2(evt:egret.Event):void{
         eg.log(eg.Config.stage.stageWidth + '|' + eg.Config.stage.stageHeight);

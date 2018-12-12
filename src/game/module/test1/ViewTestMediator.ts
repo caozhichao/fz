@@ -1,5 +1,5 @@
 module test {
-	export class ViewTestMediator extends eg.MediatorBase implements puremvc.IMediator{
+	export class ViewTestMediator extends game.MediatorBase implements puremvc.IMediator{
 		public static NAME:string = 'ViewTestMediator';
 		public constructor(viewComponent:any=null) {
 			super(ViewTestMediator.NAME, viewComponent);
@@ -45,7 +45,7 @@ module test {
 		}
 
 		private onBtn(evt:egret.TouchEvent):void{
-			this.sendNotification(eg.UICommand.NAME,{ui:game.Test2View},eg.UICommand.OPEN);
+			this.sendNotification(game.UICommand.NAME,{ui:game.Test2View},game.UICommand.OPEN);
 		}
 	}
 }

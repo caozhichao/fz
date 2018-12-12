@@ -1,11 +1,11 @@
-module eg {
+module game {
 	/**
 	 * 模块信息
 	 */
 	export class Module implements IModule{
 		private _name:string;
 		private _viewComponent:any;
-		private _initCommands:Function[];
+		private _initCommands:Function[];		
 		public constructor(viewComponent:any,initCommands:Function[]=null) {
 			this._viewComponent = viewComponent;
 			this._initCommands = initCommands;

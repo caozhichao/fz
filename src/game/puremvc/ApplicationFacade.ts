@@ -1,4 +1,4 @@
-module eg {
+module game {
 	/**
 	 * 多核版本 key 指定 FACADEID
 	 */
@@ -12,7 +12,9 @@ module eg {
 
 		public initializeController():void{
 			super.initializeController();
-			this.registerCommand(UICommand.NAME,UICommand);				
+			this.registerCommand(UICommand.NAME,UICommand);	
+			this.registerCommand(ModuleCommand.OPEN,ModuleCommand);			
+			this.registerCommand(ModuleCommand.CLOSE,ModuleCommand);			
 			//注册StartupCommand			
 			this.registerCommand(ApplicationFacade.STARTUP,StartupCommand);			
 		}

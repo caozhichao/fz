@@ -1,4 +1,4 @@
-module eg {
+module game {
 	/**
 	 * viewComponent -> Mediator 映射关系
 	 */

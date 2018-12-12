@@ -1,5 +1,5 @@
 
-module eg {
+module game {
 	export class UICommand extends puremvc.MacroCommand implements puremvc.ICommand{
 		public static NAME:string = 'UICommand';
 		public static OPEN:string = 'open';
@@ -20,7 +20,7 @@ module eg {
 			let type = notification.getType();					
 			switch(type){
 				case UICommand.OPEN:															
-					let page:IPage = UIManager.Instance.showUI(body.ui);
+					let page:eg.IPage = eg.UIManager.Instance.showUI(body.ui);
 					let viewClass = eg.getDefinition(page);
 					let mediatorClass = MVCConfig.getInstance().getMediatorClass(viewClass);
 					//绑定显示对象的Mediator

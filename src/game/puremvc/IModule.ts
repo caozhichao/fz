@@ -1,4 +1,4 @@
-module eg {
+module game {
 	export interface IModule {
 		setViewComponent(value:any):void;
 		getViewComponent():any;

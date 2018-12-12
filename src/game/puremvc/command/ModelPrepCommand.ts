@@ -1,4 +1,4 @@
-module eg {
+module game {
 	export class ModelPrepCommand extends puremvc.SimpleCommand{
 		public constructor() {
 			super();

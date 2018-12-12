@@ -1,4 +1,4 @@
-module eg {
+module game {
 	export class MVCConfig {
 		//startup 之前加入需要初始化执行的command
 		public static initCommands:Function[] = [];	
