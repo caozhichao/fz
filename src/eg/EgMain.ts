@@ -56,18 +56,23 @@ module eg {
 			//加载资源配置文件
 			await this.loadConfigs();						
 			//preload资源加载
-			await this.loadRes();	
+			// await this.loadRes();	
 			//eui皮肤(debug环境，加载exml文件，正式环境使用exmljs文件)	
 			await this.initTheme();
 			this.log();
 			//资源加载完成(处理一些加载后的数据依赖)
-			this.loadResAfter();	
+			// this.loadResAfter();
+			this.initComplete();	
 			//设置配置数据，语言包，埋点数据			
 			// this.configLanguageData();
 			// this.configActLog();	
 			eg.log('------------------框架初始化结束---------------------------');
 			//创建场景			
-			this.createGameScene();
+			// this.createGameScene();
+		}
+
+		public initComplete():void{
+			
 		}
 
 		/**

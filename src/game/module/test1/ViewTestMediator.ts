@@ -45,7 +45,7 @@ module test {
 		}
 
 		private onBtn(evt:egret.TouchEvent):void{
-			this.sendNotification(eg.UICommand.NAME,{ui:game.Test2View,type:eg.UICommand.OPEN});
+			this.sendNotification(eg.UICommand.NAME,{ui:game.Test2View},eg.UICommand.OPEN);
 		}
 	}
 }

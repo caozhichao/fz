@@ -20,7 +20,7 @@ module game {
 		}
 
 		private onBtn(evt:egret.TouchEvent):void{
-			this.sendNotification(eg.UICommand.NAME,{ui:test.PureMVCViewTest,type:eg.UICommand.OPEN});
+			this.sendNotification(eg.UICommand.NAME,{ui:test.PureMVCViewTest},eg.UICommand.OPEN);
 		}
 	}
 }

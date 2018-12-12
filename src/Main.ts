@@ -22,10 +22,16 @@ class Main extends eg.EgMain {
         // eg.Config.resConfigs = [{url:'resource/default.res.json',resourceRoot:'resource/'},{url:'http://hf.rongyi.com/o2o/v4/cf/cf_legao/resource/outpack.res.json',resourceRoot:'http://hf.rongyi.com/o2o/v4/cf/cf_legao/resource/'}];
     }
 
-    protected loadResAfter():void{
-        super.loadResAfter();
-        //设置新的LoadingUI
-        eg.Loading.Instance.loadingUI = new test.PageLoadingUI();        
+    // protected loadResAfter():void{
+    //     super.loadResAfter();
+    //     //设置新的LoadingUI
+    //     eg.Loading.Instance.loadingUI = new test.PageLoadingUI();        
+    // }
+
+    public initComplete():void{
+        super.initComplete();
+
+        this.createGameScene();
     }
 
     
