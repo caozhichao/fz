@@ -9,13 +9,9 @@ module game {
 
 		onRegister():void{
 			super.onRegister();
-			// let display:egret.DisplayObject = this.getViewComponent();
-			// if(this.viewComponent.stage){
-			// 	this.onAdded(null);
-			// } else {
-			// 	this.viewComponent.addEventListener(egret.Event.ADDED_TO_STAGE,this.onAdded,this);
-			// }
+			//ui初始化完成			
 			this.viewComponent.addEventListener(eg.PageBase.INIT_COMPLETE,this.uiInitComplete,this);
+			//ui从舞台移除
 			this.viewComponent.addEventListener(egret.Event.REMOVED_FROM_STAGE,this.onRemoved,this);
 		}
 
