@@ -1,6 +1,6 @@
 
 module eg {
-	export class UICommand extends puremvc.SimpleCommand{
+	export class UICommand extends puremvc.MacroCommand implements puremvc.ICommand{
 		public static NAME:string = 'UICommand';
 		public static OPEN:string = 'open';
 		public static CLOSE:string = 'close';
@@ -8,10 +8,17 @@ module eg {
 			super();
 		}
 
+		initializeMacroCommand():void{
+			super.initializeMacroCommand();
+
+
+		}
+
 		execute( notification:puremvc.INotification ):void
 		{				
-			let body = notification.getBody();						
-			switch(body.type){
+			let body = notification.getBody();	
+			let type = notification.getType();					
+			switch(type){
 				case UICommand.OPEN:															
 					let page:IPage = UIManager.Instance.showUI(body.ui);
 					let viewClass = eg.getDefinition(page);

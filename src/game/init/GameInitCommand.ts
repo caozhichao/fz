@@ -20,7 +20,8 @@ module game {
 			config.addMapping(game.Test2View,game.Test2ViewMediator);
 
 
-			this.sendNotification(eg.UICommand.NAME,{ui:test.PureMVCViewTest,type:'open'});			
+			this.sendNotification(eg.UICommand.NAME,{ui:test.PureMVCViewTest},eg.UICommand.OPEN);			
+			// this.sendNotification(eg.UICommand.NAME,{module:new eg.Module(test.PureMVCViewTest),type:eg.UICommand.OPEN});
 		}
 	}
 }
