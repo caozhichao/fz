@@ -1,12 +1,12 @@
 
-egret.log('---------------------');
-egret.log(eg);
-egret.log('------------------------');
+/**
+ * Main入口
+ */
 class Main extends eg.EgMain {   
 
     protected initBefore(){
 		super.initBefore();        
-        eg.log(window['skins']);
+        // eg.log(window['skins']);
         // egret.log(window);
         //微信h5调试环境中 window['__global'] != window
         //导致挂载到__global中的skins 无法正常获取到 无法正常通过 getDefinitionByName 获取

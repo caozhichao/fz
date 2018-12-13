@@ -62,11 +62,11 @@ module eg {
 			this.log();
 			//资源加载完成(处理一些加载后的数据依赖)
 			// this.loadResAfter();
+			eg.log('------------------框架初始化结束---------------------------');
 			this.initComplete();	
 			//设置配置数据，语言包，埋点数据			
 			// this.configLanguageData();
 			// this.configActLog();	
-			eg.log('------------------框架初始化结束---------------------------');
 			//创建场景			
 			// this.createGameScene();
 		}
@@ -81,11 +81,9 @@ module eg {
 		private loadConfigs(){	
 			return new Promise(async (resolve,reject)=>{
 				for(let i:number = 0;i < Config.resConfigs.length; i++){
-					eg.log(Config.resConfigs[i].url + Config.resConfigs[i].resourceRoot);
-					await RES.loadConfig(Config.resConfigs[i].url, Config.resConfigs[i].resourceRoot);
-					eg.log('1111111');
-				}
-				eg.log('22222222');
+					eg.log(Config.resConfigs[i].url + ':' + Config.resConfigs[i].resourceRoot);
+					await RES.loadConfig(Config.resConfigs[i].url, Config.resConfigs[i].resourceRoot);					
+				}				
 				resolve();
 			})					
 		}
@@ -167,6 +165,7 @@ module eg {
 			eg.log("window.screen width|height:" + window.screen.width + "|" + window.screen.height);
 			// eg.log("STAGE_W|STAGE_H:" + eg.Config.STAGE_W + "|" + eg.Config.STAGE_H);
 			eg.log("document.body.clientWidth|document.body.clientHeight" + document.body.clientWidth + "|" + document.body.clientHeight);
+			eg.log("eg.Config.STAGE_W|H:" + eg.Config.STAGE_W + "|" + eg.Config.STAGE_H);	
 		}	
 
 		/**

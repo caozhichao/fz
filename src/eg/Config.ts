@@ -27,7 +27,7 @@ namespace eg{
 			eg.Config.stage = main.stage;
 			eg.Config.STAGE_W = main.stage.stageWidth;
 			eg.Config.STAGE_H = main.stage.stageHeight;		
-			eg.log("eg.Config.STAGE_W|H:" + eg.Config.STAGE_W + "|" + eg.Config.STAGE_H);	
+			// eg.log("eg.Config.STAGE_W|H:" + eg.Config.STAGE_W + "|" + eg.Config.STAGE_H);	
 		}
 		public static isWxgame():boolean{
 			return egret.Capabilities.runtimeType == 'wxgame';
