@@ -1,0 +1,20 @@
+{
+    "compilerOptions": {
+        "target": "es5",
+        "outFile": "bin/eg/1.2.0/eg.js",
+        "declaration": true,
+	"lib":[
+		"es5",
+		"dom",
+		"es2015.promise"
+	]
+    },
+   "include": [
+        "../../../src/eg",
+        "libs"
+    ],
+    "files": [		
+    ],
+    "exclude": [
+    ]
+}

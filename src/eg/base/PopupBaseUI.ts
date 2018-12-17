@@ -23,5 +23,9 @@ module eg {
 				
 			})
 		}
+		
+		public get pageType():string{
+			return UILayer.LAYER_POPUP;
+		}
 	}
 }

@@ -1,0 +1,6 @@
+eg 活动框架库
+
+编译的文件指向wx_eg/eg(框架代码) 分支src/cyx 包中的代码
+
+当前目录执行  egret build  
+

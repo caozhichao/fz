@@ -1,7 +1,7 @@
 module eg {
 	export class EgMain extends eui.UILayer{
 		 //代码版本号
-    	private version:string = "1.1.0";
+    	private version:string = "1.2.0";
 
 		public constructor() {
 			super();
