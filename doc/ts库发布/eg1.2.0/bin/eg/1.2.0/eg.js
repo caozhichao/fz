@@ -400,7 +400,7 @@ var eg;
         function EgMain() {
             var _this = _super.call(this) || this;
             //代码版本号
-            _this.version = "1.1.0";
+            _this.version = "1.2.0";
             return _this;
         }
         EgMain.prototype.createChildren = function () {
@@ -585,6 +585,7 @@ var eg;
             // eg.log("STAGE_W|STAGE_H:" + eg.Config.STAGE_W + "|" + eg.Config.STAGE_H);
             eg.log("document.body.clientWidth|document.body.clientHeight" + document.body.clientWidth + "|" + document.body.clientHeight);
             eg.log("eg.Config.STAGE_W|H:" + eg.Config.STAGE_W + "|" + eg.Config.STAGE_H);
+            eg.log('devicePixelRatio:' + window.devicePixelRatio);
         };
         /**
          * 创建场景 重写该方法
@@ -772,7 +773,7 @@ var eg;
             _super.prototype.initUI.call(this, data);
             this._bg = new eui.Rect(eg.Config.STAGE_W, eg.Config.STAGE_H);
             this._bg.fillColor = 0x0;
-            this._bg.fillAlpha = 0.7;
+            this._bg.fillAlpha = PopupBaseUI.MASK_ALPHA;
             this.addChildAt(this._bg, 0);
         };
         PopupBaseUI.prototype.enter = function () {
@@ -786,6 +787,7 @@ var eg;
             enumerable: true,
             configurable: true
         });
+        PopupBaseUI.MASK_ALPHA = 0.7;
         return PopupBaseUI;
     }(eg.PageBase));
     eg.PopupBaseUI = PopupBaseUI;
@@ -1043,24 +1045,35 @@ var eg;
         };
         GImageButton.prototype.onTouchBegin = function (event) {
             var _this = this;
+            eg.log('onTouchBegin:' + this.flag);
             if (!this.flag) {
                 this.flag = true;
                 this.srcX = this.x;
                 this.srcY = this.y;
                 eg.log('x:' + this.srcX + 'y:' + this.srcY);
-                this.$stage.addEventListener(egret.TouchEvent.TOUCH_CANCEL, this.onTouchCancle, this);
-                this.$stage.addEventListener(egret.TouchEvent.TOUCH_END, this.onStageTouchEnd, this);
+                // this.$stage.addEventListener(egret.TouchEvent.TOUCH_CANCEL, this.onTouchCancle, this);
+                this.stage.addEventListener(egret.TouchEvent.TOUCH_END, this.onStageTouchEnd, this);
+                // this.addEventListener(egret.TouchEvent.TOUCH_END,this.onTouchEnd,this);        			
                 var m = new egret.Matrix();
                 m.scale(0.9, 0.9);
                 m.translate(this.x + this.width * 0.1 / 2, this.y + this.height * 0.1 / 2);
                 // this.matrix = m;
+                // /*
                 //缓动处理
                 var a_1 = this.matrix;
                 egret.Tween.get(a_1, { onChange: function () {
                         _this.matrix = a_1;
                         _this.curMatrix = a_1;
-                    } }).to({ a: m.a, b: m.b, c: m.c, d: m.d, tx: m.tx, ty: m.ty }, 100);
+                    } }).to({ a: m.a, b: m.b, c: m.c, d: m.d, tx: m.tx, ty: m.ty }, 50);
+                // */
             }
+            else {
+                event.stopImmediatePropagation();
+            }
+        };
+        GImageButton.prototype.onTouchEnd = function (evt) {
+            eg.log('onTouchEnd');
+            this.dispatchEventWith(GImageButton.TOUCH_END);
         };
         /**
        * @private
@@ -1068,21 +1081,31 @@ var eg;
        */
         GImageButton.prototype.onStageTouchEnd = function (event) {
             var _this = this;
-            var stage = event.$currentTarget;
-            stage.removeEventListener(egret.TouchEvent.TOUCH_CANCEL, this.onTouchCancle, this);
-            stage.removeEventListener(egret.TouchEvent.TOUCH_END, this.onStageTouchEnd, this);
+            // let stage = event.$currentTarget;
+            eg.log('onStageTouchEnd');
+            if (event.target == this) {
+                eg.log('onStageTouchEnd22222');
+                this.dispatchEventWith(GImageButton.TOUCH_END);
+            }
+            // stage.removeEventListener(egret.TouchEvent.TOUCH_CANCEL, this.onTouchCancle, this);
+            this.stage.removeEventListener(egret.TouchEvent.TOUCH_END, this.onStageTouchEnd, this);
+            // this.removeEventListener(egret.TouchEvent.TOUCH_END,this.onTouchEnd,this);      
             egret.Tween.removeTweens(this);
             var m = new egret.Matrix();
             m.scale(1, 1);
             // m.translate(this.x - this.width * 0.1 / 2,this.y - this.height * 0.1 / 2);
             m.translate(this.srcX, this.srcY);
-            // this.matrix = m;				
+            // this.matrix = m;			
+            // /*	
             var a = this.matrix;
             egret.Tween.get(a, { onChange: function () {
                     _this.matrix = a;
-                } }).to({ a: m.a, b: m.b, c: m.c, d: m.d, tx: m.tx, ty: m.ty }, 100).call(function () {
+                } }).to({ a: m.a, b: m.b, c: m.c, d: m.d, tx: m.tx, ty: m.ty }, 50).call(function () {
                 _this.flag = false;
+                eg.log('onStageTouchEnd:' + _this.flag);
             }, this);
+            // */
+            // this.flag = false;
         };
         GImageButton.prototype.onTouchCancle = function (event) {
             var stage = event.$currentTarget;
@@ -1114,6 +1137,7 @@ var eg;
         GImageButton.prototype.dispose = function () {
             this.removeEventListener(egret.TouchEvent.TOUCH_BEGIN, this.onTouchBegin, this);
         };
+        GImageButton.TOUCH_END = 'GImageButton_TOUCH_END';
         return GImageButton;
     }(eui.Image));
     eg.GImageButton = GImageButton;
@@ -1937,11 +1961,15 @@ var eg;
             eg.Config.stage = main.stage;
             eg.Config.STAGE_W = main.stage.stageWidth;
             eg.Config.STAGE_H = main.stage.stageHeight;
+            eg.Config.DesignScale = eg.Config.STAGE_H / eg.Config.DesignHeight;
             // eg.log("eg.Config.STAGE_W|H:" + eg.Config.STAGE_W + "|" + eg.Config.STAGE_H);	
         };
         Config.isWxgame = function () {
             return egret.Capabilities.runtimeType == 'wxgame';
         };
+        //设计稿尺寸
+        Config.DesignWidth = 750;
+        Config.DesignHeight = 1206;
         Config.isAutoUploadPageData = true;
         /**
          * 是否开启微信小游戏缓存

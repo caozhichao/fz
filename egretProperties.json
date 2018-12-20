@@ -38,6 +38,10 @@
     },
     {
       "name": "dragonBones"
+    },
+    {
+      "name":"matterjs",
+      "path":"./libs/matterjs"
     }
   ]
 }

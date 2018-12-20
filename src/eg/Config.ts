@@ -1,5 +1,10 @@
 namespace eg{
 	export class Config {
+
+		//设计稿尺寸
+		public static DesignWidth:number = 750;
+		public static DesignHeight:number = 1206;
+
 		public static STAGE_W:number;
 		public static STAGE_H:number;
 		public static stage:egret.Stage;
@@ -19,6 +24,10 @@ namespace eg{
 		//资源文件配置 可以有多个 [{url1,resourceRoot1},{url2,resourceRoot2}]  配置中的文件名称，不可重复，资源组名称不可重复
 		public static resConfigs:any[] = [{url:'resource/default.res.json',resourceRoot:'resource/'}];
 
+
+		//设计稿内容缩放比例
+		public static DesignScale:number;
+
 		public constructor() {
 
 		}
@@ -27,6 +36,7 @@ namespace eg{
 			eg.Config.stage = main.stage;
 			eg.Config.STAGE_W = main.stage.stageWidth;
 			eg.Config.STAGE_H = main.stage.stageHeight;		
+			eg.Config.DesignScale = eg.Config.STAGE_H / eg.Config.DesignHeight;
 			// eg.log("eg.Config.STAGE_W|H:" + eg.Config.STAGE_W + "|" + eg.Config.STAGE_H);	
 		}
 		public static isWxgame():boolean{

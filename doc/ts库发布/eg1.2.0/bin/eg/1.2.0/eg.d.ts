@@ -192,6 +192,7 @@ declare module eg {
      */
     class PopupBaseUI extends eg.PageBase {
         private _bg;
+        static MASK_ALPHA: number;
         constructor();
         initUI(data: any): void;
         enter(): Promise<{}>;
@@ -274,9 +275,11 @@ declare module eg {
         private srcX;
         private srcY;
         private _enabled;
+        static TOUCH_END: string;
         constructor();
         private initUI();
         protected onTouchBegin(event: egret.TouchEvent): void;
+        private onTouchEnd(evt);
         /**
        * @private
        * 舞台上触摸弹起事件
@@ -460,6 +463,8 @@ declare namespace eg {
 }
 declare namespace eg {
     class Config {
+        static DesignWidth: number;
+        static DesignHeight: number;
         static STAGE_W: number;
         static STAGE_H: number;
         static stage: egret.Stage;
@@ -474,6 +479,7 @@ declare namespace eg {
         static showLog: boolean;
         static versionUrl: string;
         static resConfigs: any[];
+        static DesignScale: number;
         constructor();
         static init(main: egret.DisplayObject): void;
         static isWxgame(): boolean;

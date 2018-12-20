@@ -5,6 +5,7 @@ module eg {
 	export class PopupBaseUI extends eg.PageBase{
 		//黑色底 alpha:0.7
 		private _bg:eui.Rect;
+		public static MASK_ALPHA:number = 0.7;
 		public constructor() {
 			super();
 		}
@@ -13,7 +14,7 @@ module eg {
 			super.initUI(data);
 			this._bg = new eui.Rect(eg.Config.STAGE_W,eg.Config.STAGE_H);
 			this._bg.fillColor = 0x0;
-			this._bg.fillAlpha = 0.7;
+			this._bg.fillAlpha = PopupBaseUI.MASK_ALPHA;
 			this.addChildAt(this._bg,0);
 		}
 

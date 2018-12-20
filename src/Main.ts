@@ -28,9 +28,17 @@ class Main extends eg.EgMain {
     //     eg.Loading.Instance.loadingUI = new test.PageLoadingUI();        
     // }
 
-    public initComplete():void{
-        super.initComplete();
+    private preload(){
+        return new Promise((resolve,reject)=>{
+            eg.QueueLoader.Instance.loadGroup('preload',0,this,()=>{
+                resolve();
+            })
+        })
+    }
 
+    public async initComplete(){
+        super.initComplete();
+        await this.preload();
         this.createGameScene();
     }
 
@@ -70,16 +78,23 @@ class Main extends eg.EgMain {
         // this.stage.addChild(new test.MatrixTest());
         // new test.WSTest();
 
-        // eg.UIManager.Instance.showUI(new test.SceneScrollTest());
+        // eg.UIManager.Instance.showUI(new fz.PageTips());
         // eg.Config.stage.addEventListener(egret.Event.RESIZE,this.onResize2,this);        
 
+        // new PromiseTest();
+
+        /*
        this.facade = game.ApplicationFacade.getInstance();
        game.MVCConfig.initCommands.push(game.GameInitCommand);
        this.facade.startup(this);
+       */
+
     //    console.log(this.facade);
     //    this.addChild(new test.WXOpenDataTest());
         // new test.Test();
 
+        // new test.HrefTest();
+        this.addChild(new Matter_HelloWorld());
     }
 
     private facade:game.ApplicationFacade;

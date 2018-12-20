@@ -102,11 +102,11 @@ window.skins={};
 	__extends(PageTipsSkin, _super);
 	function PageTipsSkin() {
 		_super.call(this);
-		this.skinParts = [];
+		this.skinParts = ["_container"];
 		
 		this.height = 1206;
 		this.width = 750;
-		this.elementsContent = [this._Rect1_i(),this._Rect2_i()];
+		this.elementsContent = [this._Rect1_i(),this._Rect2_i(),this._GImageButton1_i(),this._container_i()];
 	}
 	var _proto = PageTipsSkin.prototype;
 
@@ -131,6 +131,30 @@ window.skins={};
 		t.horizontalCenter = 0;
 		t.verticalCenter = 0;
 		t.width = 500;
+		return t;
+	};
+	_proto._GImageButton1_i = function () {
+		var t = new eg.GImageButton();
+		t.source = "p1_png";
+		t.x = 308;
+		t.y = 800;
+		return t;
+	};
+	_proto._container_i = function () {
+		var t = new eui.Group();
+		this._container = t;
+		t.height = 1206;
+		t.horizontalCenter = 0;
+		t.verticalCenter = 0;
+		t.width = 750;
+		t.elementsContent = [this._Image1_i()];
+		return t;
+	};
+	_proto._Image1_i = function () {
+		var t = new eui.Image();
+		t.source = "bg2_png";
+		t.x = 0;
+		t.y = 0;
 		return t;
 	};
 	return PageTipsSkin;

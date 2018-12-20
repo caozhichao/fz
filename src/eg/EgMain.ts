@@ -166,6 +166,7 @@ module eg {
 			// eg.log("STAGE_W|STAGE_H:" + eg.Config.STAGE_W + "|" + eg.Config.STAGE_H);
 			eg.log("document.body.clientWidth|document.body.clientHeight" + document.body.clientWidth + "|" + document.body.clientHeight);
 			eg.log("eg.Config.STAGE_W|H:" + eg.Config.STAGE_W + "|" + eg.Config.STAGE_H);	
+			eg.log('devicePixelRatio:' + window.devicePixelRatio);
 		}	
 
 		/**
