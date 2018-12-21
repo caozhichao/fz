@@ -78,7 +78,7 @@ class Main extends eg.EgMain {
         // this.stage.addChild(new test.MatrixTest());
         // new test.WSTest();
 
-        // eg.UIManager.Instance.showUI(new fz.PageTips());
+        eg.UIManager.Instance.showUI(new fz.PageTips());
         // eg.Config.stage.addEventListener(egret.Event.RESIZE,this.onResize2,this);        
 
         // new PromiseTest();
@@ -94,7 +94,7 @@ class Main extends eg.EgMain {
         // new test.Test();
 
         // new test.HrefTest();
-        this.addChild(new Matter_HelloWorld());
+        // this.addChild(new Matter_HelloWorld());
     }
 
     private facade:game.ApplicationFacade;

@@ -35,7 +35,8 @@ module eg {
 				// /*
 				//缓动处理
 				let a = this.matrix;
-				egret.Tween.get(a,{onChange:()=>{				
+				egret.Tween.get(a,{onChange:()=>{	
+					eg.log('----' + a);			
 					this.matrix = a;
 					this.curMatrix = a;
 				}}).to({a:m.a,b:m.b,c:m.c,d:m.d,tx:m.tx,ty:m.ty},50);			
@@ -65,14 +66,19 @@ module eg {
             // stage.removeEventListener(egret.TouchEvent.TOUCH_CANCEL, this.onTouchCancle, this);
             this.stage.removeEventListener(egret.TouchEvent.TOUCH_END, this.onStageTouchEnd, this);      
 			// this.removeEventListener(egret.TouchEvent.TOUCH_END,this.onTouchEnd,this);      
-			egret.Tween.removeTweens(this);
+			// egret.Tween.removeTweens(this);
+			//取消缓动
+			egret.Tween.removeTweens(this.curMatrix);
+
 			let m:egret.Matrix = new egret.Matrix();
 			m.scale(1,1);
 			// m.translate(this.x - this.width * 0.1 / 2,this.y - this.height * 0.1 / 2);
 			m.translate(this.srcX,this.srcY);
-			// this.matrix = m;			
+			this.matrix = m;	
+			eg.log(this.srcX + '|' + this.srcY + '=>' + this.x + '|' + this.y);
+					
 
-			// /*	
+			/*	
 			let a = this.matrix;
 			egret.Tween.get(a,{onChange:()=>{				
 				this.matrix = a;
@@ -80,8 +86,8 @@ module eg {
 				this.flag = false;
 				eg.log('onStageTouchEnd:' + this.flag);
 			},this);
-			// */
-			// this.flag = false;
+			*/
+			this.flag = false;
         }
 
 		protected onTouchCancle(event:egret.TouchEvent):void {

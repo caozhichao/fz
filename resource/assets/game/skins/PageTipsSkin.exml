@@ -2,8 +2,10 @@
 <e:Skin class="skins.PageTipsSkin" width="750" height="1206" xmlns:e="http://ns.egret.com/eui" xmlns:eg="eg.*" xmlns:w="http://ns.egret.com/wing">
 	<e:Rect width="750" height="1206" left="0" top="0" fillAlpha="0.7" fillColor="0x1b8789"/>
 	<e:Rect width="500" height="300" fillColor="0xffffff" anchorOffsetX="0" anchorOffsetY="0" ellipseWidth="100" ellipseHeight="100" horizontalCenter="0" verticalCenter="0"/>
-	<eg:GImageButton x="308" y="800" source="p1_png"/>
+
 	<e:Group id="_container" width="750" height="1206" horizontalCenter="0" verticalCenter="0">
-		<e:Image source="bg2_png" x="0" y="0"/>
+		<e:Image source="bg2_png" x="0" y="0" visible="false"/>
+		<eg:GImageButton y="800" source="aa_png" x="228"/>
+		<eg:GImageButton x="228" y="909" source="aa_png"/>
 	</e:Group>
 </e:Skin>

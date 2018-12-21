@@ -8,10 +8,10 @@ module fz {
 
 		public initUI(data:any):void{
 			super.initUI(data);
-			this.stage.addEventListener(egret.TouchEvent.TOUCH_TAP,this.onTap,this);
-			// if(eg.Config.STAGE_H < 1206){
+			// this.stage.addEventListener(egret.TouchEvent.TOUCH_TAP,this.onTap,this);
+			if(eg.Config.STAGE_H < 1206){
 				this._container.scaleX = this._container.scaleY = eg.Config.DesignScale;
-			// }
+			}
 		}
 
 		private onTap(evt:egret.TouchEvent):void{
