@@ -1,6 +1,7 @@
 
 /**
  * 参考
+ * https://aotu.io/notes/2017/04/17/Matter-js/?o2src=juejin&o2layout=compat
  * https://github.com/guawoo/matterDemo_egret
  */
 class Matter_HelloWorld extends egret.Sprite{
@@ -58,10 +59,20 @@ class Matter_HelloWorld extends egret.Sprite{
             Matter.Bodies.rectangle(25, 300, 50, 600, { isStatic: true, friction: 0 })
         ]);
 
-        //添加一个盒子
-        Matter.World.add(engine.world, 
-            Matter.Bodies.rectangle(100,100, 50, 50, {angle: Math.PI/6})
-        );
+        // //添加一个盒子
+        // Matter.World.add(engine.world, 
+        //     Matter.Bodies.rectangle(100,100, 50, 50, {angle: Math.PI/6})
+        // );
+
+        // var rect = Matter.Bodies.rectangle(200, 100, 50, 50,null)// 矩形
+        // circle = Bodies.circle(300, 100, 25), // 圆
+        // polygon = Bodies.polygon(450, 100, 5, 25), // 多边形
+        // trapezoid = Bodies.trapezoid(590, 100, 50, 50, 3); // 梯形
+        // // 将刚体添加到世界中
+        // World.add(engine.world, [rect, circle, polygon, trapezoid]);
+        // Matter.World.add(engine.world,rect);
+
+        
 
 
         this.mouseConstraint = Matter.MouseConstraint.create(this.engine, { element: canvas,visible:true});
@@ -84,7 +95,20 @@ class Matter_HelloWorld extends egret.Sprite{
         Matter.Mouse.setScale(this.mouseConstraint.mouse, {x: 1 / (wScale), y: 1 / (hScale)});
 
 
-        eg.Config.stage.addEventListener(egret.TouchEvent.TOUCH_TAP,this.onTap,this);
+        // eg.Config.stage.addEventListener(egret.TouchEvent.TOUCH_TAP,this.onTap,this);
+
+
+        //矩形
+        let rect = Matter.Bodies.rectangle(400,100,50,50,{isStatic:true});
+        let ball = Matter.Bodies.circle(400, 400, 50,null,null);
+        let cc = Matter.Constraint.create({bodyA:rect,
+                                        pointA:{x:0,y:0},
+                                        bodyB:ball,
+                                        pointB:{x:0,y:-50},
+                                        stiffness:0.01
+                                    })
+        Matter.World.add(engine.world,[rect,ball,cc]);
+
 	}
 
     private onTap(event:egret.TouchEvent):void{
@@ -104,7 +128,7 @@ class Matter_HelloWorld extends egret.Sprite{
 
           //创建一个多边形
                 // let arrow = Matter.Vertices.fromPath('40 0 40 20 100 20 100 80 40 80 40 100 0 50', null);
-                let arrow = Matter.Vertices.fromPath('0,0,100,0,100,100,150,0', null);
+                let arrow = Matter.Vertices.fromPath('0,0,100,0,100,100,0,50', null);
                 let arrowBody = Matter.Bodies.fromVertices(x, y, [arrow], null, true, null, null);
    
                 Matter.World.add(this.engine.world, arrowBody);
