@@ -161,7 +161,7 @@ module eg {
 
 			function onResourceProgress(evt:RES.ResourceEvent):void{
 				if(evt.groupName == name){										
-					eg.log("资源组:[" + name + "]" + evt.itemsLoaded + "/" + evt.itemsTotal + 'url:' + evt.resItem.url);
+					// eg.log("资源组:[" + name + "]" + evt.itemsLoaded + "/" + evt.itemsTotal + 'url:' + evt.resItem.url);
 					self.list.forEach(element => {
 						if(element.onProgress){
 							element.onProgress.call(element.thisObject,{itemsLoaded:evt.itemsLoaded,itemsTotal:evt.itemsTotal});

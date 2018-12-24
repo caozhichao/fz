@@ -1,0 +1,13 @@
+ {
+      "name":"matter",
+      "path":"./libs/matterjs"
+},
+{
+	"name":"md5",
+	"path":"./libs/md5"
+}
+
+name 名字对应 js文件名称
+matter   matter.js
+md5       md5.js
+

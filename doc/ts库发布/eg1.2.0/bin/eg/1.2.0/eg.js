@@ -1062,6 +1062,7 @@ var eg;
                 //缓动处理
                 var a_1 = this.matrix;
                 egret.Tween.get(a_1, { onChange: function () {
+                        eg.log('----' + a_1);
                         _this.matrix = a_1;
                         _this.curMatrix = a_1;
                     } }).to({ a: m.a, b: m.b, c: m.c, d: m.d, tx: m.tx, ty: m.ty }, 50);
@@ -1080,7 +1081,6 @@ var eg;
        * 舞台上触摸弹起事件
        */
         GImageButton.prototype.onStageTouchEnd = function (event) {
-            var _this = this;
             // let stage = event.$currentTarget;
             eg.log('onStageTouchEnd');
             if (event.target == this) {
@@ -1090,22 +1090,25 @@ var eg;
             // stage.removeEventListener(egret.TouchEvent.TOUCH_CANCEL, this.onTouchCancle, this);
             this.stage.removeEventListener(egret.TouchEvent.TOUCH_END, this.onStageTouchEnd, this);
             // this.removeEventListener(egret.TouchEvent.TOUCH_END,this.onTouchEnd,this);      
-            egret.Tween.removeTweens(this);
+            // egret.Tween.removeTweens(this);
+            //取消缓动
+            egret.Tween.removeTweens(this.curMatrix);
             var m = new egret.Matrix();
             m.scale(1, 1);
             // m.translate(this.x - this.width * 0.1 / 2,this.y - this.height * 0.1 / 2);
             m.translate(this.srcX, this.srcY);
-            // this.matrix = m;			
-            // /*	
-            var a = this.matrix;
-            egret.Tween.get(a, { onChange: function () {
-                    _this.matrix = a;
-                } }).to({ a: m.a, b: m.b, c: m.c, d: m.d, tx: m.tx, ty: m.ty }, 50).call(function () {
-                _this.flag = false;
-                eg.log('onStageTouchEnd:' + _this.flag);
-            }, this);
-            // */
-            // this.flag = false;
+            this.matrix = m;
+            eg.log(this.srcX + '|' + this.srcY + '=>' + this.x + '|' + this.y);
+            /*
+            let a = this.matrix;
+            egret.Tween.get(a,{onChange:()=>{
+                this.matrix = a;
+            }}).to({a:m.a,b:m.b,c:m.c,d:m.d,tx:m.tx,ty:m.ty},50).call(()=>{
+                this.flag = false;
+                eg.log('onStageTouchEnd:' + this.flag);
+            },this);
+            */
+            this.flag = false;
         };
         GImageButton.prototype.onTouchCancle = function (event) {
             var stage = event.$currentTarget;

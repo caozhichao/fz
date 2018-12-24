@@ -76,25 +76,36 @@ window.skins={};
 		
 		this.height = 750;
 		this.width = 1206;
-		this.elementsContent = [this._Rect1_i(),this._Image1_i()];
+		this.elementsContent = [this._Image1_i(),this._Rect1_i(),this._Image2_i()];
 	}
 	var _proto = OrientationModeTestSkin.prototype;
 
+	_proto._Image1_i = function () {
+		var t = new eui.Image();
+		t.anchorOffsetX = 375;
+		t.anchorOffsetY = 603;
+		t.height = 1206;
+		t.rotation = 90;
+		t.source = "map2_png";
+		t.x = 603;
+		t.y = 375;
+		return t;
+	};
 	_proto._Rect1_i = function () {
 		var t = new eui.Rect();
 		t.anchorOffsetX = 0;
 		t.anchorOffsetY = 0;
 		t.height = 200;
-		t.left = 0;
-		t.top = 0;
 		t.width = 200;
+		t.x = 0;
+		t.y = 0;
 		return t;
 	};
-	_proto._Image1_i = function () {
+	_proto._Image2_i = function () {
 		var t = new eui.Image();
+		t.right = 0;
 		t.source = "p1_png";
-		t.x = 209;
-		t.y = 9;
+		t.y = 583;
 		return t;
 	};
 	return OrientationModeTestSkin;

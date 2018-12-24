@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <e:Skin class="skins.OrientationModeTestSkin" width="1206" height="750" xmlns:e="http://ns.egret.com/eui">
-	<e:Rect width="200" height="200" anchorOffsetX="0" anchorOffsetY="0" left="0" top="0"/>
-	<e:Image source="p1_png" x="209" y="9"/>
+	<e:Image source="map2_png" height="1206" anchorOffsetX="375" anchorOffsetY="603" rotation="90" y="375" x="603"/>
+	<e:Rect width="200" height="200" anchorOffsetX="0" anchorOffsetY="0" y="0" x="0"/>
+	<e:Image source="p1_png" y="583" right="0"/>
 </e:Skin>

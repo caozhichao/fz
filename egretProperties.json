@@ -40,8 +40,12 @@
       "name": "dragonBones"
     },
     {
-      "name":"matterjs",
+      "name":"matter",
       "path":"./libs/matterjs"
+    },
+    {
+      "name":"md5",
+      "path":"./libs/md5"
     }
   ]
 }

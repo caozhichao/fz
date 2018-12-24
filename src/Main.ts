@@ -77,8 +77,8 @@ class Main extends eg.EgMain {
         // eg.UIManager.Instance.showUI(new test.PopupBaseUITest());
         // this.stage.addChild(new test.MatrixTest());
         // new test.WSTest();
-
-        eg.UIManager.Instance.showUI(new fz.PageTips());
+        // this.stage.orientation = egret.OrientationMode.LANDSCAPE;
+        eg.UIManager.Instance.showUI(new test.OrientationModeTest());
         // eg.Config.stage.addEventListener(egret.Event.RESIZE,this.onResize2,this);        
 
         // new PromiseTest();

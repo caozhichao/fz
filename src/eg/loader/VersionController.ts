@@ -71,7 +71,7 @@ module eg {
 				let path = url.substr(index);
 				let realPath = this.info[path];
 				realUrl = resourceRoot + (realPath?realPath:path);
-				eg.log('url:' + url + '-> realUrl:' + realUrl);			
+				// eg.log('url:' + url + '-> realUrl:' + realUrl);			
 			} else {
 				realUrl = url;
 			}
