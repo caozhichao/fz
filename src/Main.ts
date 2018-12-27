@@ -78,7 +78,7 @@ class Main extends eg.EgMain {
         // this.stage.addChild(new test.MatrixTest());
         // new test.WSTest();
         // this.stage.orientation = egret.OrientationMode.LANDSCAPE;
-        eg.UIManager.Instance.showUI(new test.OrientationModeTest());
+        // eg.UIManager.Instance.showUI(new test.OrientationModeTest());
         // eg.Config.stage.addEventListener(egret.Event.RESIZE,this.onResize2,this);        
 
         // new PromiseTest();
@@ -95,6 +95,12 @@ class Main extends eg.EgMain {
 
         // new test.HrefTest();
         // this.addChild(new Matter_HelloWorld());
+        // this.addChild(new Velocity1());
+        // this.addChild(new MouseEventTest());
+        // this.addChild(new Easing1());
+        // this.addChild(new EaseToMouse());
+        // this.addChild(new Spring1());
+        this.addChild(new Rotate2());
     }
 
     private facade:game.ApplicationFacade;
