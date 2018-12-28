@@ -307,9 +307,14 @@ class EgretRender {
 			toX = pointB.x;
 			toY = pointB.y;
 		}
-
+		// constraintRender.strokeStyle, constraintRender.lineWidth
+		// console.log('constraintRender.lineWidth:' + constraintRender.lineWidth);
+		// let strokeStyle = constraintRender.strokeStyle || 0x00ff00;
 		let strokeStyle = 0x00ff00;
+		let lineWidth = constraintRender.lineWidth || 1;
 		primitive.lineStyle(1, strokeStyle);
+		// primitive.lineStyle(lineWidth, strokeStyle);
+		// primitive.lineStyle(constraintRender.lineWidth, constraintRender.strokeStyle);
 		primitive.moveTo(fromX, fromY);
 		primitive.lineTo(toX, toY);
 		primitive.endFill();

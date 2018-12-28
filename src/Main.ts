@@ -100,7 +100,8 @@ class Main extends eg.EgMain {
         // this.addChild(new Easing1());
         // this.addChild(new EaseToMouse());
         // this.addChild(new Spring1());
-        this.addChild(new Rotate2());
+        // this.addChild(new Rotate3());
+        this.addChild(new Physics_Slingshot());
     }
 
     private facade:game.ApplicationFacade;

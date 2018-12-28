@@ -46,6 +46,7 @@ class Matter_HelloWorld extends egret.Sprite{
                 wireframes: true
             }
         });
+        // Matter.RenderPixi
 
         Matter.Runner.run(runner, engine);
         EgretRender.run(render);
@@ -75,7 +76,7 @@ class Matter_HelloWorld extends egret.Sprite{
         
 
 
-        this.mouseConstraint = Matter.MouseConstraint.create(this.engine, { element: canvas,visible:true});
+        this.mouseConstraint = Matter.MouseConstraint.create(this.engine, { element: canvas,visible:false});
         Matter.World.add(this.engine.world, this.mouseConstraint);
         render.mouse = this.mouseConstraint.mouse;
 		
@@ -107,7 +108,25 @@ class Matter_HelloWorld extends egret.Sprite{
                                         pointB:{x:0,y:-50},
                                         stiffness:0.01
                                     })
-        Matter.World.add(engine.world,[rect,ball,cc]);
+        // Matter.World.add(engine.world,[rect,ball,cc]);
+
+        // var cradle: any = Matter.Composites.newtonsCradle(280, 100, 5, 30, 200);
+		// 	Matter.World.add(this.engine.world, cradle);
+		// 	Matter.Body.translate(cradle.bodies[0],
+        //     {
+        //         x: -180,
+        //         y: -100
+        //     });
+
+        var group: any = Matter.Body.nextGroup(true);
+			var particleOptions: any = { friction: 0.00001, collisionFilter: { group: group }, render: { visible: false } };
+
+			var cloth: any = Matter.Composites.softBody(100, 100, 20, 12, 5, 5, false, 8, particleOptions,null);
+
+			for (var i: number = 0; i < 20; i++) {
+				cloth.bodies[i].isStatic = true;
+			}
+            Matter.World.add(this.engine.world,cloth);
 
 	}
 
