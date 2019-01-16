@@ -1,0 +1,5 @@
+<?xml version="1.0" encoding="utf-8"?>
+<e:Skin class="skins.TestSheetSkin" width="750" height="1206" xmlns:e="http://ns.egret.com/eui">
+	<e:Image source="test_json.btn_code" x="268" y="259"/>
+	<e:Image source="test_json.loop_bg" x="182" y="437"/>
+</e:Skin>

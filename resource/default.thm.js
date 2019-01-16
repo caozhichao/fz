@@ -300,6 +300,33 @@ window.skins={};
 		return t;
 	};
 	return Test2Skin;
+})(eui.Skin);generateEUI.paths['resource/assets/game/skins/TestSheetSkin.exml'] = window.skins.TestSheetSkin = (function (_super) {
+	__extends(TestSheetSkin, _super);
+	function TestSheetSkin() {
+		_super.call(this);
+		this.skinParts = [];
+		
+		this.height = 1206;
+		this.width = 750;
+		this.elementsContent = [this._Image1_i(),this._Image2_i()];
+	}
+	var _proto = TestSheetSkin.prototype;
+
+	_proto._Image1_i = function () {
+		var t = new eui.Image();
+		t.source = "test_json.btn_code";
+		t.x = 268;
+		t.y = 259;
+		return t;
+	};
+	_proto._Image2_i = function () {
+		var t = new eui.Image();
+		t.source = "test_json.loop_bg";
+		t.x = 182;
+		t.y = 437;
+		return t;
+	};
+	return TestSheetSkin;
 })(eui.Skin);generateEUI.paths['resource/eui_skins/ButtonSkin.exml'] = window.skins.ButtonSkin = (function (_super) {
 	__extends(ButtonSkin, _super);
 	function ButtonSkin() {

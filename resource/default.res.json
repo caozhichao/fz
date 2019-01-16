@@ -198,44 +198,50 @@
 			"name": "chi_tex_png"
 		},
 		{
-			"name": "bg_png",
+			"url": "assets/game/images/bg.png",
 			"type": "image",
-			"url": "assets/game/images/bg.png"
+			"name": "bg_png"
 		},
 		{
-			"name": "bg2_png",
+			"url": "assets/game/images/bg2.png",
 			"type": "image",
-			"url": "assets/game/images/bg2.png"
+			"name": "bg2_png"
 		},
 		{
-			"name": "rect_png",
+			"url": "assets/game/images/rect.png",
 			"type": "image",
-			"url": "assets/game/images/rect.png"
+			"name": "rect_png"
 		},
 		{
-			"name": "rock_png",
+			"url": "assets/game/images/matterjs/rock.png",
 			"type": "image",
-			"url": "assets/game/images/matterjs/rock.png"
+			"name": "rock_png"
 		},
 		{
-			"name": "background_png",
+			"url": "assets/game/images/matterjs/background.png",
 			"type": "image",
-			"url": "assets/game/images/matterjs/background.png"
+			"name": "background_png"
 		},
 		{
-			"name": "block_png",
+			"url": "assets/game/images/matterjs/block.png",
 			"type": "image",
-			"url": "assets/game/images/matterjs/block.png"
+			"name": "block_png"
 		},
 		{
-			"name": "block-2_png",
+			"url": "assets/game/images/matterjs/block-2.png",
 			"type": "image",
-			"url": "assets/game/images/matterjs/block-2.png"
+			"name": "block-2_png"
 		},
 		{
-			"name": "aa_png",
+			"url": "assets/game/images/aa.png",
 			"type": "image",
-			"url": "assets/game/images/aa.png"
+			"name": "aa_png"
+		},
+		{
+			"url": "assets/game/images/test.json",
+			"type": "sheet",
+			"name": "test_json",
+			"subkeys": "btn_code,loop_bg"
 		}
 	]
 }
