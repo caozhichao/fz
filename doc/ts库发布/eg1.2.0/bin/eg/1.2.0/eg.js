@@ -53,6 +53,7 @@ var eg;
             _this._isDispose = false;
             _this.height = eg.Config.STAGE_H;
             return _this;
+            // this.width = eg.Config.STAGE_W;
         }
         Object.defineProperty(PageBase.prototype, "pageType", {
             get: function () {
@@ -1083,12 +1084,13 @@ var eg;
         GImageButton.prototype.onStageTouchEnd = function (event) {
             // let stage = event.$currentTarget;
             eg.log('onStageTouchEnd');
+            this.stage.removeEventListener(egret.TouchEvent.TOUCH_END, this.onStageTouchEnd, this);
             if (event.target == this) {
                 eg.log('onStageTouchEnd22222');
                 this.dispatchEventWith(GImageButton.TOUCH_END);
             }
             // stage.removeEventListener(egret.TouchEvent.TOUCH_CANCEL, this.onTouchCancle, this);
-            this.stage.removeEventListener(egret.TouchEvent.TOUCH_END, this.onStageTouchEnd, this);
+            // this.stage.removeEventListener(egret.TouchEvent.TOUCH_END, this.onStageTouchEnd, this);      
             // this.removeEventListener(egret.TouchEvent.TOUCH_END,this.onTouchEnd,this);      
             // egret.Tween.removeTweens(this);
             //取消缓动
@@ -1428,7 +1430,7 @@ var eg;
             }
             function onResourceProgress(evt) {
                 if (evt.groupName == name) {
-                    eg.log("资源组:[" + name + "]" + evt.itemsLoaded + "/" + evt.itemsTotal + 'url:' + evt.resItem.url);
+                    // eg.log("资源组:[" + name + "]" + evt.itemsLoaded + "/" + evt.itemsTotal + 'url:' + evt.resItem.url);
                     self.list.forEach(function (element) {
                         if (element.onProgress) {
                             element.onProgress.call(element.thisObject, { itemsLoaded: evt.itemsLoaded, itemsTotal: evt.itemsTotal });
@@ -1526,7 +1528,7 @@ var eg;
                 var path = url.substr(index);
                 var realPath = this.info[path];
                 realUrl = resourceRoot + (realPath ? realPath : path);
-                eg.log('url:' + url + '-> realUrl:' + realUrl);
+                // eg.log('url:' + url + '-> realUrl:' + realUrl);			
             }
             else {
                 realUrl = url;

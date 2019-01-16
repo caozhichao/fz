@@ -157,6 +157,7 @@
 		"bin-debug/page/RESTest.js",
 		"bin-debug/page/RunwayTest.js",
 		"bin-debug/page/SceneScrollTest.js",
+		"bin-debug/page/ScrollNumberTest.js",
 		"bin-debug/page/StageScaleModeTest.js",
 		"bin-debug/page/StructTest.js",
 		"bin-debug/page/Test.js",

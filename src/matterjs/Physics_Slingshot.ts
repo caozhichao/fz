@@ -134,11 +134,36 @@ class Physics_Slingshot extends egret.Sprite{
                 }
             })
         */
-
+        /*
         let circleA = Matter.Bodies.circle(100,100,20,{render:{fillStyle:0x00ff00,lineWidth:10},collisionFilter:{category:0x0002,mask:0x0004|0x0001}},null);
         let circleB = Matter.Bodies.circle(300,100,20,{render:{fillStyle:0xff0000,lineWidth:5},collisionFilter:{category:0x0004,mask:0x0002|0x0001}},null);
+        */
 
-        Matter.World.add(this.engine.world,[mouseConstraint,ground,rock,elastic,ground2,circleA,circleB/*pyramid,cloth,bridge,bridgeConstraintA,bridgeConstraintB*/]);
+        /*
+        let stack = Matter.Composites.stack(50,100,6,1,5,0,function(x,y){
+            return Matter.Bodies.rectangle(x,y,50,20,{isStatic:false});
+        });
+
+        Matter.Composites.chain(stack,0.5,0,-0.5,0,{stiffness:0.9});
+        */
+
+        var audi=Matter.Composites.car(300,100,200,50,50);
+
+        //生成两个斜面与地面
+        // var ground=Matter.Bodies.rectangle(800,900,1800,100,{
+        //     isStatic:true
+        // });
+        var stickA=Matter.Bodies.rectangle(400,400,50,700,{
+            isStatic:true,
+            angle:-Math.PI*0.4
+        });
+
+        var stickB=Matter.Bodies.rectangle(700,700,50,700,{
+            isStatic:true,
+            angle:Math.PI*0.4
+        });
+
+        Matter.World.add(this.engine.world,[mouseConstraint,ground,rock,elastic,ground2,audi,stickA,stickB/*stack,circleA,circleB,pyramid,cloth,bridge,bridgeConstraintA,bridgeConstraintB*/]);
 
 
         Matter.Events.on(this.engine, 'afterUpdate', function():any

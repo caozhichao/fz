@@ -59,12 +59,13 @@ module eg {
         private onStageTouchEnd(event:egret.TouchEvent):void {
             // let stage = event.$currentTarget;
 			eg.log('onStageTouchEnd');
+			this.stage.removeEventListener(egret.TouchEvent.TOUCH_END, this.onStageTouchEnd, this);      
 			if(event.target == this){
 				eg.log('onStageTouchEnd22222');
 				this.dispatchEventWith(GImageButton.TOUCH_END);
 			}
             // stage.removeEventListener(egret.TouchEvent.TOUCH_CANCEL, this.onTouchCancle, this);
-            this.stage.removeEventListener(egret.TouchEvent.TOUCH_END, this.onStageTouchEnd, this);      
+            // this.stage.removeEventListener(egret.TouchEvent.TOUCH_END, this.onStageTouchEnd, this);      
 			// this.removeEventListener(egret.TouchEvent.TOUCH_END,this.onTouchEnd,this);      
 			// egret.Tween.removeTweens(this);
 			//取消缓动
