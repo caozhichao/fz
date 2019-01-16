@@ -308,22 +308,15 @@ window.skins={};
 		
 		this.height = 1206;
 		this.width = 750;
-		this.elementsContent = [this._Image1_i(),this._Image2_i()];
+		this.elementsContent = [this._Image1_i()];
 	}
 	var _proto = TestSheetSkin.prototype;
 
 	_proto._Image1_i = function () {
 		var t = new eui.Image();
-		t.source = "test_json.btn_code";
+		t.source = "btn_code";
 		t.x = 268;
 		t.y = 259;
-		return t;
-	};
-	_proto._Image2_i = function () {
-		var t = new eui.Image();
-		t.source = "test_json.loop_bg";
-		t.x = 182;
-		t.y = 437;
 		return t;
 	};
 	return TestSheetSkin;
