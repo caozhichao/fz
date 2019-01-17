@@ -103,7 +103,8 @@ class Main extends eg.EgMain {
         // this.addChild(new Rotate3());
         // this.addChild(new Physics_Slingshot());
         // this.addChild(new ScrollNumberTest());
-        eg.UIManager.Instance.showUI(new game.SheetTestView());
+        // eg.UIManager.Instance.showUI(new game.SheetTestView());
+        this.addChild(new CircleLeftTime());
     }
 
     private facade:game.ApplicationFacade;
