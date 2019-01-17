@@ -55,9 +55,9 @@ class CircleLeftTime extends egret.Sprite{
 
 	private onEnterFrame(evt:egret.Event):void{
 		let t2 = egret.getTimer();
-		this.angle = 360 / 10000 * (t2 - this.t1);
+		this.angle = 360 / 10000 * (t2 - this.t1);  //根据时间计算出旋转的角度
 		if(this.angle > 360){
-			this.angle = 360;
+			this.angle = 0; //  不能使用360 
 		}
 
 		// this.angle += (360 / 10);
@@ -67,10 +67,10 @@ class CircleLeftTime extends egret.Sprite{
 		spr.graphics.clear();
 
 		spr.graphics.beginFill(0xff0000);
-		spr.graphics.lineStyle(1,0x00ff00);
+		// spr.graphics.lineStyle(1,0x00ff00);
 		spr.graphics.moveTo(0,0);
 		spr.graphics.lineTo(100,0);
-		spr.graphics.drawArc(0,0,100,0,this.angle * Math.PI / 180,false);
+		spr.graphics.drawArc(0,0,100,0,this.angle * Math.PI / 180,true); // true false  正反向绘制 默认 倒计时，或者进度条
 		spr.graphics.moveTo(0,0);
 		spr.graphics.endFill();
 	}
