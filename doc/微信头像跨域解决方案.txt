@@ -1,0 +1,7 @@
+微信头像跨域
+1.获取微信头像二进制数据 ArrayBuffer
+2.ArrayBuffer 转换成base64 字符串 
+
+转换为base64数据，就不存在跨域问题了 数据已为本地程序数据了
+
+egret.Base64Util.encode(arrayBuffer);
