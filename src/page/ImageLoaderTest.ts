@@ -39,7 +39,9 @@ class ImageLoaderTest extends egret.Sprite{
 		// var data = binaryString.join('');
 
 		//转出ArrayBuffer 为base64字符串显示
+		let t1 = egret.getTimer();
 		var data = eg.transformArrayBufferToBase64(result as ArrayBuffer);
+		console.log('time:' + (egret.getTimer() - t1));
 		// var img = document.createElement("img");
 		// img.src = "data:image/png;base64," + data;
 		// document.body.appendChild(img);
