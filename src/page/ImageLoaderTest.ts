@@ -43,23 +43,23 @@ class ImageLoaderTest extends egret.Sprite{
 		// var data = eg.transformArrayBufferToBase64(result as ArrayBuffer);
 		var data = egret.Base64Util.encode(result as ArrayBuffer);
 		console.log('time:' + (egret.getTimer() - t1));
-		var img = document.createElement("img");
-		img.src = "data:image/png;base64," + data;
-		document.body.appendChild(img);
+		// var img = document.createElement("img");
+		// img.src = "data:image/png;base64," + data;
+		// document.body.appendChild(img);
 
-		// let img:eui.Image = new eui.Image();
-		// img.source = "data:image/png;base64," + data;
-		// this.addChild(img);
+		let img:eui.Image = new eui.Image();
+		img.source = "data:image/png;base64," + data;
+		this.addChild(img);
 
-		// setTimeout(()=> {
-		// 	//draw
-		// 	let renderTexture:egret.RenderTexture = new egret.RenderTexture();
-		// 	renderTexture.drawToTexture(this);
-		// 	let bmp:egret.Bitmap = new egret.Bitmap(renderTexture);
-		// 	bmp.x = 100;
-		// 	bmp.y = 100;
-		// 	this.addChild(bmp);			
-		// }, 2000);
+		setTimeout(()=> {
+			//draw
+			let renderTexture:egret.RenderTexture = new egret.RenderTexture();
+			renderTexture.drawToTexture(this);
+			let bmp:egret.Bitmap = new egret.Bitmap(renderTexture);
+			bmp.x = 100;
+			bmp.y = 100;
+			this.addChild(bmp);			
+		}, 2000);
 
 	}
 
