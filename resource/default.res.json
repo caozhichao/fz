@@ -199,7 +199,7 @@
 		},
 		{
 			"url": "assets/game/images/bg.png",
-			"type": "image",
+			"type": "bin",
 			"name": "bg_png"
 		},
 		{

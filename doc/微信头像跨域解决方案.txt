@@ -5,3 +5,5 @@
 转换为base64数据，就不存在跨域问题了 数据已为本地程序数据了
 
 egret.Base64Util.encode(arrayBuffer);
+
+以上方案不保证可行

@@ -147,6 +147,7 @@
 		"bin-debug/page/ImageLoaderTest.js",
 		"bin-debug/page/MathTest.js",
 		"bin-debug/page/MatrixTest.js",
+		"bin-debug/page/Number_sx.js",
 		"bin-debug/page/OrientationModeTest.js",
 		"bin-debug/page/OutPackConfigTest.js",
 		"bin-debug/page/PageGame.js",
