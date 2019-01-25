@@ -105,7 +105,8 @@ class Main extends eg.EgMain {
         // this.addChild(new ScrollNumberTest());
         // eg.UIManager.Instance.showUI(new game.SheetTestView());
         // this.addChild(new CircleLeftTime());
-        this.addChild(new sx.Number_sx());
+        // this.addChild(new sx.Number_sx());
+        new AStarTest();
     }
 
     private facade:game.ApplicationFacade;
