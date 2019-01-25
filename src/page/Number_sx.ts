@@ -22,9 +22,12 @@ namespace sx{
 		private _data:Node[][];
 
 		//当前需要查找的节点
-		private _searchNode:Node;
-		private _openList:Node[];
+		// private _searchNode:Node;
+		//待查列表
+		private _openList:Node[];		
+		//待查列表（和当前对象值相同）优先审查
 		private _priorityOpenList:Node[];
+		//已查关闭列表
 		private _closeList:Node[];
 		public constructor(){		
 			this.initMap();
@@ -40,6 +43,12 @@ namespace sx{
 					[3,1,1,3,3],
 					[2,2,1,3,1],
 					[3,2,1,5,4]]
+			test = [[3,3,3,2,3],     
+					[2,2,2,2,4],     
+					[4,1,2,4,4],     
+					[1,2,2,4,3],     
+					[4,3,5,3,4]]
+
 			for(let i:number = 0; i < MapVo.ROW; i++){
 				let row:Node[] = [];
 				// console.log('\n');
@@ -56,7 +65,21 @@ namespace sx{
 				console.log(values);
 			}
 		}
-		public find(row:number=0,col:number=0):void{
+
+		/**
+		 * 查找连续的节点
+		 * 从行列坐标开始查找
+		 * 思路
+		 * 1.获取当前节点的上下左右4个节点，加入到审查列表中
+		 * 相同节点加入到优先审查列表中priorityOpenList (注：相同值节点的值相同value)
+		 * 2.把审查的节点保存到临时数组中，如果，当前审查节点和上一个不同(注：不同指当前Node不在优先审查列表中)，保存当前的临时数组，
+		 * 开始审查下一个节点sNode,直到审查类别元素为空审查结束
+		 * 		  
+		 * @param row  行坐标
+		 * @param col  列坐标
+		 * @return 返回当前查找到的所有连续列表
+		 */
+		public find(row:number=0,col:number=0):Node[][]{
 			this._priorityOpenList = [];
 			//当前查找的起始点
 			let sNode:Node = this.getNode(row,col);
@@ -101,12 +124,15 @@ namespace sx{
 			if(findList.length >= 3){
 				allList.push(findList);
 			}
-			console.log('time:' + (egret.getTimer() - t1) + '|' + allList.length);
-			// console.log(this._closeList.length + '|' + this._openList.length);
+			console.log('time:' + (egret.getTimer() - t1) + '|' + allList.length);			
+			return allList;
 		}
 
+		/**
+		 * 从审查列表中获取一个审查元素
+		 */
 		private getOpenNode():[number,Node]{
-			// this._priorityOpenList.shift() || this._openList.shift()
+			//type 0 优先审查列表 1 其他审查列表			
 			let type:number = 0;
 			let node:Node = this._priorityOpenList.shift();
 			if(node == null){
@@ -116,21 +142,20 @@ namespace sx{
 			return [type,node];
 		}
 
-		public add2OpenList(node:Node,sNode:Node):void{
-			// if(node && this._priorityOpenList.indexOf(node) == -1 && this._openList.indexOf(node) == -1 && this._closeList.indexOf(node) == -1){
-			// 	if(node.value == sNode.value){
-			// 		this._priorityOpenList.push(node);
-			// 	} else {
-			// 		this._openList.push(node);
-			// 	}
-			// }
-			
+		/**
+		 * 加入审查列表
+		 * @param node 
+		 */
+		public add2OpenList(node:Node,sNode:Node):void{						
 			if(node && this._closeList.indexOf(node) == -1){
-				if(node.value == sNode.value && this._priorityOpenList.indexOf(node) == -1){
-					this._priorityOpenList.push(node);
-					let index = this._openList.indexOf(node);
-					if(index != -1){
-						this._openList.splice(index,1);
+				//如果值相同，优先加入优先列表中，如果在_openList存在，则删除
+				if(node.value == sNode.value){
+					if(this._priorityOpenList.indexOf(node) == -1){
+						this._priorityOpenList.push(node);
+						let index = this._openList.indexOf(node);
+						if(index != -1){
+							this._openList.splice(index,1);
+						}
 					}
 				} else if(this._openList.indexOf(node) == -1){
 					this._openList.push(node);
