@@ -11,6 +11,7 @@ namespace sx{
 		private _endNode:Node;
 		private _state:number = 0;
 		private _fillMovePosList:number[][];
+		private _beginNode:Item;		
 		public constructor() {
 			super();
 			this.init();
@@ -103,11 +104,67 @@ namespace sx{
 			// }, 3000);
 
 			// this.find(0,0);
+			// eg.Config.stage.addEventListener(egret.TouchEvent.TOUCH_TAP,(evt)=>{
+			// 	this._state = 0;
+			// 	this.find(0,0);
+			// },this);
+			this.addEventListener(egret.TouchEvent.TOUCH_BEGIN,this.onBegin,this);
+			// this.addEventListener(egret.TouchEvent.TOUCH_MOVE,this.onMove,this);
+			this.addEventListener(egret.TouchEvent.TOUCH_END,this.onEnd,this);
+		}
 
-			eg.Config.stage.addEventListener(egret.TouchEvent.TOUCH_TAP,(evt)=>{
-				this._state = 0;
-				this.find(0,0);
-			},this);
+		private onEnd(evt:egret.TouchEvent):void{
+			let item:Item = evt.target as Item;
+			if(item && this._beginNode){
+				
+				let a:Node = this._beginNode.data;
+				let b:Node = item.data;
+				if(a != b){
+					let aValue:number = a.value;
+					let bValue:number = b.value;
+					//交换数据
+					this._mapVo.swap(a,b);
+					this._mapVo.toString();
+
+					let aItem:Item = this._beginNode;
+					let bItem:Item = item;
+					aItem.visible = false;
+					bItem.visible = false;
+					aItem.setData(a);
+					bItem.setData(b);
+
+					let aMoveItem:Item = new Item(new Node(a.row,a.col,aValue));
+					let bMoveItem:Item = new Item(new Node(b.row,b.col,bValue));
+					aMoveItem.x = a.col * Item.WIDTH;
+					aMoveItem.y = a.row * Item.HEIGHT;
+
+					bMoveItem.x = b.col * item.width;
+					bMoveItem.y = b.row * item.height;
+
+					this.addChild(aMoveItem);
+					this.addChild(bMoveItem);
+
+					egret.Tween.get(aMoveItem).to({x:bMoveItem.x,y:bMoveItem.y},200);
+
+					egret.Tween.get(bMoveItem).to({x:aMoveItem.x,y:aMoveItem.y},200);
+					setTimeout(()=> {
+						this.removeChild(aMoveItem);
+						this.removeChild(bMoveItem);	
+
+						aItem.visible = true;
+						bItem.visible = true;								
+						this.find(b.row,b.col,true);			
+					}, 230);
+				}
+			}
+		}
+
+		private onMove(evt:egret.TouchEvent):void{
+			
+		}
+
+		private onBegin(evt:egret.TouchEvent):void{
+			this._beginNode = evt.target as Item;			
 		}
 
 		private onEnterFrame(evt:egret.Event):void{
@@ -124,7 +181,7 @@ namespace sx{
 			});
 
 			if(allMoveComplete != 0 && allMoveComplete == this._nodeMoveList.length){
-				console.log('state:' + this._state);
+				eg.log('state:' + this._state);
 				this._nodeMoveList.length = 0;	
 				if(this._state == 1){
 					//更新合并的Node
@@ -143,7 +200,9 @@ namespace sx{
 					// 	let item:Item = this._items[node.row][node.col];
 					// 	item.visible = true;						
 					// });
-					console.log('over');
+					eg.log('over');
+					this._state = 0;
+					this.find(0,0);
 				}			
 
 
@@ -161,7 +220,10 @@ namespace sx{
 			this._state++;
 		}
 
-		private find(row:number,col:number):void{
+		/**
+		 * @param flag 是否是指定的终点
+		 */
+		private find(row:number,col:number,flag:boolean=false):void{
 			let allList:Node[] = this._mapVo.find(row,col);	
 			// for(let i:number = 0; i < allList.length;i++){
 			// 	let list:Node[] = allList[i];
@@ -180,15 +242,27 @@ namespace sx{
 			this.changeState();
 
 			//构建AStar地图数据
-			let mapData = [[0,0,0,0,0],[0,0,0,0,0],[0,0,0,0,0],[0,0,0,0,0],[0,0,0,0,0]];
+			let mapData = [[0,0,0,0,0],[0,0,0,0,0],[0,0,0,0,0],[0,0,0,0,0],[0,0,0,0,0]];			
+			let has:boolean = false;
 			nodeList.forEach(element => {
 				mapData[element.row][element.col] = element.value;
+				if(flag){
+					if(element.row == row && element.col == col){
+						has = true;
+						//验证终点是否存在
+					}
+				}
 			});			
 
 			let aStar:eg.AStar = new eg.AStar();
 			aStar.setMaps(mapData,5,5);
 
-			let endNode:Node = this.getMoveEndNode(nodeList);
+			let endNode:Node;
+			if(flag && has){
+				endNode = this._mapVo.getNode(row,col);
+			} else {
+				endNode = this.getMoveEndNode(nodeList);
+			}
 			let endRow:number = endNode.row;
 			let endCol:number = endNode.col;
 			this._endNode = endNode;
@@ -308,7 +382,7 @@ namespace sx{
 	class NodeMoveContoller{
 		private _node:Item;
 		private _paths:number[][];
-		private _speed:number = 6;
+		private _speed:number = 12;
 		private _curPos:number[];
 		private _moveX:number;
 		private _moveY:number;
@@ -360,7 +434,7 @@ namespace sx{
 				this._nextY = pos[1];
 				this.moveTo(pos);
 			} else {
-				console.log('移动结束');
+				eg.log('移动结束');
 				this._isMoveComplete = true;
 				this._node.parent.removeChild(this._node);
 			}
@@ -375,7 +449,7 @@ namespace sx{
 			let tY:number = pos[0] * Item.HEIGHT;
 			dis = Math.sqrt( (tY - curY) * (tY - curY) + (tX - curX) * (tX - curX));		
 			this._moveCount = (dis / this._speed) | 0;
-			console.log('dis: ' + dis + '_moveCount: ' + this._moveCount);
+			eg.log('dis: ' + dis + '_moveCount: ' + this._moveCount);
 			let radian:number = Math.atan2(tY - curY,tX - curX);
 			this._moveX = Math.cos(radian) * this._speed;
 			this._moveY = Math.sin(radian) * this._speed;
@@ -434,6 +508,17 @@ namespace sx{
 					[4,3,3,4,4],
 					[1,1,3,4,3],
 					[4,3,5,3,4]];
+			test = [[2,3,1,4,3],
+					[1,5,5,1,3],
+					[4,6,3,1,2],
+					[1,1,2,5,4],
+					[4,3,5,3,4]];
+			test = [[3,5,4,4,2],
+					[2,3,6,1,6],
+					[6,2,7,4,2],
+					[3,6,3,3,1],
+					[5,3,4,6,1]]
+			
 
 			for(let i:number = 0; i < MapVo.ROW; i++){
 				let row:Node[] = [];
@@ -448,7 +533,7 @@ namespace sx{
 					values += value + ',';
 				}
 				this._data[i] = row;
-				console.log(values);
+				eg.log(values);
 			}
 		}
 
@@ -513,7 +598,7 @@ namespace sx{
 			if(findList.length >= 3){
 				allList.push(findList);
 			}
-			console.log('time:' + (egret.getTimer() - t1) + '|' + allList.length);			
+			eg.log('time:' + (egret.getTimer() - t1) + '|' + allList.length);			
 			return allList[0];
 		}
 
@@ -648,9 +733,16 @@ namespace sx{
 			}
 			return list;
 		}
-		// public get mapData():Node[][]{
-		// 	return this._data;
-		// }
+		
+		/**
+		 * 交换数据
+		 */
+		public swap(a:Node,b:Node):void{
+			let aValue:number = a.value;
+			let bValue:number = b.value;
+			this._data[a.row][a.col].value = bValue;
+			this._data[b.row][b.col].value = aValue;			
+		}
 
 		public toString():void{
 			let values:string = '';
@@ -661,7 +753,7 @@ namespace sx{
 				}
 				values += '\n';				
 			}
-			console.log(values);
+			eg.log(values);
 			// return values;
 		}
 
@@ -685,8 +777,8 @@ namespace sx{
 		private _bg:egret.Shape;
 		private _tf:eui.Label;
 		private _data:Node;
-		public static WIDTH:number = 64;
-		public static HEIGHT:number = 64;
+		public static WIDTH:number = 128;
+		public static HEIGHT:number = 128;
 		public static COLORS:number[] = [0xff0000,
 											0xeb4310,
 											0xf6941d,
@@ -718,6 +810,8 @@ namespace sx{
 			this._tf = new eui.Label();
 			this._tf.width = Item.WIDTH;
 			this._tf.height = Item.HEIGHT;
+			this._tf.size = 50;
+			this._tf.bold = true;
 			this._tf.textAlign = egret.HorizontalAlign.CENTER;
 			this._tf.verticalAlign = egret.VerticalAlign.MIDDLE;
 			this.addChild(this._bg);
@@ -727,6 +821,9 @@ namespace sx{
 
 			this.anchorOffsetX = Item.WIDTH / 2;
 			this.anchorOffsetY = Item.HEIGHT / 2;
+			// this._tf.touchEnabled = false;
+			this.touchEnabled = true;
+			this.touchChildren = false;
 		}
 		public setData(data:Node):void{
 			this._data = data;
