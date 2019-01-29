@@ -9,6 +9,8 @@ namespace sx{
 		private _items:Item[][];
 		private _nodeMoveList:NodeMoveContoller[];
 		private _endNode:Node;
+		private _state:number = 0;
+		private _fillMovePosList:number[][];
 		public constructor() {
 			super();
 			this.init();
@@ -31,7 +33,136 @@ namespace sx{
 				this._items[i] = itemList;
 			}
 
-			let allList:Node[] = this._mapVo.find(0,3);	
+			// let allList:Node[] = this._mapVo.find(0,3);	
+			// // for(let i:number = 0; i < allList.length;i++){
+			// // 	let list:Node[] = allList[i];
+			// // 	for(let j:number = 0;j<list.length;j++){
+			// // 		let node:Node = list[j];
+			// // 		item = this._items[node.row][node.col];
+			// // 		item.alpha = 0.5;
+			// // 	}
+			// // }
+
+			// //移动测试
+			// let nodeList:Node[] = allList;
+			// //构建AStar地图数据
+			// let mapData = [[0,0,0,0,0],[0,0,0,0,0],[0,0,0,0,0],[0,0,0,0,0],[0,0,0,0,0]];
+			// nodeList.forEach(element => {
+			// 	mapData[element.row][element.col] = element.value;
+			// });
+
+			// this._nodeMoveList = [];
+
+			// let aStar:eg.AStar = new eg.AStar();
+			// aStar.setMaps(mapData,5,5);
+
+			// let endNode:Node = this.getMoveEndNode(nodeList);
+			// let endRow:number = endNode.row;
+			// let endCol:number = endNode.col;
+			// this._endNode = endNode;
+
+			// nodeList.forEach(element => {
+			// 	let row:number = element.row;
+			// 	let col:number = element.col;
+			// 	// let row:number = 0;
+			// 	// let col:number = 0;
+
+			// 	if(row != endRow || col != endCol){
+			// 		let paths:Array<number[]> = aStar.find(row,col,endRow,endCol);
+			// 		// console.log(paths.length);
+			// 		let posArr:number[][] = [];
+			// 		for(let i:number = 0; i < paths.length;i++){
+			// 			let path:number[] = paths[i];
+			// 			posArr[i] = [path[1] * Item.WIDTH,path[0] * Item.HEIGHT];
+			// 		}
+			// 		let item:Item = this._items[row][col];
+			// 		item.visible = false;
+			// 		let moveItem:Item = new Item(item.data);
+			// 		moveItem.x = col * Item.WIDTH;
+			// 		moveItem.y = row * Item.HEIGHT;
+			// 		this.addChild(moveItem);
+			// 		let nodeMoveContoller:NodeMoveContoller = new NodeMoveContoller(moveItem);
+			// 		nodeMoveContoller.paths = posArr;
+			// 		this._nodeMoveList.push(nodeMoveContoller);		
+			// 		this._mapVo.updateNodeValue(element);							
+			// 	} 
+			// });
+
+			// this._mapVo.updateNodeValue(endNode,endNode.value+1);
+
+			// console.log(this._mapVo);
+			// this._mapVo.toString();
+			this._nodeMoveList = [];
+
+			this.addEventListener(egret.Event.ENTER_FRAME,this.onEnterFrame,this);
+
+			// setTimeout(()=> {
+			// 	let movePosList:number[][] = this._mapVo.fill();
+			// 	console.log(movePosList.length);
+			// 	this.fillNodeMove(movePosList);
+			// }, 3000);
+
+			// this.find(0,0);
+
+			eg.Config.stage.addEventListener(egret.TouchEvent.TOUCH_TAP,(evt)=>{
+				this._state = 0;
+				this.find(0,0);
+			},this);
+		}
+
+		private onEnterFrame(evt:egret.Event):void{
+			let allMoveComplete:number = 0;
+			this._nodeMoveList.forEach(element => {
+				element.move(0);
+				if(element.moveComplete){
+					allMoveComplete++;
+					if(this._state == 2){
+						let item:Item = this._items[element.endRow][element.endCol];
+						item.visible = true;						
+					}
+				}
+			});
+
+			if(allMoveComplete != 0 && allMoveComplete == this._nodeMoveList.length){
+				console.log('state:' + this._state);
+				this._nodeMoveList.length = 0;	
+				if(this._state == 1){
+					//更新合并的Node
+					let item:Item = this.getNodeItem(this._endNode.row,this._endNode.col);
+					item.rotationEffect();
+					item.setData(this._endNode);
+
+					this.changeState();
+					let movePosList:number[][] = this._mapVo.fill();
+					this._fillMovePosList = movePosList;
+					this.fillNodeMove(movePosList);
+				} else if(this._state == 2){
+					// this._fillMovePosList.forEach(element => {			
+					// 	let node:Node;
+					// 	node = this._mapVo.getNode(element[2],element[3]);
+					// 	let item:Item = this._items[node.row][node.col];
+					// 	item.visible = true;						
+					// });
+					console.log('over');
+				}			
+
+
+			// 	//补充Node
+			// 	let movePosList:number[][] = this._mapVo.fill();
+			// 	console.log(movePosList.length);
+			// 	this.fillNodeMove(movePosList);
+			}
+		}
+
+		private changeState():void{
+			// if(this._state == 0){
+			// 	this._state = 1;
+			// } else if(this._st)
+			this._state++;
+		}
+
+		private find(row:number,col:number):void{
+			let allList:Node[] = this._mapVo.find(row,col);	
 			// for(let i:number = 0; i < allList.length;i++){
 			// 	let list:Node[] = allList[i];
 			// 	for(let j:number = 0;j<list.length;j++){
@@ -40,16 +171,19 @@ namespace sx{
 			// 		item.alpha = 0.5;
 			// 	}
 			// }
-
 			//移动测试
 			let nodeList:Node[] = allList;
+			if(!allList ||  nodeList.length == 0){				
+				return;
+			}
+			// this._state = 1;
+			this.changeState();
+
 			//构建AStar地图数据
 			let mapData = [[0,0,0,0,0],[0,0,0,0,0],[0,0,0,0,0],[0,0,0,0,0],[0,0,0,0,0]];
 			nodeList.forEach(element => {
 				mapData[element.row][element.col] = element.value;
-			});
-
-			this._nodeMoveList = [];
+			});			
 
 			let aStar:eg.AStar = new eg.AStar();
 			aStar.setMaps(mapData,5,5);
@@ -68,46 +202,84 @@ namespace sx{
 				if(row != endRow || col != endCol){
 					let paths:Array<number[]> = aStar.find(row,col,endRow,endCol);
 					// console.log(paths.length);
-					let posArr:number[][] = [];
-					for(let i:number = 0; i < paths.length;i++){
-						let path:number[] = paths[i];
-						posArr[i] = [path[1] * Item.WIDTH,path[0] * Item.HEIGHT];
-					}
-					let nodeMoveContoller:NodeMoveContoller = new NodeMoveContoller(this._items[row][col]);
-					nodeMoveContoller.paths = posArr;
-					this._nodeMoveList.push(nodeMoveContoller);		
+					// let posArr:number[][] = [];
+					// for(let i:number = 0; i < paths.length;i++){
+					// 	let path:number[] = paths[i];
+					// 	posArr[i] = [path[1] * Item.WIDTH,path[0] * Item.HEIGHT];
+					// }
+					// let item:Item = this._items[row][col];
+					// item.visible = false;
+					// let moveItem:Item = new Item(item.data);
+					// moveItem.x = col * Item.WIDTH;
+					// moveItem.y = row * Item.HEIGHT;
+					// this.addChild(moveItem);
+					// let nodeMoveContoller:NodeMoveContoller = new NodeMoveContoller(moveItem);
+					// nodeMoveContoller.paths = posArr;
+					// this._nodeMoveList.push(nodeMoveContoller);		
+					this.nodeMove(element,paths);
 					this._mapVo.updateNodeValue(element);							
 				} 
 			});
-
 			this._mapVo.updateNodeValue(endNode,endNode.value+1);
-
-			// console.log(this._mapVo);
-			this._mapVo.toString();
-
-			this.addEventListener(egret.Event.ENTER_FRAME,this.onEnterFrame,this);
 		}
 
-		private onEnterFrame(evt:egret.Event):void{
-			let allMoveComplete:number = 0;
-			this._nodeMoveList.forEach(element => {
-				element.move(0);
-				if(element.moveComplete){
-					allMoveComplete++;
-				}
+		private fillNodeMove(movePosList:number[][]):void{
+
+			movePosList.forEach(element => {
+				// let mRow:number = element[0];
+				// let mCol:number = element[1];
+				// let tRow:number = element[2];
+				// let tCol:number = element[3];
+				// let node:Node = this._mapVo.getNode(tRow,tCol);
+				// let moveItem:Item = new Item(node);
+
+				// moveItem.x = mCol * Item.WIDTH;
+				// moveItem.y = mRow * Item.HEIGHT;
+				// this.addChild(moveItem);
+				// let nodeMoveContoller:NodeMoveContoller = new NodeMoveContoller(moveItem);
+				// nodeMoveContoller.paths = [[tCol * Item.WIDTH,tRow * Item.HEIGHT]];
+				// // posArr[i] = [path[1] * Item.WIDTH,path[0] * Item.HEIGHT];
+				// this._nodeMoveList.push(nodeMoveContoller);		
+
+				let node:Node;
+				node = this._mapVo.getNode(element[2],element[3]);
+				let item:Item = this._items[node.row][node.col];
+				item.visible = false;
+				item.setData(node);
+				let newNode:Node = new Node(element[0],element[1],node.value);
+				this.nodeMove(newNode,[[element[2],element[3]]]);
 			});
-			if(allMoveComplete != 0 && allMoveComplete == this._nodeMoveList.length){
-				this._nodeMoveList.length = 0;
-				let item:Item = this.getNodeItem(this._endNode.row,this._endNode.col);
-				item.rotationEffect();
-				item.setData(this._endNode);
-
-
-				//补充Node
-				let movePosList:number[][] = this._mapVo.fill();
-				console.log(movePosList.length);
-			}
 		}
+
+		/**
+		 * Node 移动 
+		 * @param row 
+		 * @param col 
+		 * @param paths 移动格的格子路径
+		 */
+		private nodeMove(node:Node,paths:number[][]):void{
+			if(node.row >=0){
+				let item:Item = this._items[node.row][node.col];				
+				item.visible = false;				
+			}
+
+			// let posArr:number[][] = [];
+			// for(let i:number = 0; i < paths.length;i++){
+			// 	let path:number[] = paths[i];
+			// 	posArr[i] = [path[1] * Item.WIDTH,path[0] * Item.HEIGHT];
+			// }
+
+			// let node:Node = this._mapVo.getNode(row,col);
+			let moveItem:Item = new Item(node);
+			moveItem.x = node.col * Item.WIDTH;
+			moveItem.y = node.row * Item.HEIGHT;
+			this.addChild(moveItem);
+			let nodeMoveContoller:NodeMoveContoller = new NodeMoveContoller(moveItem);
+			nodeMoveContoller.paths = paths;
+			//加入移动列表			
+			this._nodeMoveList.push(nodeMoveContoller);		
+		}
+
 
 		private getNodeItem(row:number,col:number):Item{
 			return this._items[row][col];
@@ -136,20 +308,25 @@ namespace sx{
 	class NodeMoveContoller{
 		private _node:Item;
 		private _paths:number[][];
-		private _speed:number = 10;
+		private _speed:number = 6;
 		private _curPos:number[];
 		private _moveX:number;
 		private _moveY:number;
 		private _moveCount:number;
+
+		//row col
 		private _curX:number;
 		private _curY:number;
 		private _nextX:number;
 		private _nextY:number;
+
 		private _isMoveComplete:boolean = false;
 		public constructor(node:Item){
 			this._node = node;
-			this._curX = this._node.x;
-			this._curY = this._node.y;
+			// this._curX = this._node.x;
+			// this._curY = this._node.y;
+			this._curX = this._node.data.row;
+			this._curY = this._node.data.col;
 		}
 
 		public set paths(value:number[][]){
@@ -169,8 +346,8 @@ namespace sx{
 				// console.log('2');
 				this._curX = this._nextX;
 				this._curY = this._nextY;
-				this._node.x = this._curX;
-				this._node.y = this._curY;
+				this._node.x = this._curY * Item.WIDTH;
+				this._node.y = this._curX * Item.HEIGHT;
 				this.toNextPos();
 			}
 			this._moveCount--;
@@ -191,15 +368,31 @@ namespace sx{
 
 		private moveTo(pos:number[]):void{
 			let dis:number = Item.WIDTH;
+			// dis = Math.sqrt( (pos[1] - this._curY) * (pos[1] - this._curY) + (pos[0] - this._curX) * (pos[0] - this._curX) );
+			let curX:number = this._curY * Item.WIDTH;
+			let curY:number = this._curX * Item.HEIGHT;
+			let tX:number = pos[1] * Item.WIDTH;
+			let tY:number = pos[0] * Item.HEIGHT;
+			dis = Math.sqrt( (tY - curY) * (tY - curY) + (tX - curX) * (tX - curX));		
 			this._moveCount = (dis / this._speed) | 0;
-			// console.log(this._moveCount);
-			let radian:number = Math.atan2(pos[1] - this._curY,pos[0] - this._curX);
+			console.log('dis: ' + dis + '_moveCount: ' + this._moveCount);
+			let radian:number = Math.atan2(tY - curY,tX - curX);
 			this._moveX = Math.cos(radian) * this._speed;
 			this._moveY = Math.sin(radian) * this._speed;
 		}
 
+		
+
 		public get moveComplete():boolean{
 			return this._isMoveComplete;
+		}
+
+		public get endRow():number{
+			return this._nextX;
+		}
+		
+		public get endCol():number{
+			return this._nextY;
 		}
 	}
 
@@ -222,8 +415,8 @@ namespace sx{
 		}
 
 		public initMap():void{
-			this._openList = [];
-			this._closeList = [];			
+			// this._openList = [];
+			// this._closeList = [];			
 			this._data = [];
 			let test = [[1,2,3,4,5],[1,2,3,4,5],[1,2,3,4,5],[1,2,3,4,5],[1,2,3,4,5]];
 			test = [[4,2,5,2,1],     
@@ -236,6 +429,11 @@ namespace sx{
 					[4,1,2,4,4],     
 					[1,2,2,4,3],     
 					[4,3,5,3,4]]
+			test = [[3,2,3,4,3],
+					[3,5,2,1,4],
+					[4,3,3,4,4],
+					[1,1,3,4,3],
+					[4,3,5,3,4]];
 
 			for(let i:number = 0; i < MapVo.ROW; i++){
 				let row:Node[] = [];
@@ -268,6 +466,8 @@ namespace sx{
 		 * @return 返回当前查找到的所有连续列表
 		 */
 		public find(row:number=0,col:number=0):Node[]{
+			this._openList = [];
+			this._closeList = [];		
 			this._priorityOpenList = [];
 			//当前查找的起始点
 			let sNode:Node = this.getNode(row,col);
@@ -426,7 +626,7 @@ namespace sx{
 					let value:number = 1 + Math.floor(Math.random() * 5);
 					node = new Node(j-1,i,value);
 					this._data[node.row][node.col] = node;
-					movePosList.push([-j,node.col,node.row,node.col]);						
+					movePosList.push([j-fillNum-1,node.col,node.row,node.col]);						
 				}
 
 				//创建一个新的Node value
@@ -539,6 +739,10 @@ namespace sx{
 
 		public rotationEffect():void{			
 			egret.Tween.get(this).to({rotation:360},500);
-		}		
+		}	
+
+		public get data():Node{
+			return this._data;
+		}	
 	}
 }
