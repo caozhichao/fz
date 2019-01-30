@@ -22,6 +22,8 @@ namespace sx{
 		public static MERGE_EFFECT:number = 2;
 		//掉落
 		public static DROP:number = 3;
+
+		private _touchFlag:boolean = false;
 		public constructor() {
 			super();
 			this.init();
@@ -69,12 +71,13 @@ namespace sx{
 				// eff.rotation = agree + 90;
 			// },this);
 			this.addEventListener(egret.TouchEvent.TOUCH_BEGIN,this.onBegin,this);
-			// this.addEventListener(egret.TouchEvent.TOUCH_MOVE,this.onMove,this);
-			this.addEventListener(egret.TouchEvent.TOUCH_END,this.onEnd,this);
+			this.addEventListener(egret.TouchEvent.TOUCH_MOVE,this.onMove,this);
+			// this.addEventListener(egret.TouchEvent.TOUCH_END,this.onEnd,this);
 			eg.EventDispatcher.Instance.addEventListener(Item.ROTATION_EFFECT_PLAY_COMPLETE,this.onRotationEffectPlayComplete,this);
 		}
 
 		private onRotationEffectPlayComplete(evt:egret.Event):void{
+			//合并特效播放后，处理列的掉落
 			this.changeState();
 			let movePosList:number[][] = this._mapVo.fill();
 			this._fillMovePosList = movePosList;
@@ -127,16 +130,60 @@ namespace sx{
 			}
 		}
 
-		private onMove(evt:egret.TouchEvent):void{
-			
+		private onMove(evt:egret.TouchEvent):void{		
+			let item:Item = evt.target as Item;
+			if(item && this._beginNode && item != this._beginNode){
+				eg.log('move');
+				let a:Node = this._beginNode.data;
+				let b:Node = item.data;
+				if(a != b){
+					this._touchFlag = true;
+					let aValue:number = a.value;
+					let bValue:number = b.value;
+					//交换数据
+					this._mapVo.swap(a,b);
+					this._mapVo.toString();
+
+					let aItem:Item = this._beginNode;
+					let bItem:Item = item;
+					aItem.visible = false;
+					bItem.visible = false;
+					aItem.setData(a);
+					bItem.setData(b);
+
+					let aMoveItem:Item = new Item(new Node(a.row,a.col,aValue));
+					let bMoveItem:Item = new Item(new Node(b.row,b.col,bValue));
+					aMoveItem.x = a.col * Item.WIDTH;
+					aMoveItem.y = a.row * Item.HEIGHT;
+
+					bMoveItem.x = b.col * item.width;
+					bMoveItem.y = b.row * item.height;
+
+					this.addChild(aMoveItem);
+					this.addChild(bMoveItem);
+
+					egret.Tween.get(aMoveItem).to({x:bMoveItem.x,y:bMoveItem.y},200);
+
+					egret.Tween.get(bMoveItem).to({x:aMoveItem.x,y:aMoveItem.y},200);					
+					setTimeout(()=> {
+						this.removeChild(aMoveItem);
+						this.removeChild(bMoveItem);	
+
+						aItem.visible = true;
+						bItem.visible = true;								
+						this.find(b.row,b.col,true);			
+					}, 230);
+				}
+				this._beginNode = null;
+			}
 		}
 
 		private onBegin(evt:egret.TouchEvent):void{
-			this._beginNode = evt.target as Item;			
-		}
-
-		private upateAction():void{
-
+			// if(this._state == Number_sx2.WATTING){
+				if(!this._touchFlag){					
+					this._beginNode = evt.target as Item;			
+				}
+			// }
 		}
 
 		private onEnterFrame(evt:egret.Event):void{
@@ -166,14 +213,9 @@ namespace sx{
 					// this.fillNodeMove(movePosList);
 				} else if(this._state == Number_sx2.DROP){										
 					this._state = Number_sx2.WATTING;
-					this.find(0,0);
+					//掉落后自动消
+					this.find(2,2);//0 0
 				}			
-
-
-			// 	//补充Node
-			// 	let movePosList:number[][] = this._mapVo.fill();
-			// 	console.log(movePosList.length);
-			// 	this.fillNodeMove(movePosList);
 			}
 		}
 
@@ -199,7 +241,8 @@ namespace sx{
 			// }
 			//移动测试
 			let nodeList:Node[] = allList;
-			if(!allList ||  nodeList.length == 0){				
+			if(!allList ||  nodeList.length == 0){		
+				this._touchFlag = false;		
 				return;
 			}
 			// this._state = 1;
@@ -262,23 +305,7 @@ namespace sx{
 		}
 
 		private fillNodeMove(movePosList:number[][]):void{
-
-			movePosList.forEach(element => {
-				// let mRow:number = element[0];
-				// let mCol:number = element[1];
-				// let tRow:number = element[2];
-				// let tCol:number = element[3];
-				// let node:Node = this._mapVo.getNode(tRow,tCol);
-				// let moveItem:Item = new Item(node);
-
-				// moveItem.x = mCol * Item.WIDTH;
-				// moveItem.y = mRow * Item.HEIGHT;
-				// this.addChild(moveItem);
-				// let nodeMoveContoller:NodeMoveContoller = new NodeMoveContoller(moveItem);
-				// nodeMoveContoller.paths = [[tCol * Item.WIDTH,tRow * Item.HEIGHT]];
-				// // posArr[i] = [path[1] * Item.WIDTH,path[0] * Item.HEIGHT];
-				// this._nodeMoveList.push(nodeMoveContoller);		
-
+			movePosList.forEach(element => {				
 				let node:Node;
 				node = this._mapVo.getNode(element[2],element[3]);
 				let item:Item = this._items[node.row][node.col];
@@ -794,7 +821,7 @@ namespace sx{
 			this._data = data;
 			this._bg.graphics.clear();
 			this._bg.graphics.beginFill(Item.COLORS[this._data.value-1]);
-			this._bg.graphics.drawRoundRect(0,0,Item.WIDTH,Item.HEIGHT,10,10);
+			this._bg.graphics.drawRoundRect(2,2,Item.WIDTH-4,Item.HEIGHT-4,30,30);
 			this._bg.graphics.endFill();
 			this._tf.text = this._data.value + '';
 		}
