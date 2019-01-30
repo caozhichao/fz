@@ -12,6 +12,16 @@ namespace sx{
 		private _state:number = 0;
 		private _fillMovePosList:number[][];
 		private _beginNode:Item;		
+
+		//消除过程的4个状态
+		//等待
+		public static WATTING:number = 0;
+		//合并
+		public static MERGE:number = 1;
+		//合并特效
+		public static MERGE_EFFECT:number = 2;
+		//掉落
+		public static DROP:number = 3;
 		public constructor() {
 			super();
 			this.init();
@@ -32,85 +42,43 @@ namespace sx{
 					itemList[j] = item;
 				}
 				this._items[i] = itemList;
-			}
-
-			// let allList:Node[] = this._mapVo.find(0,3);	
-			// // for(let i:number = 0; i < allList.length;i++){
-			// // 	let list:Node[] = allList[i];
-			// // 	for(let j:number = 0;j<list.length;j++){
-			// // 		let node:Node = list[j];
-			// // 		item = this._items[node.row][node.col];
-			// // 		item.alpha = 0.5;
-			// // 	}
-			// // }
-
-			// //移动测试
-			// let nodeList:Node[] = allList;
-			// //构建AStar地图数据
-			// let mapData = [[0,0,0,0,0],[0,0,0,0,0],[0,0,0,0,0],[0,0,0,0,0],[0,0,0,0,0]];
-			// nodeList.forEach(element => {
-			// 	mapData[element.row][element.col] = element.value;
-			// });
-
-			// this._nodeMoveList = [];
-
-			// let aStar:eg.AStar = new eg.AStar();
-			// aStar.setMaps(mapData,5,5);
-
-			// let endNode:Node = this.getMoveEndNode(nodeList);
-			// let endRow:number = endNode.row;
-			// let endCol:number = endNode.col;
-			// this._endNode = endNode;
-
-			// nodeList.forEach(element => {
-			// 	let row:number = element.row;
-			// 	let col:number = element.col;
-			// 	// let row:number = 0;
-			// 	// let col:number = 0;
-
-			// 	if(row != endRow || col != endCol){
-			// 		let paths:Array<number[]> = aStar.find(row,col,endRow,endCol);
-			// 		// console.log(paths.length);
-			// 		let posArr:number[][] = [];
-			// 		for(let i:number = 0; i < paths.length;i++){
-			// 			let path:number[] = paths[i];
-			// 			posArr[i] = [path[1] * Item.WIDTH,path[0] * Item.HEIGHT];
-			// 		}
-			// 		let item:Item = this._items[row][col];
-			// 		item.visible = false;
-			// 		let moveItem:Item = new Item(item.data);
-			// 		moveItem.x = col * Item.WIDTH;
-			// 		moveItem.y = row * Item.HEIGHT;
-			// 		this.addChild(moveItem);
-			// 		let nodeMoveContoller:NodeMoveContoller = new NodeMoveContoller(moveItem);
-			// 		nodeMoveContoller.paths = posArr;
-			// 		this._nodeMoveList.push(nodeMoveContoller);		
-			// 		this._mapVo.updateNodeValue(element);							
-			// 	} 
-			// });
-
-			// this._mapVo.updateNodeValue(endNode,endNode.value+1);
-
-			// console.log(this._mapVo);
-			// this._mapVo.toString();
+			}					
 			this._nodeMoveList = [];
-
-			this.addEventListener(egret.Event.ENTER_FRAME,this.onEnterFrame,this);
-
-			// setTimeout(()=> {
-			// 	let movePosList:number[][] = this._mapVo.fill();
-			// 	console.log(movePosList.length);
-			// 	this.fillNodeMove(movePosList);
-			// }, 3000);
-
+			this.addEventListener(egret.Event.ENTER_FRAME,this.onEnterFrame,this);			
 			// this.find(0,0);
 			// eg.Config.stage.addEventListener(egret.TouchEvent.TOUCH_TAP,(evt)=>{
-			// 	this._state = 0;
-			// 	this.find(0,0);
+				// this._state = 0;
+				// this.find(0,0);			
+				// let eff:Effect1 = new Effect1();
+				// eff.x = 100;
+				// eff.y = 200;
+				// this.addChild(eff);
+				// let sRow:number = 2;
+				// let sCol:number = 2;
+				// eff.x = sCol * Item.WIDTH;
+				// eff.y = sRow * Item.HEIGHT;
+				
+				// let tRow:number = 0;
+				// let tCol:number = 0;
+
+				// let tx:number = tCol * Item.WIDTH;
+				// let ty:number = tRow * Item.HEIGHT;
+
+				// let radius:number = Math.atan2(ty - eff.y , tx - eff.x);
+				// let agree:number = radius * 180 / Math.PI;
+				// eff.rotation = agree + 90;
 			// },this);
 			this.addEventListener(egret.TouchEvent.TOUCH_BEGIN,this.onBegin,this);
 			// this.addEventListener(egret.TouchEvent.TOUCH_MOVE,this.onMove,this);
 			this.addEventListener(egret.TouchEvent.TOUCH_END,this.onEnd,this);
+			eg.EventDispatcher.Instance.addEventListener(Item.ROTATION_EFFECT_PLAY_COMPLETE,this.onRotationEffectPlayComplete,this);
+		}
+
+		private onRotationEffectPlayComplete(evt:egret.Event):void{
+			this.changeState();
+			let movePosList:number[][] = this._mapVo.fill();
+			this._fillMovePosList = movePosList;
+			this.fillNodeMove(movePosList);
 		}
 
 		private onEnd(evt:egret.TouchEvent):void{
@@ -167,13 +135,17 @@ namespace sx{
 			this._beginNode = evt.target as Item;			
 		}
 
+		private upateAction():void{
+
+		}
+
 		private onEnterFrame(evt:egret.Event):void{
 			let allMoveComplete:number = 0;
 			this._nodeMoveList.forEach(element => {
 				element.move(0);
 				if(element.moveComplete){
 					allMoveComplete++;
-					if(this._state == 2){
+					if(this._state == Number_sx2.DROP){
 						let item:Item = this._items[element.endRow][element.endCol];
 						item.visible = true;						
 					}
@@ -183,25 +155,17 @@ namespace sx{
 			if(allMoveComplete != 0 && allMoveComplete == this._nodeMoveList.length){
 				eg.log('state:' + this._state);
 				this._nodeMoveList.length = 0;	
-				if(this._state == 1){
+				if(this._state == Number_sx2.MERGE){
 					//更新合并的Node
 					let item:Item = this.getNodeItem(this._endNode.row,this._endNode.col);
 					item.rotationEffect();
 					item.setData(this._endNode);
-
 					this.changeState();
-					let movePosList:number[][] = this._mapVo.fill();
-					this._fillMovePosList = movePosList;
-					this.fillNodeMove(movePosList);
-				} else if(this._state == 2){
-					// this._fillMovePosList.forEach(element => {			
-					// 	let node:Node;
-					// 	node = this._mapVo.getNode(element[2],element[3]);
-					// 	let item:Item = this._items[node.row][node.col];
-					// 	item.visible = true;						
-					// });
-					eg.log('over');
-					this._state = 0;
+					// let movePosList:number[][] = this._mapVo.fill();
+					// this._fillMovePosList = movePosList;
+					// this.fillNodeMove(movePosList);
+				} else if(this._state == Number_sx2.DROP){										
+					this._state = Number_sx2.WATTING;
 					this.find(0,0);
 				}			
 
@@ -798,7 +762,8 @@ namespace sx{
 											0x800080,
 											0xa1488e,
 											0xc71585,
-											0xbd2158]
+											0xbd2158];
+        public static ROTATION_EFFECT_PLAY_COMPLETE:string = 'ROTATION_EFFECT_PLAY_COMPLETE';											
 		public constructor(data:Node){
 			super();
 			this._data = data;
@@ -835,11 +800,33 @@ namespace sx{
 		}
 
 		public rotationEffect():void{			
-			egret.Tween.get(this).to({rotation:360},500);
+			egret.Tween.get(this).to({rotation:360},500).call(()=>{
+				eg.EventDispatcher.Instance.dispatchEventWith(Item.ROTATION_EFFECT_PLAY_COMPLETE);
+			},this);
 		}	
 
 		public get data():Node{
 			return this._data;
 		}	
+	}
+
+	class Effect1 extends egret.Sprite{
+		private _icon1:egret.Bitmap;
+		private _icon2:egret.Bitmap;
+		constructor(){
+			super();
+			this.initUI();
+		}
+
+		public initUI():void{
+			this._icon1 = new egret.Bitmap(RES.getRes('img_game_c9_png'));
+			this._icon2 = new egret.Bitmap(RES.getRes('img_game_d0_png'));
+			this.addChild(this._icon1);
+			this.addChild(this._icon2);
+			this._icon1.x = -50;
+			this._icon1.y = -181;
+			this._icon2.x = -56;
+			this._icon2.y = -264;
+		}
 	}
 }

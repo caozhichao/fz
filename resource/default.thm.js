@@ -266,7 +266,7 @@ window.skins={};
 		
 		this.height = 1206;
 		this.width = 750;
-		this.elementsContent = [this.btn_i()];
+		this.elementsContent = [this.btn_i(),this._Group1_i()];
 	}
 	var _proto = Test1Skin.prototype;
 
@@ -276,6 +276,33 @@ window.skins={};
 		t.horizontalCenter = 0;
 		t.label = "打开界面2";
 		t.verticalCenter = 0;
+		return t;
+	};
+	_proto._Group1_i = function () {
+		var t = new eui.Group();
+		t.height = 50;
+		t.width = 50;
+		t.x = 204;
+		t.y = 349;
+		t.elementsContent = [this._Image1_i(),this._Image2_i()];
+		return t;
+	};
+	_proto._Image1_i = function () {
+		var t = new eui.Image();
+		t.scaleX = 1;
+		t.scaleY = 1;
+		t.source = "img_game_c9_png";
+		t.x = -50;
+		t.y = -181;
+		return t;
+	};
+	_proto._Image2_i = function () {
+		var t = new eui.Image();
+		t.scaleX = 1;
+		t.scaleY = 1;
+		t.source = "img_game_d0_png";
+		t.x = -56;
+		t.y = -264;
 		return t;
 	};
 	return Test1Skin;

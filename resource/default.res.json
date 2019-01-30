@@ -1,7 +1,7 @@
 {
 	"groups": [
 		{
-			"keys": "bg_png",
+			"keys": "bg_png,img_game_c9_png,img_game_d0_png",
 			"name": "preload"
 		}
 	],
@@ -242,6 +242,16 @@
 			"type": "sheet",
 			"name": "test_json",
 			"subkeys": "btn_code,loop_bg"
+		},
+		{
+			"url": "assets/game/images/img_game_c9.png",
+			"type": "image",
+			"name": "img_game_c9_png"
+		},
+		{
+			"url": "assets/game/images/img_game_d0.png",
+			"type": "image",
+			"name": "img_game_d0_png"
 		}
 	]
 }
