@@ -568,6 +568,7 @@ namespace sx{
 				if(type == 1){
 					if(findList.length >= 3){
 						allList.push(findList);
+						break;
 					}
 					sNode = node;				
 					findList = [];
@@ -586,7 +587,7 @@ namespace sx{
 				this._closeList.push(node);				
 			}
 			//最后一组数据
-			if(findList.length >= 3){
+			if(allList.length == 0 && findList.length >= 3){
 				allList.push(findList);
 			}
 			eg.log('time:' + (egret.getTimer() - t1) + '|' + allList.length);			
