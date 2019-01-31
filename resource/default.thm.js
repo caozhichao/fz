@@ -68,6 +68,27 @@ window.skins={};
 		return t;
 	};
 	return LoadingUISkin;
+})(eui.Skin);generateEUI.paths['resource/assets/game/skins/NumberSXSkin.exml'] = window.skins.NumberSXSkin = (function (_super) {
+	__extends(NumberSXSkin, _super);
+	function NumberSXSkin() {
+		_super.call(this);
+		this.skinParts = ["_btn_tips"];
+		
+		this.height = 1206;
+		this.width = 750;
+		this.elementsContent = [this._btn_tips_i()];
+	}
+	var _proto = NumberSXSkin.prototype;
+
+	_proto._btn_tips_i = function () {
+		var t = new eui.Button();
+		this._btn_tips = t;
+		t.horizontalCenter = 0;
+		t.label = "提示";
+		t.y = 934;
+		return t;
+	};
+	return NumberSXSkin;
 })(eui.Skin);generateEUI.paths['resource/assets/game/skins/OrientationModeTestSkin.exml'] = window.skins.OrientationModeTestSkin = (function (_super) {
 	__extends(OrientationModeTestSkin, _super);
 	function OrientationModeTestSkin() {

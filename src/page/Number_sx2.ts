@@ -88,6 +88,103 @@ namespace sx{
 			this.fillNodeMove(movePosList);
 		}
 
+		/**
+		 * 消除节点提示
+		 * 遍历所有的行列数据，找改节点的4个方向的数据，与之交换，作为地图数据，进行查找
+		 */
+		public nodeTips():void{
+
+			let t1:number = egret.getTimer();
+
+			let flag = false;
+
+			let mapData:number[][] = this._mapVo.mapData;
+
+			let mapVo:MapVo = new MapVo();
+			mapVo.initMap(mapData);
+
+			let a:Node;
+			let b:Node;
+
+			let row:number;
+			let col:number;
+			let sRow:number;
+			let sCol:number;
+			let sCount:number = 0;
+			for(let i:number = 0;i < MapVo.ROW;i++){
+				row = i;
+				for(let j:number=0;j < MapVo.COL;j++){
+					col = j;
+					a = mapVo.getNode(row,col);
+					//test 
+					// row = 2;
+					// col = 3;
+
+					let lRow:number = row;
+					let lCol:number = col-1;
+					let rRow:number = row;
+					let rCol:number = col+1;
+					let tRow:number = row - 1;
+					let tCol:number = col;
+					let bRow:number = row + 1; 
+					let bCol:number = col;
+
+					let list4:number[][] = [[lRow,lCol],[rRow,rCol],[tRow,tCol],[bRow,bCol]];
+
+					// list4.forEach(element => {
+						for(let k:number = 0; k < list4.length;k++){
+							let element:number[] = list4[k];
+							let cRow:number = element[0];
+							let cCol:number = element[1];
+							
+							if(cRow >= 0 && cRow < MapVo.ROW && cCol >= 0 && cCol < MapVo.COL){
+								b = mapVo.getNode(cRow,cCol);
+								sCount++;
+								//交换数据
+								// let tempValue = mapData[row][col];
+								// mapData[row][col] = mapData[cRow][cCol];
+								// mapData[cRow][cCol] = tempValue;
+								mapVo.swap(a,b);
+								// mapVo.initMap(mapData);
+								let sNodeList:Node[] = mapVo.find(cRow,cCol,true);
+								if(sNodeList){	
+									sRow = cRow;
+									sCol = cCol;
+
+									flag = true;							
+									break;
+								} else {
+									//数据还原
+									mapVo.swap(a,b);
+									// tempValue = mapData[row][col];
+									// mapData[row][col] = mapData[cRow][cCol];
+									// mapData[cRow][cCol] = tempValue;
+								}
+							}
+
+						}
+
+					// });
+					
+					if(flag){
+						break;
+					}
+
+				}
+
+				if(flag){
+					break;
+				}
+
+			}
+
+			eg.log('time:' + (egret.getTimer() - t1) + ' sCount:' + sCount + ' flag:' + flag + ' row:' + row + ' col:' + col + ' sRow:' + sRow + ' sCol:' + sCol);
+
+			//提示
+			let item:Item = this._items[row][col];
+			egret.Tween.get(item).to({rotation:360},500);
+		}
+
 	
 		// private onEnd(evt:egret.TouchEvent):void{
 		// 	this._beginNode = null;	
@@ -442,7 +539,7 @@ namespace sx{
 			this.initMap();
 		}
 
-		public initMap():void{
+		public initMap(mapData:number[][]=null):void{
 			// this._openList = [];
 			// this._closeList = [];			
 			this._data = [];
@@ -472,22 +569,25 @@ namespace sx{
 					[6,2,7,4,2],
 					[3,6,3,3,1],
 					[5,3,4,6,1]]
+			if(mapData == null){
+				mapData = test;
+			}
 			
 
 			for(let i:number = 0; i < MapVo.ROW; i++){
 				let row:Node[] = [];
 				// console.log('\n');
-				let values:string = '';
+				// let values:string = '';
 				for(let j:number = 0; j < MapVo.COL;j++){
 					let value:number = 1 + Math.floor(Math.random() * 5);
-					value = test[i][j];
+					value = mapData[i][j];
 					row[j] = new Node(i,j,value);
 					// row[j] = new Node(i,j,test[i][j]);
 					// console.log(value + ',');
-					values += value + ',';
+					// values += value + ',';
 				}
 				this._data[i] = row;
-				eg.log(values);
+				// eg.log(values);
 			}
 		}
 
@@ -560,7 +660,7 @@ namespace sx{
 			if(allList.length == 0 && findList.length >= 3){
 				allList.push(findList);
 			}			
-			eg.log('time:' + (egret.getTimer() - t1) + ' sCount:' + sCount + ' sNode:' + row + '|' + col + ' len:' + allList.length);		
+			// eg.log('time:' + (egret.getTimer() - t1) + ' sCount:' + sCount + ' sNode:' + row + '|' + col + ' len:' + allList.length);		
 			return allList[0];
 		}
 
@@ -700,10 +800,26 @@ namespace sx{
 		 * 交换数据
 		 */
 		public swap(a:Node,b:Node):void{
+			//交换对应的值
 			let aValue:number = a.value;
 			let bValue:number = b.value;
 			this._data[a.row][a.col].value = bValue;
 			this._data[b.row][b.col].value = aValue;			
+		}
+
+		public get mapData():number[][]{
+			let data:number[][] = [];
+			let node:Node;
+			let rowList:number[];
+			for(let i:number = 0; i < MapVo.ROW; i++){	
+				rowList = [];							
+				for(let j:number = 0; j < MapVo.COL;j++){
+					node = this._data[i][j];					
+					rowList[j] = node.value;
+				}	
+				data[i] = rowList;			
+			}
+			return data;
 		}
 
 		public toString():void{

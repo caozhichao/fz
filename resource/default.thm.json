@@ -17,6 +17,7 @@
 	"autoGenerateExmlsList": true,
 	"exmls": [
 		"resource/assets/game/skins/LoadingUISkin.exml",
+		"resource/assets/game/skins/NumberSXSkin.exml",
 		"resource/assets/game/skins/OrientationModeTestSkin.exml",
 		"resource/assets/game/skins/PageTipsSkin.exml",
 		"resource/assets/game/skins/ParabolaTestSkin.exml",
