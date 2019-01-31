@@ -88,61 +88,32 @@ namespace sx{
 			this.fillNodeMove(movePosList);
 		}
 
-		/*
-		private onEnd(evt:egret.TouchEvent):void{
-			let item:Item = evt.target as Item;
-			if(item && this._beginNode){
-				
-				let a:Node = this._beginNode.data;
-				let b:Node = item.data;
-				if(a != b){
-					let aValue:number = a.value;
-					let bValue:number = b.value;
-					//交换数据
-					this._mapVo.swap(a,b);
-					this._mapVo.toString();
-
-					let aItem:Item = this._beginNode;
-					let bItem:Item = item;
-					aItem.visible = false;
-					bItem.visible = false;
-					aItem.setData(a);
-					bItem.setData(b);
-
-					let aMoveItem:Item = new Item(new Node(a.row,a.col,aValue));
-					let bMoveItem:Item = new Item(new Node(b.row,b.col,bValue));
-					aMoveItem.x = a.col * Item.WIDTH;
-					aMoveItem.y = a.row * Item.HEIGHT;
-
-					bMoveItem.x = b.col * item.width;
-					bMoveItem.y = b.row * item.height;
-
-					this.addChild(aMoveItem);
-					this.addChild(bMoveItem);
-
-					egret.Tween.get(aMoveItem).to({x:bMoveItem.x,y:bMoveItem.y},200);
-
-					egret.Tween.get(bMoveItem).to({x:aMoveItem.x,y:aMoveItem.y},200);
-					setTimeout(()=> {
-						this.removeChild(aMoveItem);
-						this.removeChild(bMoveItem);	
-
-						aItem.visible = true;
-						bItem.visible = true;								
-						this.find(b.row,b.col,true);			
-					}, 230);
+	
+		// private onEnd(evt:egret.TouchEvent):void{
+		// 	this._beginNode = null;	
+		// }
+		
+		private isEnableSwap(a:Node,b:Node):boolean{
+			let enable:boolean = false;
+			//验证是否是 上下左右中的一个		
+			let arr:number[][] = [a.left,a.right,a.top,a.bottom];
+			for(let i:number=0; i < arr.length; i++){
+				let pos:number[] = arr[i];
+				if(pos[0] == b.row && pos[1] == b.col){
+					enable = true;
+					break;
 				}
-			}
+			}			
+			return enable;
 		}
-		*/
 
 		private onMove(evt:egret.TouchEvent):void{		
-			let item:Item = evt.target as Item;
+			let item:Item = evt.target as Item;			
 			if(item && this._beginNode && item != this._beginNode){
 				eg.log('move');
 				let a:Node = this._beginNode.data;
 				let b:Node = item.data;
-				if(a != b){
+				if(this.isEnableSwap(a,b)){
 					this._touchFlag = true;
 					let aValue:number = a.value;
 					let bValue:number = b.value;
@@ -184,12 +155,11 @@ namespace sx{
 			}
 		}
 
-		private onBegin(evt:egret.TouchEvent):void{
-			// if(this._state == Number_sx2.WATTING){
-				if(!this._touchFlag){					
-					this._beginNode = evt.target as Item;			
-				}
-			// }
+		private onBegin(evt:egret.TouchEvent):void{			
+			eg.log('_touchFlag:' + this._touchFlag);
+			if(!this._touchFlag){					
+				this._beginNode = evt.target as Item;			
+			}			
 		}
 
 		private onEnterFrame(evt:egret.Event):void{
@@ -206,7 +176,7 @@ namespace sx{
 			});
 
 			if(allMoveComplete != 0 && allMoveComplete == this._nodeMoveList.length){
-				eg.log('state:' + this._state);
+				// eg.log('state:' + this._state);
 				this._nodeMoveList.length = 0;	
 				if(this._state == Number_sx2.MERGE){
 					//更新合并的Node
@@ -230,6 +200,7 @@ namespace sx{
 			// 	this._state = 1;
 			// } else if(this._st)
 			this._state++;
+			eg.log('_state: ' + this._state);
 		}
 
 		/**
@@ -250,7 +221,7 @@ namespace sx{
 			}			
 			//移动测试
 			let nodeList:Node[] = allList;
-			if(!allList ||  nodeList.length == 0){		
+			if(!allList){ //没找到连续的节点		
 				this._touchFlag = false;		
 				return;
 			}			
@@ -759,6 +730,20 @@ namespace sx{
 			this.col = col;
 			this.value = value;
 		}
+
+		public get left():number[]{
+			return [this.row,this.col-1];
+		}
+		public get right():number[]{
+			return [this.row,this.col+1];
+		}
+		public get top():number[]{
+			return [this.row-1,this.col];
+		}
+		public get bottom():number[]{
+			return [this.row+1,this.col];
+		}
+
 		public toString():string{
 			return '[' + this. row + ']' + '[' + this.col + ']' + '=' + this.value;
 		}
