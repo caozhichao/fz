@@ -24,11 +24,15 @@ namespace sx{
 		public static DROP:number = 3;
 
 		private _touchFlag:boolean = false;
+		private _aStar:eg.AStar;
 		public constructor() {
 			super();
 			this.init();
 		}
 		public init():void{
+
+			this._aStar = new eg.AStar();
+
 			this._mapVo = new MapVo();		
 			// this._mapVo.find(0,0);	
 			this._items = [];
@@ -84,6 +88,7 @@ namespace sx{
 			this.fillNodeMove(movePosList);
 		}
 
+		/*
 		private onEnd(evt:egret.TouchEvent):void{
 			let item:Item = evt.target as Item;
 			if(item && this._beginNode){
@@ -129,6 +134,7 @@ namespace sx{
 				}
 			}
 		}
+		*/
 
 		private onMove(evt:egret.TouchEvent):void{		
 			let item:Item = evt.target as Item;
@@ -171,7 +177,7 @@ namespace sx{
 
 						aItem.visible = true;
 						bItem.visible = true;								
-						this.find(b.row,b.col,true);			
+						this.find([[b.row,b.col],[a.row,a.col]],true);			
 					}, 230);
 				}
 				this._beginNode = null;
@@ -214,7 +220,7 @@ namespace sx{
 				} else if(this._state == Number_sx2.DROP){										
 					this._state = Number_sx2.WATTING;
 					//掉落后自动消
-					this.find(2,2);//0 0
+					this.find([[2,2]]);//0 0
 				}			
 			}
 		}
@@ -229,25 +235,26 @@ namespace sx{
 		/**
 		 * @param flag 是否是指定的终点
 		 */
-		private find(row:number,col:number,flag:boolean=false):void{
-			let allList:Node[] = this._mapVo.find(row,col);	
-			// for(let i:number = 0; i < allList.length;i++){
-			// 	let list:Node[] = allList[i];
-			// 	for(let j:number = 0;j<list.length;j++){
-			// 		let node:Node = list[j];
-			// 		item = this._items[node.row][node.col];
-			// 		item.alpha = 0.5;
-			// 	}
-			// }
+		// private find(row:number,col:number,flag:boolean=false):void{
+		private find(sArr:number[][],flag:boolean=false):void{
+			let row:number;
+			let col:number;
+			let allList:Node[];
+			for(let i:number=0; i < sArr.length;i++){
+				row = sArr[i][0];
+				col = sArr[i][1];				
+				allList = this._mapVo.find(row,col,flag);
+				if(allList){
+					break;
+				}			
+			}			
 			//移动测试
 			let nodeList:Node[] = allList;
 			if(!allList ||  nodeList.length == 0){		
 				this._touchFlag = false;		
 				return;
-			}
-			// this._state = 1;
+			}			
 			this.changeState();
-
 			//构建AStar地图数据
 			let mapData = [[0,0,0,0,0],[0,0,0,0,0],[0,0,0,0,0],[0,0,0,0,0],[0,0,0,0,0]];			
 			let has:boolean = false;
@@ -261,7 +268,8 @@ namespace sx{
 				}
 			});			
 
-			let aStar:eg.AStar = new eg.AStar();
+			// let aStar:eg.AStar = new eg.AStar();
+			let aStar:eg.AStar = this._aStar;
 			aStar.setMaps(mapData,5,5);
 
 			let endNode:Node;
@@ -270,37 +278,21 @@ namespace sx{
 			} else {
 				endNode = this.getMoveEndNode(nodeList);
 			}
+
 			let endRow:number = endNode.row;
 			let endCol:number = endNode.col;
 			this._endNode = endNode;
 
 			nodeList.forEach(element => {
 				let row:number = element.row;
-				let col:number = element.col;
-				// let row:number = 0;
-				// let col:number = 0;
-
+				let col:number = element.col;				
 				if(row != endRow || col != endCol){
-					let paths:Array<number[]> = aStar.find(row,col,endRow,endCol);
-					// console.log(paths.length);
-					// let posArr:number[][] = [];
-					// for(let i:number = 0; i < paths.length;i++){
-					// 	let path:number[] = paths[i];
-					// 	posArr[i] = [path[1] * Item.WIDTH,path[0] * Item.HEIGHT];
-					// }
-					// let item:Item = this._items[row][col];
-					// item.visible = false;
-					// let moveItem:Item = new Item(item.data);
-					// moveItem.x = col * Item.WIDTH;
-					// moveItem.y = row * Item.HEIGHT;
-					// this.addChild(moveItem);
-					// let nodeMoveContoller:NodeMoveContoller = new NodeMoveContoller(moveItem);
-					// nodeMoveContoller.paths = posArr;
-					// this._nodeMoveList.push(nodeMoveContoller);		
+					let paths:Array<number[]> = aStar.find(row,col,endRow,endCol);						
 					this.nodeMove(element,paths);
-					this._mapVo.updateNodeValue(element);							
+					this._mapVo.updateNodeValue(element,0);							
 				} 
 			});
+			//合并后的点+1
 			this._mapVo.updateNodeValue(endNode,endNode.value+1);
 		}
 
@@ -425,7 +417,7 @@ namespace sx{
 				this._nextY = pos[1];
 				this.moveTo(pos);
 			} else {
-				eg.log('移动结束');
+				// eg.log('移动结束');
 				this._isMoveComplete = true;
 				this._node.parent.removeChild(this._node);
 			}
@@ -440,7 +432,7 @@ namespace sx{
 			let tY:number = pos[0] * Item.HEIGHT;
 			dis = Math.sqrt( (tY - curY) * (tY - curY) + (tX - curX) * (tX - curX));		
 			this._moveCount = (dis / this._speed) | 0;
-			eg.log('dis: ' + dis + '_moveCount: ' + this._moveCount);
+			// eg.log('dis: ' + dis + '_moveCount: ' + this._moveCount);
 			let radian:number = Math.atan2(tY - curY,tX - curX);
 			this._moveX = Math.cos(radian) * this._speed;
 			this._moveY = Math.sin(radian) * this._speed;
@@ -541,7 +533,7 @@ namespace sx{
 		 * @param col  列坐标
 		 * @return 返回当前查找到的所有连续列表
 		 */
-		public find(row:number=0,col:number=0):Node[]{
+		public find(row:number=0,col:number=0,flag:boolean=false):Node[]{
 			this._openList = [];
 			this._closeList = [];		
 			this._priorityOpenList = [];
@@ -558,8 +550,11 @@ namespace sx{
 			let findList:Node[] = [];
 			let t1:number = egret.getTimer();
 			let type:number;
+			//统计查找的次数
+			let sCount:number = 0;
 			// while(node = (this._priorityOpenList.shift() || this._openList.shift())){
 			while([type,node] = this.getOpenNode()){
+				sCount++;
 				if(node == null){
 					break;
 				}
@@ -567,11 +562,15 @@ namespace sx{
 				// if(sNode.value != node.value){
 				if(type == 1){
 					if(findList.length >= 3){
-						allList.push(findList);
-						break;
+						allList.push(findList);						
 					}
 					sNode = node;				
 					findList = [];
+					if(flag || allList.length > 0){
+						//按指定点查找后，或 查找到联系的节点  结束查找
+						//eg.log('sCount:' + sCount + ' sNode:' + row + '|' + col);
+						break;
+					}
 					// this._openList.length = 0;					
 					// break;
 				} 				
@@ -589,8 +588,8 @@ namespace sx{
 			//最后一组数据
 			if(allList.length == 0 && findList.length >= 3){
 				allList.push(findList);
-			}
-			eg.log('time:' + (egret.getTimer() - t1) + '|' + allList.length);			
+			}			
+			eg.log('time:' + (egret.getTimer() - t1) + ' sCount:' + sCount + ' sNode:' + row + '|' + col + ' len:' + allList.length);		
 			return allList[0];
 		}
 
@@ -737,7 +736,7 @@ namespace sx{
 		}
 
 		public toString():void{
-			let values:string = '';
+			let values:string = '\n';
 			for(let i:number = 0; i < MapVo.ROW; i++){								
 				for(let j:number = 0; j < MapVo.COL;j++){
 					let node:Node = this._data[i][j];
