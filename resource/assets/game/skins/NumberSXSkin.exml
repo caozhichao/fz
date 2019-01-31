@@ -1,4 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
 <e:Skin class="skins.NumberSXSkin" width="750" height="1206" xmlns:e="http://ns.egret.com/eui" xmlns:w="http://ns.egret.com/wing">
-	<e:Button id="_btn_tips" label="提示" y="934" horizontalCenter="0"/>
+	<e:Button id="_btn_tips" label="提示" y="882" x="226"/>
+	<e:Button id="_btn_reset" label="重置" x="430" y="882"/>
 </e:Skin>

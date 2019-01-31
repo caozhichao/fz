@@ -72,20 +72,28 @@ window.skins={};
 	__extends(NumberSXSkin, _super);
 	function NumberSXSkin() {
 		_super.call(this);
-		this.skinParts = ["_btn_tips"];
+		this.skinParts = ["_btn_tips","_btn_reset"];
 		
 		this.height = 1206;
 		this.width = 750;
-		this.elementsContent = [this._btn_tips_i()];
+		this.elementsContent = [this._btn_tips_i(),this._btn_reset_i()];
 	}
 	var _proto = NumberSXSkin.prototype;
 
 	_proto._btn_tips_i = function () {
 		var t = new eui.Button();
 		this._btn_tips = t;
-		t.horizontalCenter = 0;
 		t.label = "提示";
-		t.y = 934;
+		t.x = 226;
+		t.y = 882;
+		return t;
+	};
+	_proto._btn_reset_i = function () {
+		var t = new eui.Button();
+		this._btn_reset = t;
+		t.label = "重置";
+		t.x = 430;
+		t.y = 882;
 		return t;
 	};
 	return NumberSXSkin;

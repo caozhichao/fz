@@ -33,7 +33,10 @@ namespace sx{
 
 			this._aStar = new eg.AStar();
 
-			this._mapVo = new MapVo();		
+			this._mapVo = new MapVo();	
+			setTimeout(()=> {
+				this.find([[2,2]],false);			
+			}, 1000);	
 			// this._mapVo.find(0,0);	
 			this._items = [];
 			let itemList:Item[];
@@ -86,6 +89,21 @@ namespace sx{
 			let movePosList:number[][] = this._mapVo.fill();
 			this._fillMovePosList = movePosList;
 			this.fillNodeMove(movePosList);
+		}
+
+		public reset():void{
+			this._mapVo.initMap();
+			let item:Item;
+			for(let i:number = 0; i < MapVo.ROW;i++){
+				for(let j:number = 0; j < MapVo.COL; j++){
+					item = this._items[i][j];
+					item.setData(this._mapVo.getNode(i,j));
+				}
+			}
+			this._state == Number_sx2.WATTING;
+			setTimeout(()=> {
+				this.find([[2,2]],false);			
+			}, 1000);
 		}
 
 		/**
@@ -543,35 +561,35 @@ namespace sx{
 			// this._openList = [];
 			// this._closeList = [];			
 			this._data = [];
-			let test = [[1,2,3,4,5],[1,2,3,4,5],[1,2,3,4,5],[1,2,3,4,5],[1,2,3,4,5]];
-			test = [[4,2,5,2,1],     
-					[2,1,2,2,2],     
-					[3,1,1,3,3],
-					[2,2,1,3,1],
-					[3,2,1,5,4]]
-			test = [[3,3,3,2,3],     
-					[2,2,2,2,4],     
-					[4,1,2,4,4],     
-					[1,2,2,4,3],     
-					[4,3,5,3,4]]
-			test = [[3,2,3,4,3],
-					[3,5,2,1,4],
-					[4,3,3,4,4],
-					[1,1,3,4,3],
-					[4,3,5,3,4]];
-			test = [[2,3,1,4,3],
-					[1,5,5,1,3],
-					[4,6,3,1,2],
-					[1,1,2,5,4],
-					[4,3,5,3,4]];
-			test = [[3,5,4,4,2],
-					[2,3,6,1,6],
-					[6,2,7,4,2],
-					[3,6,3,3,1],
-					[5,3,4,6,1]]
-			if(mapData == null){
-				mapData = test;
-			}
+			// let test = [[1,2,3,4,5],[1,2,3,4,5],[1,2,3,4,5],[1,2,3,4,5],[1,2,3,4,5]];
+			// test = [[4,2,5,2,1],     
+			// 		[2,1,2,2,2],     
+			// 		[3,1,1,3,3],
+			// 		[2,2,1,3,1],
+			// 		[3,2,1,5,4]]
+			// test = [[3,3,3,2,3],     
+			// 		[2,2,2,2,4],     
+			// 		[4,1,2,4,4],     
+			// 		[1,2,2,4,3],     
+			// 		[4,3,5,3,4]]
+			// test = [[3,2,3,4,3],
+			// 		[3,5,2,1,4],
+			// 		[4,3,3,4,4],
+			// 		[1,1,3,4,3],
+			// 		[4,3,5,3,4]];
+			// test = [[2,3,1,4,3],
+			// 		[1,5,5,1,3],
+			// 		[4,6,3,1,2],
+			// 		[1,1,2,5,4],
+			// 		[4,3,5,3,4]];
+			// test = [[3,5,4,4,2],
+			// 		[2,3,6,1,6],
+			// 		[6,2,7,4,2],
+			// 		[3,6,3,3,1],
+			// 		[5,3,4,6,1]]
+			// if(mapData == null){
+			// 	mapData = test;
+			// }
 			
 
 			for(let i:number = 0; i < MapVo.ROW; i++){
@@ -580,7 +598,9 @@ namespace sx{
 				// let values:string = '';
 				for(let j:number = 0; j < MapVo.COL;j++){
 					let value:number = 1 + Math.floor(Math.random() * 5);
-					value = mapData[i][j];
+					if(mapData){
+						value = mapData[i][j];
+					}
 					row[j] = new Node(i,j,value);
 					// row[j] = new Node(i,j,test[i][j]);
 					// console.log(value + ',');
