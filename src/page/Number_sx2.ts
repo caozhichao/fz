@@ -31,9 +31,33 @@ namespace sx{
 		}
 		public init():void{
 
+			
+			egret.lifecycle.onPause = () => {
+				// egret.ticker.pause();
+				eg.log('onPause');
+			}
+
+			egret.lifecycle.onResume = () => {
+				// egret.ticker.resume();
+				eg.log('onResume');
+			}	
+
 			this._aStar = new eg.AStar();
 
 			this._mapVo = new MapVo();	
+			let d:number[][];
+			d = [[4,1,5,2,1],
+				[1,3,4,3,5],
+				[2,1,5,2,4],
+				[2,3,2,4,3],
+				[4,2,5,4,4]];
+			// d = [[1,1,1,1,1],
+			// 	[1,1,1,1,1],
+			// 	[1,1,1,1,1],
+			// 	[1,1,1,1,1],
+			// 	[1,1,1,1,1]];
+
+			this._mapVo.initMap(d);
 			setTimeout(()=> {
 				this.find([[2,2]],false);			
 			}, 1000);	
@@ -92,6 +116,7 @@ namespace sx{
 		}
 
 		public reset():void{
+			eg.log('-------------------reset---------------------');
 			this._mapVo.initMap();
 			let item:Item;
 			for(let i:number = 0; i < MapVo.ROW;i++){
@@ -101,9 +126,9 @@ namespace sx{
 				}
 			}
 			this._state == Number_sx2.WATTING;
-			setTimeout(()=> {
-				this.find([[2,2]],false);			
-			}, 1000);
+			// setTimeout(()=> {
+			this.find([[2,2]],false);			
+			// }, 1000);
 		}
 
 		/**
@@ -149,40 +174,32 @@ namespace sx{
 
 					let list4:number[][] = [[lRow,lCol],[rRow,rCol],[tRow,tCol],[bRow,bCol]];
 
-					// list4.forEach(element => {
-						for(let k:number = 0; k < list4.length;k++){
-							let element:number[] = list4[k];
-							let cRow:number = element[0];
-							let cCol:number = element[1];
-							
-							if(cRow >= 0 && cRow < MapVo.ROW && cCol >= 0 && cCol < MapVo.COL){
-								b = mapVo.getNode(cRow,cCol);
-								sCount++;
-								//交换数据
-								// let tempValue = mapData[row][col];
-								// mapData[row][col] = mapData[cRow][cCol];
-								// mapData[cRow][cCol] = tempValue;
-								mapVo.swap(a,b);
-								// mapVo.initMap(mapData);
-								let sNodeList:Node[] = mapVo.find(cRow,cCol,true);
-								if(sNodeList){	
-									sRow = cRow;
-									sCol = cCol;
-
-									flag = true;							
-									break;
-								} else {
-									//数据还原
-									mapVo.swap(a,b);
-									// tempValue = mapData[row][col];
-									// mapData[row][col] = mapData[cRow][cCol];
-									// mapData[cRow][cCol] = tempValue;
-								}
+					
+					for(let k:number = 0; k < list4.length;k++){
+						let element:number[] = list4[k];
+						let cRow:number = element[0];
+						let cCol:number = element[1];
+						
+						if(cRow >= 0 && cRow < MapVo.ROW && cCol >= 0 && cCol < MapVo.COL){
+							b = mapVo.getNode(cRow,cCol);
+							sCount++;
+							//交换数据								
+							mapVo.swap(a,b);								
+							let sNodeList:Node[] = mapVo.find(cRow,cCol,true);
+							if(sNodeList){	
+								sRow = cRow;
+								sCol = cCol;
+								flag = true;							
+								break;
+							} else {
+								//数据还原
+								mapVo.swap(a,b);									
 							}
-
 						}
 
-					// });
+					}
+
+					
 					
 					if(flag){
 						break;
@@ -272,7 +289,7 @@ namespace sx{
 
 		private onBegin(evt:egret.TouchEvent):void{			
 			eg.log('_touchFlag:' + this._touchFlag);
-			if(!this._touchFlag){					
+			if(!this._touchFlag && this._state == Number_sx2.WATTING){					
 				this._beginNode = evt.target as Item;			
 			}			
 		}
@@ -298,10 +315,7 @@ namespace sx{
 					let item:Item = this.getNodeItem(this._endNode.row,this._endNode.col);
 					item.rotationEffect();
 					item.setData(this._endNode);
-					this.changeState();
-					// let movePosList:number[][] = this._mapVo.fill();
-					// this._fillMovePosList = movePosList;
-					// this.fillNodeMove(movePosList);
+					this.changeState();					
 				} else if(this._state == Number_sx2.DROP){										
 					this._state = Number_sx2.WATTING;
 					//掉落后自动消
@@ -339,7 +353,7 @@ namespace sx{
 			if(!allList){ //没找到连续的节点		
 				this._touchFlag = false;		
 				return;
-			}			
+			}					
 			this.changeState();
 			//构建AStar地图数据
 			let mapData = [[0,0,0,0,0],[0,0,0,0,0],[0,0,0,0,0],[0,0,0,0,0],[0,0,0,0,0]];			
@@ -446,6 +460,12 @@ namespace sx{
 			});
 			return node;
 		}
+
+		public get state():number{
+			return this._state;
+		}
+		// public get 
+
 	}
 
 	class NodeMoveContoller{
@@ -554,7 +574,7 @@ namespace sx{
 		//已查关闭列表
 		private _closeList:Node[];
 		public constructor(){		
-			this.initMap();
+			// this.initMap();
 		}
 
 		public initMap(mapData:number[][]=null):void{
@@ -598,6 +618,7 @@ namespace sx{
 				// let values:string = '';
 				for(let j:number = 0; j < MapVo.COL;j++){
 					let value:number = 1 + Math.floor(Math.random() * 5);
+					// let value:number = 1 + Math.floor(Math.random() * 2);
 					if(mapData){
 						value = mapData[i][j];
 					}
@@ -609,6 +630,8 @@ namespace sx{
 				this._data[i] = row;
 				// eg.log(values);
 			}
+			this.toString();
+
 		}
 
 		/**
@@ -680,7 +703,7 @@ namespace sx{
 			if(allList.length == 0 && findList.length >= 3){
 				allList.push(findList);
 			}			
-			// eg.log('time:' + (egret.getTimer() - t1) + ' sCount:' + sCount + ' sNode:' + row + '|' + col + ' len:' + allList.length);		
+			eg.log('time:' + (egret.getTimer() - t1) + ' sCount:' + sCount + ' sNode:' + row + '|' + col + ' len:' + allList.length);		
 			return allList[0];
 		}
 
@@ -791,6 +814,7 @@ namespace sx{
 				//从上面补充 fillNum 个
 				for(let j:number = fillNum; j > 0;j--){
 					let value:number = 1 + Math.floor(Math.random() * 5);
+					// let value:number = 1 + Math.floor(Math.random() * 2);
 					node = new Node(j-1,i,value);
 					this._data[node.row][node.col] = node;
 					movePosList.push([j-fillNum-1,node.col,node.row,node.col]);						
@@ -949,6 +973,7 @@ namespace sx{
 
 		public rotationEffect():void{			
 			egret.Tween.get(this).to({rotation:360},500).call(()=>{
+				eg.log('rotationEffect:' + egret.getTimer());
 				eg.EventDispatcher.Instance.dispatchEventWith(Item.ROTATION_EFFECT_PLAY_COMPLETE);
 			},this);
 		}	
