@@ -1,8 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
-<e:Skin class="skins.Test1Skin" width="750" height="1206" xmlns:e="http://ns.egret.com/eui" xmlns:w="http://ns.egret.com/wing">
+<e:Skin class="skins.Test1Skin" width="750" height="1206" xmlns:e="http://ns.egret.com/eui" xmlns:w="http://ns.egret.com/wing" xmlns:eg="eg.*">
 	<e:Button id="btn" label="打开界面2" horizontalCenter="0" verticalCenter="0"/>
 	<e:Group x="204" y="349" width="50" height="50">
 		<e:Image source="img_game_c9_png" x="-50" y="-181" scaleX="1" scaleY="1"/>
 		<e:Image source="img_game_d0_png" x="-56" y="-264" scaleX="1" scaleY="1"/>
 	</e:Group>
+	<eg:GImageButton x="293" y="1031" source="tap_rank_3_png" pixelHitTest="true"/>
 </e:Skin>

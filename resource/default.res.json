@@ -1,7 +1,7 @@
 {
 	"groups": [
 		{
-			"keys": "bg_png,img_game_c9_png,img_game_d0_png",
+			"keys": "bg_png,img_game_c9_png,img_game_d0_png,red_png,tap_rank_3_png",
 			"name": "preload"
 		}
 	],
@@ -252,6 +252,16 @@
 			"url": "assets/game/images/img_game_d0.png",
 			"type": "image",
 			"name": "img_game_d0_png"
+		},
+		{
+			"name": "red_png",
+			"type": "image",
+			"url": "assets/game/images/red.png"
+		},
+		{
+			"name": "tap_rank_3_png",
+			"type": "image",
+			"url": "assets/game/images/tap_rank_3.png"
 		}
 	]
 }

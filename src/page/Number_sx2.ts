@@ -329,7 +329,10 @@ namespace sx{
 			// 	this._state = 1;
 			// } else if(this._st)
 			this._state++;
-			eg.log('_state: ' + this._state);
+			// eg.log('_state: ' + this._state);
+			if(this._state == 4){
+				throw new Error('错误');
+			}
 		}
 
 		/**

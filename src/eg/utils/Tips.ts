@@ -30,7 +30,7 @@ module eg {
 			if(msg){
 				msg.y = eg.Config.STAGE_H / 2;
 				msg.x = (eg.Config.STAGE_W - msg.width) / 2;
-				egret.Tween.get(msg).wait(700).to({y:msg.y - 200,alpha:1},900).wait(0).call(this.onComplete,this,[msg]);
+				egret.Tween.get(msg).wait(700).to({y:msg.y - 200,alpha:0.5},900).wait(0).call(this.onComplete,this,[msg]);
 				// this._stage.addChild(msg);
 
 				UILayer.Instance.effect.addChild(msg);
@@ -58,20 +58,28 @@ module eg {
 			// this.txt.width = Config.STAGE_W;
 			this.txt.size = 36;//30
 			this.txt.textColor = 0xffffff;
-			this.txt.fontFamily = "Microsoft YaHei,Arial";
+			// this.txt.fontFamily = "Microsoft YaHei,Arial";
 			// this.txt.textAlign = egret.HorizontalAlign.CENTER;
 			// this.txt.verticalAlign = egret.VerticalAlign.MIDDLE;
 			this.txt.textFlow = msg;
 			// this.txt.border = true;
 			// this.txt.borderColor = 0xff0000;
 
-			this.txt.x = 5;
-			this.txt.y = 5;
+			// this.txt.x = 5;
+			// this.txt.y = 5;
 			
 			//egret.log(this.txt.textWidth + "|" + this.txt.height);
 
 			//提示底
-			this.shape = eg.createRoundRect(this.txt.textWidth + 10,this.txt.height + 10,0x0,1);
+			let w:number = this.txt.textWidth + 10;
+			if(w < 150){
+				w = 150;
+			} 
+			this.txt.x = (w - this.txt.textWidth) / 2;
+			let h:number = this.txt.textHeight + 10;			
+			this.txt.y = 5;
+			
+			this.shape = eg.createRoundRect(w,h,0x0,0.7);
 			this.addChild(this.shape);
 
 			this.addChild(this.txt);	

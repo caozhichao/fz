@@ -105,9 +105,15 @@ class Main extends eg.EgMain {
         // this.addChild(new ScrollNumberTest());
         // eg.UIManager.Instance.showUI(new game.SheetTestView());
         // this.addChild(new CircleLeftTime());
-        // this.addChild(new sx.Number_sx2_test());
+        // this.addChild(new test.getPixels_test());
         // new AStarTest();
-        eg.UIManager.Instance.showUI(new sx.Number_sx2_test())
+        // eg.UIManager.Instance.showUI(new sx.Number_sx2_test())
+
+        // eg.Tips.showMsg([{text:'abc'}]);
+        let a = new eui.Component();
+        a.skinName = 'skins.Test1Skin';
+        this.addChild(a);
+
     }
 
     private facade:game.ApplicationFacade;

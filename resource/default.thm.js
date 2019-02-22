@@ -295,7 +295,7 @@ window.skins={};
 		
 		this.height = 1206;
 		this.width = 750;
-		this.elementsContent = [this.btn_i(),this._Group1_i()];
+		this.elementsContent = [this.btn_i(),this._Group1_i(),this._GImageButton1_i()];
 	}
 	var _proto = Test1Skin.prototype;
 
@@ -332,6 +332,14 @@ window.skins={};
 		t.source = "img_game_d0_png";
 		t.x = -56;
 		t.y = -264;
+		return t;
+	};
+	_proto._GImageButton1_i = function () {
+		var t = new eg.GImageButton();
+		t.pixelHitTest = true;
+		t.source = "tap_rank_3_png";
+		t.x = 293;
+		t.y = 1031;
 		return t;
 	};
 	return Test1Skin;
