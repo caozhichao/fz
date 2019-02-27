@@ -4,6 +4,7 @@ module eg {
 		private _ws:egret.WebSocket;
 		public constructor() {
 			super();
+			this.init();
 		}
 
 		public static getInstance():WS{
@@ -13,12 +14,12 @@ module eg {
 			return WS._instance;
 		}
 
-		public init():void{
-			this._ws = new egret.WebSocket();
+		public init():void{			
 			 //创建 WebSocket 对象
 			this._ws = new egret.WebSocket();
 			//设置数据格式为二进制，默认为字符串
-			this._ws.type = egret.WebSocket.TYPE_BINARY;
+			// this._ws.type = egret.WebSocket.TYPE_BINARY;
+			this._ws.type = egret.WebSocket.TYPE_STRING;
 			//添加收到数据侦听，收到数据会调用此方法
 			this._ws.addEventListener(egret.ProgressEvent.SOCKET_DATA, this.onReceiveMessage, this);
 			//添加链接打开侦听，连接成功会调用此方法
@@ -36,18 +37,31 @@ module eg {
 		public connectByUrl ( url :string ):void{
 			this._ws.connectByUrl(url);
 		}
-
-		public sendData(bytes:egret.ByteArray):void{
-			this._ws.writeBytes(bytes, 0, bytes.bytesAvailable);
-			this._ws.flush();			
+		
+		public sendData(type:string,data:egret.ByteArray):void
+		public sendData(type:string,data:string):void
+		public sendData(type:string,data:egret.ByteArray|string):void{
+			if(type == egret.WebSocket.TYPE_BINARY){
+				let bytes:egret.ByteArray = data as egret.ByteArray;
+				this._ws.writeBytes(bytes, 0, bytes.bytesAvailable);
+			} else {
+				this._ws.writeUTF(data as string);
+			}
+			this._ws.flush();					
 		}
 
 		private onReceiveMessage(e:egret.Event):void {
 			eg.log('onReceiveMessage');
-			let bytes:egret.ByteArray = new egret.ByteArray();
-			this._ws.readBytes(bytes);
-			
-			this.dispatchEventWith(egret.ProgressEvent.SOCKET_DATA,false,bytes);
+			let data;
+			if(this._ws.type == egret.WebSocket.TYPE_STRING){
+				data = this._ws.readUTF();
+				eg.log('<--:' + data);
+			} else {
+				let bytes:egret.ByteArray = new egret.ByteArray();
+				this._ws.readBytes(bytes);
+				data = bytes;
+			}			
+			this.dispatchEventWith(egret.ProgressEvent.SOCKET_DATA,false,data);
 
 			// console.log(bytes.length);
 			//读取字符串信息

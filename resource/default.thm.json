@@ -16,6 +16,7 @@
 	},
 	"autoGenerateExmlsList": true,
 	"exmls": [
+		"resource/assets/game/skins/landscape_test.exml",
 		"resource/assets/game/skins/LoadingUISkin.exml",
 		"resource/assets/game/skins/NumberSXSkin.exml",
 		"resource/assets/game/skins/OrientationModeTestSkin.exml",
@@ -26,6 +27,7 @@
 		"resource/assets/game/skins/Test1Skin.exml",
 		"resource/assets/game/skins/Test2Skin.exml",
 		"resource/assets/game/skins/TestSheetSkin.exml",
+		"resource/assets/game/skins/ws_test.exml",
 		"resource/eui_skins/ButtonSkin.exml",
 		"resource/eui_skins/CheckBoxSkin.exml",
 		"resource/eui_skins/HScrollBarSkin.exml",

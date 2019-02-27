@@ -1,0 +1,4 @@
+<?xml version="1.0" encoding="utf-8"?>
+<e:Skin class="skins.landscape_test" width="1280" height="720" xmlns:e="http://ns.egret.com/eui">
+	<e:Image source="img_main_a0_jpg" anchorOffsetX="360" anchorOffsetY="640" rotation="90" left="0" top="0"/>
+</e:Skin>

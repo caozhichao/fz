@@ -39,7 +39,7 @@ module test {
 			eg.WS.getInstance().connect("echo.websocket.org", 80);
 
 			setTimeout(function() {
-				eg.WS.getInstance().sendData(byte);
+				// eg.WS.getInstance().sendData(byte);
 			}, 5000);
 
 			eg.WS.getInstance().addEventListener(egret.ProgressEvent.SOCKET_DATA,(evt)=>{

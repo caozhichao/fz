@@ -20,6 +20,7 @@ class Main extends eg.EgMain {
         eg.Config.versionUrl = 'version.json';    
         //设置资源加载配置
         // eg.Config.resConfigs = [{url:'resource/default.res.json',resourceRoot:'resource/'},{url:'http://hf.rongyi.com/o2o/v4/cf/cf_legao/resource/outpack.res.json',resourceRoot:'http://hf.rongyi.com/o2o/v4/cf/cf_legao/resource/'}];
+        eg.Config.showLog = true;
     }
 
     // protected loadResAfter():void{
@@ -110,9 +111,11 @@ class Main extends eg.EgMain {
         // eg.UIManager.Instance.showUI(new sx.Number_sx2_test())
 
         // eg.Tips.showMsg([{text:'abc'}]);
-        let a = new eui.Component();
-        a.skinName = 'skins.Test1Skin';
-        this.addChild(a);
+        // let a = new eui.Component();
+        // a.skinName = 'skins.landscape_test';
+        // this.addChild(a);
+
+        eg.UIManager.Instance.showUI(new test.WSTest2());
 
     }
 

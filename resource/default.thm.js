@@ -10,7 +10,30 @@ window.skins={};
                 window.generateEUI = {};
                 generateEUI.paths = {};
                 generateEUI.styles = undefined;
-                generateEUI.skins = {"eui.Button":"resource/eui_skins/ButtonSkin.exml","eui.CheckBox":"resource/eui_skins/CheckBoxSkin.exml","eui.HScrollBar":"resource/eui_skins/HScrollBarSkin.exml","eui.HSlider":"resource/eui_skins/HSliderSkin.exml","eui.Panel":"resource/eui_skins/PanelSkin.exml","eui.TextInput":"resource/eui_skins/TextInputSkin.exml","eui.ProgressBar":"resource/eui_skins/ProgressBarSkin.exml","eui.RadioButton":"resource/eui_skins/RadioButtonSkin.exml","eui.Scroller":"resource/eui_skins/ScrollerSkin.exml","eui.ToggleSwitch":"resource/eui_skins/ToggleSwitchSkin.exml","eui.VScrollBar":"resource/eui_skins/VScrollBarSkin.exml","eui.VSlider":"resource/eui_skins/VSliderSkin.exml","eui.ItemRenderer":"resource/eui_skins/ItemRendererSkin.exml"};generateEUI.paths['resource/assets/game/skins/LoadingUISkin.exml'] = window.skins.LoadingUISkin = (function (_super) {
+                generateEUI.skins = {"eui.Button":"resource/eui_skins/ButtonSkin.exml","eui.CheckBox":"resource/eui_skins/CheckBoxSkin.exml","eui.HScrollBar":"resource/eui_skins/HScrollBarSkin.exml","eui.HSlider":"resource/eui_skins/HSliderSkin.exml","eui.Panel":"resource/eui_skins/PanelSkin.exml","eui.TextInput":"resource/eui_skins/TextInputSkin.exml","eui.ProgressBar":"resource/eui_skins/ProgressBarSkin.exml","eui.RadioButton":"resource/eui_skins/RadioButtonSkin.exml","eui.Scroller":"resource/eui_skins/ScrollerSkin.exml","eui.ToggleSwitch":"resource/eui_skins/ToggleSwitchSkin.exml","eui.VScrollBar":"resource/eui_skins/VScrollBarSkin.exml","eui.VSlider":"resource/eui_skins/VSliderSkin.exml","eui.ItemRenderer":"resource/eui_skins/ItemRendererSkin.exml"};generateEUI.paths['resource/assets/game/skins/landscape_test.exml'] = window.skins.landscape_test = (function (_super) {
+	__extends(landscape_test, _super);
+	function landscape_test() {
+		_super.call(this);
+		this.skinParts = [];
+		
+		this.height = 720;
+		this.width = 1280;
+		this.elementsContent = [this._Image1_i()];
+	}
+	var _proto = landscape_test.prototype;
+
+	_proto._Image1_i = function () {
+		var t = new eui.Image();
+		t.anchorOffsetX = 360;
+		t.anchorOffsetY = 640;
+		t.left = 0;
+		t.rotation = 90;
+		t.source = "img_main_a0_jpg";
+		t.top = 0;
+		return t;
+	};
+	return landscape_test;
+})(eui.Skin);generateEUI.paths['resource/assets/game/skins/LoadingUISkin.exml'] = window.skins.LoadingUISkin = (function (_super) {
 	__extends(LoadingUISkin, _super);
 	function LoadingUISkin() {
 		_super.call(this);
@@ -384,6 +407,64 @@ window.skins={};
 		return t;
 	};
 	return TestSheetSkin;
+})(eui.Skin);generateEUI.paths['resource/assets/game/skins/ws_test.exml'] = window.ws_test = (function (_super) {
+	__extends(ws_test, _super);
+	function ws_test() {
+		_super.call(this);
+		this.skinParts = ["_btn_connect","_btn_send"];
+		
+		this.height = 720;
+		this.width = 1280;
+		this.elementsContent = [this._btn_connect_i(),this._Button1_i(),this._EditableText1_i(),this._Label1_i(),this._btn_send_i()];
+	}
+	var _proto = ws_test.prototype;
+
+	_proto._btn_connect_i = function () {
+		var t = new eui.Button();
+		this._btn_connect = t;
+		t.label = "连接ws";
+		t.x = 740;
+		t.y = 146;
+		return t;
+	};
+	_proto._Button1_i = function () {
+		var t = new eui.Button();
+		t.label = "断开";
+		t.x = 738;
+		t.y = 252;
+		return t;
+	};
+	_proto._EditableText1_i = function () {
+		var t = new eui.EditableText();
+		t.anchorOffsetX = 0;
+		t.anchorOffsetY = 0;
+		t.height = 308;
+		t.text = "输入框";
+		t.width = 610;
+		t.x = 32;
+		t.y = 40;
+		return t;
+	};
+	_proto._Label1_i = function () {
+		var t = new eui.Label();
+		t.anchorOffsetX = 0;
+		t.anchorOffsetY = 0;
+		t.height = 298;
+		t.text = "显示";
+		t.width = 1236;
+		t.x = 26;
+		t.y = 402;
+		return t;
+	};
+	_proto._btn_send_i = function () {
+		var t = new eui.Button();
+		this._btn_send = t;
+		t.label = "发送";
+		t.x = 517;
+		t.y = 137;
+		return t;
+	};
+	return ws_test;
 })(eui.Skin);generateEUI.paths['resource/eui_skins/ButtonSkin.exml'] = window.skins.ButtonSkin = (function (_super) {
 	__extends(ButtonSkin, _super);
 	function ButtonSkin() {
