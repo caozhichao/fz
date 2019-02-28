@@ -81,7 +81,7 @@ module eg {
 			for(let i:number = 0;i < this.STEP;i++){
 				let pos = this.getIndexPoint(i);
 				// points[i] = pos;
-				console.log(pos.x,pos.y);
+				// console.log(pos.x,pos.y);
 				points.push(pos.x,pos.y,pos.degrees);
 			}
 			return points;
