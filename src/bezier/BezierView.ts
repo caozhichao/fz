@@ -10,6 +10,7 @@ module test {
 		public p1:eui.Rect;
 		public p2:eui.Rect;
 		public pMove:eui.Rect;
+		public pMove2:eui.Rect;
 		public _btn_test:eui.Button;
 		public _tf_speed:eui.EditableText;
 
@@ -35,11 +36,17 @@ module test {
 		private onEnterFrame(evt:egret.Event):void{
 			let tx:number = this.pos.shift();
 			let ty:number = this.pos.shift();
+			let degrees:number = this.pos.shift();
 			if(tx) {
-				this.pMove.x = tx;
+				// this.pMove.x = tx;
+				this.pMove2.x = tx;
 			}
 			if(ty){
-				this.pMove.y = ty;
+				// this.pMove.y = ty;
+				this.pMove2.y = ty;
+			}
+			if(degrees){
+				this.pMove2.rotation = degrees;
 			}
 		}
 
@@ -53,7 +60,7 @@ module test {
 			P2.x = this.p2.x;
 			P2.y = this.p2.y;
 
-			this.pos = eg.BezierUtil.getInstance().getPoints(P0,P1,P2,3);
+			this.pos = eg.BezierUtil.getInstance().getPoints(P0,P1,P2,1);
 
 			this.drawPath(this.pos);
 		}
@@ -104,7 +111,7 @@ module test {
 
 			this.shape.graphics.clear();
 			this.shape.graphics.lineStyle(2,0xff0000);
-			for(let i:number = 0;i < pos.length; i+=2){
+			for(let i:number = 0;i < pos.length; i+=3){
 				if(i == 0){
 					this.shape.graphics.moveTo(pos[i],pos[i+1]);
 				} else {

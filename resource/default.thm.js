@@ -14,11 +14,11 @@ window.skins={};
 	__extends(BezierViewSkin, _super);
 	function BezierViewSkin() {
 		_super.call(this);
-		this.skinParts = ["p0","p2","p1","pMove","_btn_test","_tf_speed"];
+		this.skinParts = ["p0","p2","p1","pMove","_btn_test","_tf_speed","pMove2"];
 		
 		this.height = 720;
 		this.width = 1280;
-		this.elementsContent = [this.p0_i(),this.p2_i(),this.p1_i(),this.pMove_i(),this._btn_test_i(),this._Label1_i(),this._tf_speed_i()];
+		this.elementsContent = [this.p0_i(),this.p2_i(),this.p1_i(),this.pMove_i(),this._btn_test_i(),this._Label1_i(),this._tf_speed_i(),this.pMove2_i()];
 	}
 	var _proto = BezierViewSkin.prototype;
 
@@ -60,8 +60,8 @@ window.skins={};
 		t.fillColor = 0x8ee810;
 		t.height = 50;
 		t.width = 50;
-		t.x = 461.73;
-		t.y = 56.82;
+		t.x = 690;
+		t.y = 50.82;
 		return t;
 	};
 	_proto.pMove_i = function () {
@@ -103,6 +103,18 @@ window.skins={};
 		t.width = 169.7;
 		t.x = 1076;
 		t.y = 330;
+		return t;
+	};
+	_proto.pMove2_i = function () {
+		var t = new eui.Rect();
+		this.pMove2 = t;
+		t.anchorOffsetX = 100;
+		t.anchorOffsetY = 1;
+		t.fillColor = 0xf4d913;
+		t.height = 2;
+		t.width = 200;
+		t.x = 315;
+		t.y = 580;
 		return t;
 	};
 	return BezierViewSkin;

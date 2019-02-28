@@ -1,6 +1,8 @@
 module eg {
 	/**
 	 * 匀速二次贝塞尔曲线
+	 * https://blog.csdn.net/linuxheik/article/details/79454663
+	 * https://zhidao.baidu.com/question/515374396.html
 	 */
 	export class BezierUtil {
 
@@ -30,6 +32,13 @@ module eg {
 			return BezierUtil._instance;
 		}
 
+		/**
+		 * 匀速二次贝塞尔曲线
+		 * 获取曲线上的所有坐标点
+		 * @param P0 起始点
+		 * @param P1 控制点
+		 * @param P2 结束点
+		 */
 		public getPoints(P0,P1,P2,speed:number=1):number[]{
 
 			this.P0 = P0;
@@ -73,7 +82,7 @@ module eg {
 				let pos = this.getIndexPoint(i);
 				// points[i] = pos;
 				console.log(pos.x,pos.y);
-				points.push(pos.x,pos.y);
+				points.push(pos.x,pos.y,pos.degrees);
 			}
 			return points;
 		}
@@ -87,7 +96,21 @@ module eg {
 			//根据贝塞尔曲线函数，求得取得此时的x,y坐标
 			let x = (1-t)*(1-t)*this.P0.x +2*(1-t)*t*this.P1.x + t*t*this.P2.x;
 			let y = (1-t)*(1-t)*this.P0.y +2*(1-t)*t*this.P1.y + t*t*this.P2.y;
-			return {x:x,y:y};
+
+			//  获取切线
+			var Q0:egret.Point = new egret.Point((1 - t) * this.P0.x + t * this.P1.x, (1 - t) * this.P0.y + t * this.P1.y);
+			var Q1:egret.Point = new egret.Point((1 - t) * this.P1.x + t * this.P2.x, (1 - t) * this.P1.y + t * this.P2.y);
+			//  计算角度
+			var dx:number=Q1.x-Q0.x;
+			var dy:number=Q1.y-Q0.y;
+			var radians:number=Math.atan2(dy,dx);
+			var degrees:number=radians*180/Math.PI;
+
+			x = Math.floor(x * 10) / 10
+			y = Math.floor(y * 10) / 10
+			degrees = Math.floor( degrees * 10) / 10;
+
+			return {x:x,y:y,degrees};
 		}
 
 
