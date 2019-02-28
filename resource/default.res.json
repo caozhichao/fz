@@ -1,7 +1,7 @@
 {
 	"groups": [
 		{
-			"keys": "bg_png,img_game_c9_png,img_game_d0_png,red_png,tap_rank_3_png,img_main_a0_jpg",
+			"keys": "bg_png,img_game_c9_png,img_game_d0_png,red_png,tap_rank_3_png,img_main_a0_jpg,fish0_png,bg3_png,fish0_json",
 			"name": "preload"
 		}
 	],
@@ -267,6 +267,21 @@
 			"name": "img_main_a0_jpg",
 			"type": "image",
 			"url": "assets/game/images/img_main_a0.jpg"
+		},
+		{
+			"name": "fish0_png",
+			"type": "image",
+			"url": "assets/game/images/fish/fish0.png"
+		},
+		{
+			"name": "bg3_png",
+			"type": "image",
+			"url": "assets/game/images/fish/bg.png"
+		},
+		{
+			"name": "fish0_json",
+			"type": "json",
+			"url": "assets/game/images/fish/fish0.json"
 		}
 	]
 }

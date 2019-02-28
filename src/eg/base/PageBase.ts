@@ -12,8 +12,8 @@ module eg {
 		private _resName:string[];
 		public constructor() {
 			super();
-			this.height = eg.Config.STAGE_H;
-			// this.width = eg.Config.STAGE_W;
+			// this.height = eg.Config.STAGE_H;
+			this.width = eg.Config.STAGE_W;
 		}
 
 		public get pageType():string{

@@ -10,7 +10,137 @@ window.skins={};
                 window.generateEUI = {};
                 generateEUI.paths = {};
                 generateEUI.styles = undefined;
-                generateEUI.skins = {"eui.Button":"resource/eui_skins/ButtonSkin.exml","eui.CheckBox":"resource/eui_skins/CheckBoxSkin.exml","eui.HScrollBar":"resource/eui_skins/HScrollBarSkin.exml","eui.HSlider":"resource/eui_skins/HSliderSkin.exml","eui.Panel":"resource/eui_skins/PanelSkin.exml","eui.TextInput":"resource/eui_skins/TextInputSkin.exml","eui.ProgressBar":"resource/eui_skins/ProgressBarSkin.exml","eui.RadioButton":"resource/eui_skins/RadioButtonSkin.exml","eui.Scroller":"resource/eui_skins/ScrollerSkin.exml","eui.ToggleSwitch":"resource/eui_skins/ToggleSwitchSkin.exml","eui.VScrollBar":"resource/eui_skins/VScrollBarSkin.exml","eui.VSlider":"resource/eui_skins/VSliderSkin.exml","eui.ItemRenderer":"resource/eui_skins/ItemRendererSkin.exml"};generateEUI.paths['resource/assets/game/skins/landscape_test.exml'] = window.skins.landscape_test = (function (_super) {
+                generateEUI.skins = {"eui.Button":"resource/eui_skins/ButtonSkin.exml","eui.CheckBox":"resource/eui_skins/CheckBoxSkin.exml","eui.HScrollBar":"resource/eui_skins/HScrollBarSkin.exml","eui.HSlider":"resource/eui_skins/HSliderSkin.exml","eui.Panel":"resource/eui_skins/PanelSkin.exml","eui.TextInput":"resource/eui_skins/TextInputSkin.exml","eui.ProgressBar":"resource/eui_skins/ProgressBarSkin.exml","eui.RadioButton":"resource/eui_skins/RadioButtonSkin.exml","eui.Scroller":"resource/eui_skins/ScrollerSkin.exml","eui.ToggleSwitch":"resource/eui_skins/ToggleSwitchSkin.exml","eui.VScrollBar":"resource/eui_skins/VScrollBarSkin.exml","eui.VSlider":"resource/eui_skins/VSliderSkin.exml","eui.ItemRenderer":"resource/eui_skins/ItemRendererSkin.exml"};generateEUI.paths['resource/assets/game/skins/BezierViewSkin.exml'] = window.skins.BezierViewSkin = (function (_super) {
+	__extends(BezierViewSkin, _super);
+	function BezierViewSkin() {
+		_super.call(this);
+		this.skinParts = ["p0","p2","p1","pMove","_btn_test","_tf_speed"];
+		
+		this.height = 720;
+		this.width = 1280;
+		this.elementsContent = [this.p0_i(),this.p2_i(),this.p1_i(),this.pMove_i(),this._btn_test_i(),this._Label1_i(),this._tf_speed_i()];
+	}
+	var _proto = BezierViewSkin.prototype;
+
+	_proto.p0_i = function () {
+		var t = new eui.Rect();
+		this.p0 = t;
+		t.anchorOffsetX = 25;
+		t.anchorOffsetY = 25;
+		t.ellipseHeight = 50;
+		t.ellipseWidth = 50;
+		t.fillColor = 0xf40707;
+		t.height = 50;
+		t.width = 50;
+		t.x = 254.55;
+		t.y = 436;
+		return t;
+	};
+	_proto.p2_i = function () {
+		var t = new eui.Rect();
+		this.p2 = t;
+		t.anchorOffsetX = 25;
+		t.anchorOffsetY = 25;
+		t.ellipseHeight = 50;
+		t.ellipseWidth = 50;
+		t.fillColor = 0x0728f2;
+		t.height = 50;
+		t.width = 50;
+		t.x = 665;
+		t.y = 436;
+		return t;
+	};
+	_proto.p1_i = function () {
+		var t = new eui.Rect();
+		this.p1 = t;
+		t.anchorOffsetX = 25;
+		t.anchorOffsetY = 25;
+		t.ellipseHeight = 50;
+		t.ellipseWidth = 50;
+		t.fillColor = 0x8ee810;
+		t.height = 50;
+		t.width = 50;
+		t.x = 461.73;
+		t.y = 56.82;
+		return t;
+	};
+	_proto.pMove_i = function () {
+		var t = new eui.Rect();
+		this.pMove = t;
+		t.anchorOffsetX = 25;
+		t.anchorOffsetY = 25;
+		t.ellipseHeight = 50;
+		t.ellipseWidth = 50;
+		t.fillColor = 0xd3bcbc;
+		t.height = 50;
+		t.width = 50;
+		t.x = 516.4;
+		t.y = 441.06;
+		return t;
+	};
+	_proto._btn_test_i = function () {
+		var t = new eui.Button();
+		this._btn_test = t;
+		t.label = "测试";
+		t.x = 974;
+		t.y = 523;
+		return t;
+	};
+	_proto._Label1_i = function () {
+		var t = new eui.Label();
+		t.text = "速度";
+		t.x = 1077.2;
+		t.y = 279;
+		return t;
+	};
+	_proto._tf_speed_i = function () {
+		var t = new eui.EditableText();
+		this._tf_speed = t;
+		t.anchorOffsetX = 0;
+		t.anchorOffsetY = 0;
+		t.height = 57.58;
+		t.text = "5";
+		t.width = 169.7;
+		t.x = 1076;
+		t.y = 330;
+		return t;
+	};
+	return BezierViewSkin;
+})(eui.Skin);generateEUI.paths['resource/assets/game/skins/FishViewSkin.exml'] = window.skins.FishViewSkin = (function (_super) {
+	__extends(FishViewSkin, _super);
+	function FishViewSkin() {
+		_super.call(this);
+		this.skinParts = ["_container"];
+		
+		this.height = 720;
+		this.width = 1280;
+		this.elementsContent = [this._container_i()];
+	}
+	var _proto = FishViewSkin.prototype;
+
+	_proto._container_i = function () {
+		var t = new eui.Group();
+		this._container = t;
+		t.height = 720;
+		t.horizontalCenter = 0;
+		t.verticalCenter = 0;
+		t.width = 1280;
+		t.elementsContent = [this._Image1_i()];
+		return t;
+	};
+	_proto._Image1_i = function () {
+		var t = new eui.Image();
+		t.height = 720;
+		t.left = 0;
+		t.scaleX = 1;
+		t.scaleY = 1;
+		t.source = "bg3_png";
+		t.top = 0;
+		t.width = 1280;
+		return t;
+	};
+	return FishViewSkin;
+})(eui.Skin);generateEUI.paths['resource/assets/game/skins/landscape_test.exml'] = window.skins.landscape_test = (function (_super) {
 	__extends(landscape_test, _super);
 	function landscape_test() {
 		_super.call(this);
