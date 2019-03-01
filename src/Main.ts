@@ -119,6 +119,10 @@ class Main extends eg.EgMain {
         eg.UIManager.Instance.showUI(new test.BezierView());
         // this.addChild(new test.BezierTest());
 
+        //        
+
+        new test.RegExpTest();
+
     }
 
     private facade:game.ApplicationFacade;

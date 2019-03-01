@@ -40,11 +40,18 @@ module eg {
 			}
 			if(str){
 				if(replaceParams){
-					let len:number = replaceParams.length;
+					// let len:number = replaceParams.length;
 					//字符串替换，正则
-					for(let i:number=0;i<len;i++){
-						str = str.replace('${' + i +'}',replaceParams[i]);
-					}
+					// for(let i:number=0;i<len;i++){
+					// 	str = str.replace('${' + i +'}',replaceParams[i]);
+					// }
+					//正则匹配替换
+					//$1 取到第一个表达式的值(\d+) 即替换的id,再找到对应的替换参数
+					//\$* 兼容2种格式   {0} 或者 ${0}
+					// str = str.replace(/\$*\{(\d+)\}/g,(substring,$1)=>{
+					// 	return replaceParams[$1];
+					// });
+					str = eg.replace(str,replaceParams);					
 				}	
 			} else {
 				eg.log("语言id:" + id + "不存在");
