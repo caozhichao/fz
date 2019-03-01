@@ -14,8 +14,22 @@ module test {
 		public _btn_test:eui.Button;
 		public _tf_speed:eui.EditableText;
 
+		public _btn_speed:eui.Button;
+		public _tf_time:eui.EditableText;
+
+
+
 		private pos:number[] = [];
 		private shape:egret.Shape;
+
+		private t1:number;
+
+		private times:number = 0;
+
+		private m_time:number = 50;
+		private m_add_time:number = 0;
+
+		private flag:boolean = false;
 
 		public constructor() {
 			super();
@@ -31,23 +45,49 @@ module test {
 			// this.pos = this.Bezier1();
 			this.addEventListener(egret.Event.ENTER_FRAME,this.onEnterFrame,this);
 			this._btn_test.addEventListener(egret.TouchEvent.TOUCH_TAP,this.onTest,this);
+			this._btn_speed.addEventListener(egret.TouchEvent.TOUCH_TAP,this.onChange,this);
+		}
+
+		private onChange(evt:egret.TouchEvent):void{
+			this.m_time = parseInt(this._tf_time.text);
+			console.log('m_time:' + this.m_time);
 		}
 
 		private onEnterFrame(evt:egret.Event):void{
-			let tx:number = this.pos.shift();
-			let ty:number = this.pos.shift();
-			let degrees:number = this.pos.shift();
-			if(tx) {
-				// this.pMove.x = tx;
-				this.pMove2.x = tx;
+
+			if(!this.flag) return;
+
+			this.m_time -= 0.1;
+			if(this.m_time <= 1){
+				this.m_time = 1;
 			}
-			if(ty){
-				// this.pMove.y = ty;
-				this.pMove2.y = ty;
+
+			let t2:number=egret.getTimer();
+
+			this.times += t2 - this.t1;
+			this.t1 = t2;
+
+			let count = 0;
+			while(this.times >= this.m_time){
+				count++;
+				let tx:number = this.pos.shift();
+				let ty:number = this.pos.shift();
+				let degrees:number = this.pos.shift();
+				if(tx) {
+					this.pMove.x = tx;
+					this.pMove2.x = tx;
+				}
+				if(ty){
+					this.pMove.y = ty;
+					this.pMove2.y = ty;
+				}
+				if(degrees){					
+					this.pMove2.rotation = degrees;
+				}
+				this.times -= this.m_time;
 			}
-			if(degrees){
-				this.pMove2.rotation = degrees;
-			}
+			console.log('count:' + count);
+
 		}
 
 		private onTest(evt:egret.TouchEvent):void{
@@ -59,9 +99,10 @@ module test {
 			P1.y = this.p1.y;
 			P2.x = this.p2.x;
 			P2.y = this.p2.y;
-
+			
 			this.pos = eg.BezierUtil.getInstance().getPoints(P0,P1,P2,1);
-
+			this.flag = true;
+			this.t1 = egret.getTimer();
 			this.drawPath(this.pos);
 		}
 

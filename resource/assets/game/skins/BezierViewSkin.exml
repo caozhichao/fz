@@ -1,11 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
 <e:Skin class="skins.BezierViewSkin" width="1280" height="720" xmlns:e="http://ns.egret.com/eui" xmlns:w="http://ns.egret.com/wing">
-	<e:Rect id="p0" width="50" height="50" x="254.55" y="436" anchorOffsetX="25" anchorOffsetY="25" fillColor="0xf40707" ellipseWidth="50" ellipseHeight="50"/>
-	<e:Rect id="p2" width="50" height="50" x="665" y="436" anchorOffsetX="25" anchorOffsetY="25" ellipseWidth="50" ellipseHeight="50" fillColor="0x0728f2"/>
-	<e:Rect id="p1" width="50" height="50" x="690" y="50.82" anchorOffsetX="25" anchorOffsetY="25" ellipseWidth="50" ellipseHeight="50" fillColor="0x8ee810"/>
+	<e:Rect id="p0" width="50" height="50" x="50" y="437" anchorOffsetX="25" anchorOffsetY="25" fillColor="0xf40707" ellipseWidth="50" ellipseHeight="50"/>
+	<e:Rect id="p2" width="50" height="50" x="665" y="437" anchorOffsetX="25" anchorOffsetY="25" ellipseWidth="50" ellipseHeight="50" fillColor="0x0728f2"/>
+	<e:Rect id="p1" width="50" height="50" x="466.4" y="121" anchorOffsetX="25" anchorOffsetY="25" ellipseWidth="50" ellipseHeight="50" fillColor="0x8ee810"/>
 	<e:Rect id="pMove" width="50" height="50" x="516.4" y="441.06" anchorOffsetX="25" anchorOffsetY="25" ellipseWidth="50" ellipseHeight="50" fillColor="0xd3bcbc"/>
 	<e:Button id="_btn_test" label="测试" x="974" y="523"/>
 	<e:Label text="速度" x="1077.2" y="279"/>
 	<e:EditableText id="_tf_speed" width="169.7" height="57.58" text="5" x="1076" y="330" anchorOffsetX="0" anchorOffsetY="0"/>
 	<e:Rect id="pMove2" width="200" height="2" x="315" y="580" anchorOffsetX="100" anchorOffsetY="1" fillColor="0xf4d913"/>
+	<e:Button id="_btn_speed" label="变速" x="1107.2" y="523"/>
+	<e:EditableText id="_tf_time" width="100" height="100" text="50" x="1101" y="420"/>
 </e:Skin>

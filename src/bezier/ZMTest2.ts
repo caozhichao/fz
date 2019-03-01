@@ -98,8 +98,10 @@ module test {
 			let len = paths.length - 2;
 			let i:number = 1
 			for(i; i < len; i++){				
+				//终点
 				let xc:number = (paths[i][0] + paths[i+1][0])/2;
 				let yc:number = (paths[i][1] + paths[i+1][1])/2;
+				//控制点paths[i][0],paths[i][1]
 				this._drawPath.graphics.curveTo(paths[i][0],paths[i][1],xc,yc);				
 			}
 			this._drawPath.graphics.curveTo(paths[i][0],paths[i][1],paths[i+1][0],paths[i+1][1]);

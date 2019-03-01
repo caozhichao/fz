@@ -115,7 +115,8 @@ class Main extends eg.EgMain {
         // a.skinName = 'skins.landscape_test';
         // this.addChild(a);
 
-        eg.UIManager.Instance.showUI(new test.ZMTest2());
+        // eg.UIManager.Instance.showUI(new test.ZMTest2());
+        eg.UIManager.Instance.showUI(new test.BezierView());
         // this.addChild(new test.BezierTest());
 
     }

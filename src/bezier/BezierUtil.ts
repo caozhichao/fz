@@ -3,6 +3,7 @@ module eg {
 	 * 匀速二次贝塞尔曲线
 	 * https://blog.csdn.net/linuxheik/article/details/79454663
 	 * https://zhidao.baidu.com/question/515374396.html
+	 * https://forum.cocos.com/t/topic/73642/25,https://1ko1.com/games/bezier/index.html
 	 */
 	export class BezierUtil {
 

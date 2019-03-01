@@ -14,11 +14,11 @@ window.skins={};
 	__extends(BezierViewSkin, _super);
 	function BezierViewSkin() {
 		_super.call(this);
-		this.skinParts = ["p0","p2","p1","pMove","_btn_test","_tf_speed","pMove2"];
+		this.skinParts = ["p0","p2","p1","pMove","_btn_test","_tf_speed","pMove2","_btn_speed","_tf_time"];
 		
 		this.height = 720;
 		this.width = 1280;
-		this.elementsContent = [this.p0_i(),this.p2_i(),this.p1_i(),this.pMove_i(),this._btn_test_i(),this._Label1_i(),this._tf_speed_i(),this.pMove2_i()];
+		this.elementsContent = [this.p0_i(),this.p2_i(),this.p1_i(),this.pMove_i(),this._btn_test_i(),this._Label1_i(),this._tf_speed_i(),this.pMove2_i(),this._btn_speed_i(),this._tf_time_i()];
 	}
 	var _proto = BezierViewSkin.prototype;
 
@@ -32,8 +32,8 @@ window.skins={};
 		t.fillColor = 0xf40707;
 		t.height = 50;
 		t.width = 50;
-		t.x = 254.55;
-		t.y = 436;
+		t.x = 50;
+		t.y = 437;
 		return t;
 	};
 	_proto.p2_i = function () {
@@ -47,7 +47,7 @@ window.skins={};
 		t.height = 50;
 		t.width = 50;
 		t.x = 665;
-		t.y = 436;
+		t.y = 437;
 		return t;
 	};
 	_proto.p1_i = function () {
@@ -60,8 +60,8 @@ window.skins={};
 		t.fillColor = 0x8ee810;
 		t.height = 50;
 		t.width = 50;
-		t.x = 690;
-		t.y = 50.82;
+		t.x = 466.4;
+		t.y = 121;
 		return t;
 	};
 	_proto.pMove_i = function () {
@@ -115,6 +115,24 @@ window.skins={};
 		t.width = 200;
 		t.x = 315;
 		t.y = 580;
+		return t;
+	};
+	_proto._btn_speed_i = function () {
+		var t = new eui.Button();
+		this._btn_speed = t;
+		t.label = "变速";
+		t.x = 1107.2;
+		t.y = 523;
+		return t;
+	};
+	_proto._tf_time_i = function () {
+		var t = new eui.EditableText();
+		this._tf_time = t;
+		t.height = 100;
+		t.text = "50";
+		t.width = 100;
+		t.x = 1101;
+		t.y = 420;
 		return t;
 	};
 	return BezierViewSkin;
@@ -704,8 +722,8 @@ window.skins={};
 		t.fillColor = 0x072EF7;
 		t.height = 50;
 		t.width = 50;
-		t.x = 589.47;
-		t.y = 872.71;
+		t.x = 596.47;
+		t.y = 884.71;
 		return t;
 	};
 	_proto.p5_i = function () {
@@ -746,8 +764,8 @@ window.skins={};
 		t.fillColor = 0x072EF7;
 		t.height = 50;
 		t.width = 50;
-		t.x = 95.85;
-		t.y = 869.67;
+		t.x = 87.85;
+		t.y = 886.67;
 		return t;
 	};
 	_proto.p8_i = function () {
@@ -788,8 +806,8 @@ window.skins={};
 		t.fillColor = 0x072EF7;
 		t.height = 50;
 		t.width = 50;
-		t.x = 93.19;
-		t.y = 146.32;
+		t.x = 80.19;
+		t.y = 133.32;
 		return t;
 	};
 	_proto.p11_i = function () {
@@ -830,8 +848,8 @@ window.skins={};
 		t.fillColor = 0x072EF7;
 		t.height = 50;
 		t.width = 50;
-		t.x = 484.23;
-		t.y = 147.05;
+		t.x = 495.23;
+		t.y = 137.05;
 		return t;
 	};
 	_proto.p14_i = function () {
@@ -872,8 +890,8 @@ window.skins={};
 		t.fillColor = 0x072EF7;
 		t.height = 50;
 		t.width = 50;
-		t.x = 480.7;
-		t.y = 734.51;
+		t.x = 498.7;
+		t.y = 741.51;
 		return t;
 	};
 	_proto.p17_i = function () {
