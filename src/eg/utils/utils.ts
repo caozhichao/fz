@@ -307,7 +307,7 @@ namespace eg{
 	 */
 	export function replace(str:string,args):string{
 		str = str.replace(/\$*\{(\d+)\}/g,(substring,$1)=>{
-			return args[$1];
+			return args[parseInt($1)];
 		});	
 		return str;
 	}
