@@ -117,7 +117,7 @@ class Main extends eg.EgMain {
 
         // eg.UIManager.Instance.showUI(new test.ZMTest2());
         eg.UIManager.Instance.showUI(new test.BezierView());
-        // this.addChild(new test.BezierTest());
+        // this.addChild(new test.ZMCollisionTest());
 
         //        
 

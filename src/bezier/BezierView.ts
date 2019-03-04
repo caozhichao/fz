@@ -9,13 +9,16 @@ module test {
 		public p0:eui.Rect;
 		public p1:eui.Rect;
 		public p2:eui.Rect;
-		public pMove:eui.Rect;
+		// public pMove:eui.Rect;
+		public pMove:eui.Image;
 		public pMove2:eui.Rect;
 		public _btn_test:eui.Button;
 		public _tf_speed:eui.EditableText;
 
 		public _btn_speed:eui.Button;
 		public _tf_time:eui.EditableText;
+		public _emit:eui.Button;
+
 
 
 
@@ -31,6 +34,11 @@ module test {
 
 		private flag:boolean = false;
 
+		private _ballGroup:BallGroup;
+
+		private _ballManager:BallManager;
+
+		private emitBall:EmitBall;
 		public constructor() {
 			super();
 			this.skinName = 'skins.BezierViewSkin';
@@ -46,6 +54,36 @@ module test {
 			this.addEventListener(egret.Event.ENTER_FRAME,this.onEnterFrame,this);
 			this._btn_test.addEventListener(egret.TouchEvent.TOUCH_TAP,this.onTest,this);
 			this._btn_speed.addEventListener(egret.TouchEvent.TOUCH_TAP,this.onChange,this);
+
+			// this._emit.addEventListener(egret.TouchEvent.TOUCH_TAP,this.onEmit,this);
+			this.stage.addEventListener(egret.TouchEvent.TOUCH_TAP,this.onEmit,this);
+
+			//test
+			egret.Tween.get(this.pMove,{loop:true}).to({rotation:360},5000);
+
+			// this._ballGroup = new BallGroup(this);
+			this._ballManager = BallManager.getInstance();
+			this._ballManager.init(this);
+		}
+
+		private onEmit(evt:egret.TouchEvent):void{
+
+			// let img = new eui.Image();
+			// img.source = 'qiu0_png';
+			// img.anchorOffsetX = 32;
+			// img.anchorOffsetY = 32;
+			// this.addChild(img);
+
+			// img.x = 500;
+			// img.y = 500;
+
+			let angle:number = Math.atan2(evt.localY - 500,evt.localX - 500);
+			let emitBall = new EmitBall(angle);
+			emitBall.x = 500;
+			emitBall.y = 500;
+			this.addChild(emitBall);		
+			this.emitBall = emitBall;
+
 		}
 
 		private onChange(evt:egret.TouchEvent):void{
@@ -57,16 +95,32 @@ module test {
 
 			if(!this.flag) return;
 
-			this.m_time -= 0.1;
-			if(this.m_time <= 1){
-				this.m_time = 1;
-			}
+			// this.m_time -= 0.1;
+			// if(this.m_time <= 1){
+			// 	this.m_time = 1;
+			// }
 
 			let t2:number=egret.getTimer();
 
-			this.times += t2 - this.t1;
+			let passTime:number = t2 - this.t1;
+			this.times += passTime;
 			this.t1 = t2;
 
+			// this._ballGroup.update(passTime);
+			this._ballManager.update(passTime);
+			if(this.emitBall){
+				this.emitBall.update(passTime);
+				let ball:Ball = this._ballManager.checkCollision(this.emitBall);
+				if(ball){
+					this.removeChild(this.emitBall);
+					this.emitBall = null;
+					// this.flag = false;
+				}
+			}
+
+
+
+			/*
 			let count = 0;
 			while(this.times >= this.m_time){
 				count++;
@@ -75,18 +129,21 @@ module test {
 				let degrees:number = this.pos.shift();
 				if(tx) {
 					this.pMove.x = tx;
-					this.pMove2.x = tx;
+					// this.pMove2.x = tx;
 				}
 				if(ty){
 					this.pMove.y = ty;
-					this.pMove2.y = ty;
+					// this.pMove2.y = ty;
 				}
 				if(degrees){					
 					this.pMove2.rotation = degrees;
 				}
 				this.times -= this.m_time;
 			}
-			console.log('count:' + count);
+			console.log('count:' + count + '|' + egret.getTimer());
+			*/
+			
+
 
 		}
 
@@ -103,7 +160,11 @@ module test {
 			this.pos = eg.BezierUtil.getInstance().getPoints(P0,P1,P2,1);
 			this.flag = true;
 			this.t1 = egret.getTimer();
-			this.drawPath(this.pos);
+			this.drawPath(this.pos);			
+
+			test.GameData.pos = this.pos;
+
+			evt.stopImmediatePropagation();
 		}
 
 		/**

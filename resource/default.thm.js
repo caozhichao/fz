@@ -14,24 +14,24 @@ window.skins={};
 	__extends(BezierViewSkin, _super);
 	function BezierViewSkin() {
 		_super.call(this);
-		this.skinParts = ["p0","p2","p1","pMove","_btn_test","_tf_speed","pMove2","_btn_speed","_tf_time"];
+		this.skinParts = ["p0","p2","p1","_btn_test","_tf_speed","pMove2","_btn_speed","_tf_time","pMove","_emit"];
 		
 		this.height = 720;
 		this.width = 1280;
-		this.elementsContent = [this.p0_i(),this.p2_i(),this.p1_i(),this.pMove_i(),this._btn_test_i(),this._Label1_i(),this._tf_speed_i(),this.pMove2_i(),this._btn_speed_i(),this._tf_time_i()];
+		this.elementsContent = [this.p0_i(),this.p2_i(),this.p1_i(),this._Rect1_i(),this._btn_test_i(),this._Label1_i(),this._tf_speed_i(),this.pMove2_i(),this._btn_speed_i(),this._tf_time_i(),this.pMove_i(),this._emit_i()];
 	}
 	var _proto = BezierViewSkin.prototype;
 
 	_proto.p0_i = function () {
 		var t = new eui.Rect();
 		this.p0 = t;
-		t.anchorOffsetX = 25;
-		t.anchorOffsetY = 25;
-		t.ellipseHeight = 50;
-		t.ellipseWidth = 50;
+		t.anchorOffsetX = 32;
+		t.anchorOffsetY = 32;
+		t.ellipseHeight = 64;
+		t.ellipseWidth = 64;
 		t.fillColor = 0xf40707;
-		t.height = 50;
-		t.width = 50;
+		t.height = 64;
+		t.width = 64;
 		t.x = 50;
 		t.y = 437;
 		return t;
@@ -39,15 +39,15 @@ window.skins={};
 	_proto.p2_i = function () {
 		var t = new eui.Rect();
 		this.p2 = t;
-		t.anchorOffsetX = 25;
-		t.anchorOffsetY = 25;
-		t.ellipseHeight = 50;
-		t.ellipseWidth = 50;
+		t.anchorOffsetX = 32;
+		t.anchorOffsetY = 32;
+		t.ellipseHeight = 64;
+		t.ellipseWidth = 64;
 		t.fillColor = 0x0728f2;
-		t.height = 50;
-		t.width = 50;
-		t.x = 665;
-		t.y = 437;
+		t.height = 64;
+		t.width = 64;
+		t.x = 1213.7;
+		t.y = 183.97;
 		return t;
 	};
 	_proto.p1_i = function () {
@@ -60,13 +60,12 @@ window.skins={};
 		t.fillColor = 0x8ee810;
 		t.height = 50;
 		t.width = 50;
-		t.x = 466.4;
-		t.y = 121;
+		t.x = 528.52;
+		t.y = 22.51;
 		return t;
 	};
-	_proto.pMove_i = function () {
+	_proto._Rect1_i = function () {
 		var t = new eui.Rect();
-		this.pMove = t;
 		t.anchorOffsetX = 25;
 		t.anchorOffsetY = 25;
 		t.ellipseHeight = 50;
@@ -133,6 +132,24 @@ window.skins={};
 		t.width = 100;
 		t.x = 1101;
 		t.y = 420;
+		return t;
+	};
+	_proto.pMove_i = function () {
+		var t = new eui.Image();
+		this.pMove = t;
+		t.anchorOffsetX = 40.5;
+		t.anchorOffsetY = 40.5;
+		t.source = "hongqiu_png";
+		t.x = 642;
+		t.y = 565;
+		return t;
+	};
+	_proto._emit_i = function () {
+		var t = new eui.Button();
+		this._emit = t;
+		t.label = "发球";
+		t.x = 974;
+		t.y = 596;
 		return t;
 	};
 	return BezierViewSkin;
