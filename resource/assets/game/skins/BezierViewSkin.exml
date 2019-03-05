@@ -11,5 +11,5 @@
 	<e:Button id="_btn_speed" label="变速" x="1107.2" y="523"/>
 	<e:EditableText id="_tf_time" width="100" height="100" text="50" x="1101" y="420"/>
 	<e:Image id="pMove" source="hongqiu_png" x="642" y="565" anchorOffsetX="40.5" anchorOffsetY="40.5"/>
-	<e:Button id="_emit" label="发球" x="974" y="596"/>
+	<e:Button id="_emit" label="暂停" x="974" y="596"/>
 </e:Skin>

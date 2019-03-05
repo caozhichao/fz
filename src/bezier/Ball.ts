@@ -1,14 +1,20 @@
 module test {
-	export class Ball extends egret.DisplayObjectContainer{
+	export class Ball extends egret.DisplayObjectContainer implements eg.IDispose{
 		private _img:eui.Image;
 		private _pos:number;
 		private _points:number[];
 		private _sId:number;
-		public constructor(pos:number,points:number[],sId:number=0) {
+		private _pointLen:number;
+
+		public static WIDTH:number = 64;
+		public static HEIGHT:number = 64;
+
+		public constructor(pos:number,points:number[],sId:number=2) {
 			super()
 			this._sId = sId;
 			this._pos = pos;
 			this._points = points;
+			this._pointLen = this._points.length / 3
 			this.initUI();
 
 			this.updatePos(0);
@@ -26,10 +32,12 @@ module test {
 
 		public updatePos(step:number):void{
 			this._pos += step;	
-			let px:number = this._points[this._pos * 3];
-			let py:number = this._points[this._pos * 3 + 1];
-			this.x = px;
-			this.y = py;
+			if(this._pos < this._pointLen){
+				let px:number = this._points[this._pos * 3];
+				let py:number = this._points[this._pos * 3 + 1];
+				this.x = px;
+				this.y = py;
+			} 
 		}
 		public get pos():number{
 			return this._pos;
@@ -38,6 +46,14 @@ module test {
 		public set pos(value:number){
 			this._pos = value;
 			this.updatePos(0);
+		}
+
+		public get sId():number{
+			return this._sId;
+		}
+
+		public dispose():void{
+
 		}
 	}
 }

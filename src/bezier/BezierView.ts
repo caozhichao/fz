@@ -39,6 +39,7 @@ module test {
 		private _ballManager:BallManager;
 
 		private emitBall:EmitBall;
+		private _flag2:boolean = true;
 		public constructor() {
 			super();
 			this.skinName = 'skins.BezierViewSkin';
@@ -55,7 +56,7 @@ module test {
 			this._btn_test.addEventListener(egret.TouchEvent.TOUCH_TAP,this.onTest,this);
 			this._btn_speed.addEventListener(egret.TouchEvent.TOUCH_TAP,this.onChange,this);
 
-			// this._emit.addEventListener(egret.TouchEvent.TOUCH_TAP,this.onEmit,this);
+			this._emit.addEventListener(egret.TouchEvent.TOUCH_TAP,this.onEmit2,this);
 			this.stage.addEventListener(egret.TouchEvent.TOUCH_TAP,this.onEmit,this);
 
 			//test
@@ -64,6 +65,11 @@ module test {
 			// this._ballGroup = new BallGroup(this);
 			this._ballManager = BallManager.getInstance();
 			this._ballManager.init(this);
+		}
+
+		private onEmit2(evt:egret.TouchEvent):void{
+			this._flag2 = !this._flag2;
+			evt.stopImmediatePropagation();
 		}
 
 		private onEmit(evt:egret.TouchEvent):void{
@@ -77,10 +83,10 @@ module test {
 			// img.x = 500;
 			// img.y = 500;
 
-			let angle:number = Math.atan2(evt.localY - 500,evt.localX - 500);
+			let angle:number = Math.atan2(evt.localY - 565,evt.localX - 642);
 			let emitBall = new EmitBall(angle);
-			emitBall.x = 500;
-			emitBall.y = 500;
+			emitBall.x = 642;
+			emitBall.y = 565;
 			this.addChild(emitBall);		
 			this.emitBall = emitBall;
 
@@ -107,7 +113,9 @@ module test {
 			this.t1 = t2;
 
 			// this._ballGroup.update(passTime);
-			this._ballManager.update(passTime);
+			if(this._flag2){
+				this._ballManager.update(passTime);
+			}
 			if(this.emitBall){
 				this.emitBall.update(passTime);
 				let ball:Ball = this._ballManager.checkCollision(this.emitBall);

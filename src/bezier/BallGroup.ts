@@ -26,8 +26,8 @@ module test {
 			}
 		}
 
-		public removeBall(index:number):void{
-			this._balls.splice(index,1);
+		public removeBall(index:number,len:number):Ball[]{
+			return this._balls.splice(index,len);
 		}
 
 		public update(passTime:number):void{
@@ -89,10 +89,49 @@ module test {
 		public fixPos(index:number):void{
 			let len = this._balls.length;
 			let ball:Ball;
-			for(let i:number = index; i < len; i++){
+			for(let i:number = 0; i <= index; i++){
 				ball = this._balls[i];
 				ball.pos += 64;
 			}
 		}
+
+		/**
+		 * 查找相同的球
+		 * @param index 开始查找的位置 
+		 * 从index 向左右查找
+		 */
+		public find(index:number):number[]{
+			//开始下标
+			let min:number;
+			//结束下标
+			let max:number;
+			let findBall:Ball = this._balls[index];
+			let ball:Ball;
+			let i;
+			for(i = index; i >=0;i--){
+				ball = this._balls[i];
+				if(ball.sId != findBall.sId){
+					min = i+1;
+					break;
+				}
+			}
+			if(min == undefined){
+				min = i+1;
+			}
+
+			let len = this._balls.length;
+			for(i = index; i < len;i++){
+				ball = this._balls[i];
+				if(ball.sId != findBall.sId){
+					max = i-1;
+					break;
+				}
+			}
+			if(max == undefined){
+				max = i-1;
+			}
+			return [min,max];
+		}
+
 	}
 }

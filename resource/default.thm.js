@@ -147,7 +147,7 @@ window.skins={};
 	_proto._emit_i = function () {
 		var t = new eui.Button();
 		this._emit = t;
-		t.label = "发球";
+		t.label = "暂停";
 		t.x = 974;
 		t.y = 596;
 		return t;
