@@ -30,6 +30,8 @@ module test {
 		public update(passTime:number):void{
 			this._defalult.update(passTime);			
 			this.defaultAddBall();
+			//合并球组
+			this.mergeBallGroup();
 		}
 
 		/**
@@ -63,45 +65,100 @@ module test {
 		 */
 		public checkCollision(emitBall:EmitBall):Ball{
 
-			let [ball,index] = this._defalult.checkCollision(emitBall);
-			if(ball){
-				// console.log(ball.pos);
-				console.log('碰撞index:' + index);
-				let newBall:Ball = new Ball(ball.pos,test.GameData.pos,1);
-				this._defalult.addBall(newBall,index);
-				this._ballContainer.addChild(newBall);
-				//调整插入前面的位置
-				this._defalult.fixPos(index);
-
-
-				//test 消除检查
-				this.x(index);
+			let len = this._ballGroups.length;
+			let ballGroup:BallGroup;
+			let ball;
+			let index;
+			for(let i:number = 0;i < len;i++){
+				ballGroup = this._ballGroups[i];
+				// let [ball,index] = ballGroup.checkCollision(emitBall);
+				[ball,index] = ballGroup.checkCollision(emitBall);
+				if(ball){
+					// console.log(ball.pos);
+					console.log('碰撞index:' + index);
+					let newBall:Ball = new Ball(ball.pos,test.GameData.pos,1);
+					ballGroup.addBall(newBall,index);
+					this._ballContainer.addChild(newBall);
+					//调整插入前面的位置
+					ballGroup.fixPos(index,64);
+					//test 消除检查
+					this.x(index,ballGroup);
+					break;
+				}
 			}
 
-
+			// let [ball,index] = this._defalult.checkCollision(emitBall);
+			// if(ball){
+			// 	// console.log(ball.pos);
+			// 	console.log('碰撞index:' + index);
+			// 	let newBall:Ball = new Ball(ball.pos,test.GameData.pos,1);
+			// 	this._defalult.addBall(newBall,index);
+			// 	this._ballContainer.addChild(newBall);
+			// 	//调整插入前面的位置
+			// 	this._defalult.fixPos(index,64);
+			// 	//test 消除检查
+			// 	this.x(index);
+			// }
 			return ball;
 		}
 
 		/**
 		 * 碰撞后消除检查
 		 */
-		public x(index:number):void{
-			let [min,max] = this._defalult.find(index);
+		public x(index:number,ballGroup:BallGroup):void{
+			let [min,max] = ballGroup.find(index);
 			let count = max - min + 1;
 			if(count >= 3){
 				//找到可消除的段
 				//1.从数组中删除消除的数组
-				let balls = this._defalult.removeBall(min,count);
+				let balls = ballGroup.removeBall(min,count);
 				//2.显示上移除
 				balls.forEach(element => {
 					this._ballContainer.removeChild(element);
 				});
 
-				//3.拆分球组
-
-
+				//3.拆分球组(把 0-min 段拆分出去)
+				let groupIndex = this._ballGroups.indexOf(ballGroup);
+				if(min != 0){
+					let newBalls = ballGroup.removeBall(0,min);
+					let newBallGroup = new BallGroup(newBalls);
+					// this._ballGroups.push(newBallGroup);
+					this._ballGroups.splice(groupIndex+1,0,newBallGroup);
+				}
+				//原有的组如果为空，并且不是第一个组，删除，
+				if(ballGroup.ballLength == 0 && groupIndex != 0){
+					this._ballGroups.splice(groupIndex,1);
+				}
 			}
 			console.log('min:' + min + ' max:' + max + ' count:' + count);
+		}
+
+		private mergeBallGroup():void{
+			let len = this._ballGroups.length;
+			let mergeBallGroup = this._ballGroups[0];
+			let ballGroup:BallGroup;
+			let headBall:Ball;
+			let tailBall:Ball;
+			let dis;
+			for(let i:number = 1; i < len; i++){
+				ballGroup = this._ballGroups[i];
+				//判断头尾球是否碰撞到了
+				headBall = mergeBallGroup.getBall(0);
+				if(headBall){
+					tailBall = ballGroup.getBall(ballGroup.ballLength-1);
+					dis = tailBall.pos - headBall.pos;
+					if(dis <= 64){
+						console.log('dis:' + dis);
+						//修正坐标
+						ballGroup.fixPos(ballGroup.ballLength-1,64 - dis);
+						//合并
+						mergeBallGroup.merge(ballGroup.getBalls());
+						this._ballGroups.splice(i,1);
+						break;
+					}
+				}								 
+				mergeBallGroup = ballGroup;			
+			}
 		}
 	}
 }

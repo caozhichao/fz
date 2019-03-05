@@ -3,16 +3,13 @@ module test {
 		private _balls:Ball[];
 		private _passTime:number;
 		private _speed:number;
-		private _updateTime:number;
-		// private _lastBall:Ball;
-		// private _ballContainer:egret.DisplayObjectContainer;
-		public constructor(/*ballContainer:egret.DisplayObjectContainer*/) {			
-			// this._ballContainer = ballContainer;
-			this.init();
+		private _updateTime:number;		
+		public constructor(balls:Ball[]=null) {						
+			this.init(balls);
 		}
 
-		public init():void{
-			this._balls = [];
+		public init(balls:Ball[]):void{			
+			this._balls = balls || [];
 			this._speed = 50;
 			this._updateTime = 1000 / this._speed;
 			this._passTime = 0;
@@ -36,25 +33,6 @@ module test {
 				this.updateBallPos();
 				this._passTime-= this._updateTime;
 			}
-			// //加入ball
-			// let ball:Ball;
-			// if(this._lastBall == null){
-			// 	ball = new Ball(0,test.GameData.pos);
-			// 	this.addBall(ball,0);				
-			// } else {
-			// 	let lastBallPos:number = this._lastBall.pos;
-			// 	if(lastBallPos >= 64){
-			// 		let newPos:number = lastBallPos - 64;
-			// 		console.log('newPos:' + newPos);
-			// 		ball = new Ball(newPos,test.GameData.pos);
-			// 		this.addBall(ball);	
-			// 	}			
-			// }
-			// if(ball){
-			// 	this._lastBall = ball;
-			// 	this._ballContainer.addChild(ball);
-			// }
-
 			// //加速处理
 			// this._speed -= 2;
 			// if(this._speed <= 20){
@@ -86,12 +64,12 @@ module test {
 			}			
 			return [ball,i];
 		}
-		public fixPos(index:number):void{
+		public fixPos(index:number,step:number):void{
 			let len = this._balls.length;
 			let ball:Ball;
 			for(let i:number = 0; i <= index; i++){
 				ball = this._balls[i];
-				ball.pos += 64;
+				ball.pos += step;
 			}
 		}
 
@@ -133,5 +111,23 @@ module test {
 			return [min,max];
 		}
 
+		public getBall(index:number):Ball{
+			return this._balls[index];
+		}
+
+		public get ballLength():number{
+			return this._balls.length;
+		}
+
+		public getBalls():Ball[]{
+			return this._balls;
+		}
+
+		public merge(balls:Ball[]):void{
+			let len = balls.length;
+			for(let i:number = len-1; i >= 0; i--){
+				this._balls.unshift(balls[i]);
+			}			
+		}		
 	}
 }
