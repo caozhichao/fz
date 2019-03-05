@@ -42,7 +42,7 @@ module test {
 			let sId:number = Math.floor(Math.random() * 3);
 			let ball:Ball;
 			let ballPos:number;
-			if(this._defaultLastBall == null){
+			if(this._defaultLastBall == null || this._defalult.ballLength == 0){
 				ballPos = 0;		
 				ball = new Ball(ballPos,test.GameData.pos,sId);				
 			} else {
@@ -76,7 +76,7 @@ module test {
 				if(ball){
 					// console.log(ball.pos);
 					console.log('碰撞index:' + index);
-					let newBall:Ball = new Ball(ball.pos,test.GameData.pos,1);
+					let newBall:Ball = new Ball(ball.pos,test.GameData.pos,emitBall.sId);
 					ballGroup.addBall(newBall,index);
 					this._ballContainer.addChild(newBall);
 					//调整插入前面的位置

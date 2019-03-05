@@ -40,6 +40,8 @@ module test {
 
 		private emitBall:EmitBall;
 		private _flag2:boolean = true;
+		private _checkRect:egret.Rectangle = new egret.Rectangle(0,0,eg.Config.STAGE_W,eg.Config.STAGE_H);
+		private readyEmitBall:EmitBall;
 		public constructor() {
 			super();
 			this.skinName = 'skins.BezierViewSkin';
@@ -65,6 +67,25 @@ module test {
 			// this._ballGroup = new BallGroup(this);
 			this._ballManager = BallManager.getInstance();
 			this._ballManager.init(this);
+
+
+			//定时出球
+			setInterval(()=> {
+				if(this.readyEmitBall == null){
+					this.readyBall();
+				}
+			}, 1000);
+		}
+
+		private readyBall():void{
+			// let angle:number = Math.atan2(evt.localY - 565,evt.localX - 642);
+			let sId:number = Math.floor(Math.random() * 3);
+			let emitBall = new EmitBall(sId);
+			emitBall.x = 642;
+			emitBall.y = 565;
+			this.addChild(emitBall);		
+			// this.emitBall = emitBall;
+			this.readyEmitBall = emitBall;
 		}
 
 		private onEmit2(evt:egret.TouchEvent):void{
@@ -83,12 +104,19 @@ module test {
 			// img.x = 500;
 			// img.y = 500;
 
-			let angle:number = Math.atan2(evt.localY - 565,evt.localX - 642);
-			let emitBall = new EmitBall(angle);
-			emitBall.x = 642;
-			emitBall.y = 565;
-			this.addChild(emitBall);		
-			this.emitBall = emitBall;
+			// let angle:number = Math.atan2(evt.localY - 565,evt.localX - 642);
+			// let emitBall = new EmitBall(angle);
+			// emitBall.x = 642;
+			// emitBall.y = 565;
+			// this.addChild(emitBall);		
+			// this.emitBall = emitBall;
+
+			if(this.readyEmitBall){
+				let angle:number = Math.atan2(evt.localY - 565,evt.localX - 642);
+				this.emitBall = this.readyEmitBall;
+				this.emitBall.radians = angle;
+				this.readyEmitBall = null;
+			}
 
 		}
 
@@ -123,6 +151,13 @@ module test {
 					this.removeChild(this.emitBall);
 					this.emitBall = null;
 					// this.flag = false;
+					console.log("碰撞删除");
+				} else {
+					if(!this._checkRect.contains(this.emitBall.x,this.emitBall.y)){
+						this.removeChild(this.emitBall);
+						this.emitBall = null;
+						console.log("出界了");
+					}
 				}
 			}
 
