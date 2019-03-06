@@ -105,29 +105,35 @@ module test {
 
 					let addIndex:number = this.findAddIndex(index,emitBall,ball);
 
-					// /*
 					let newBall:Ball;
 					if(addIndex != index){
 						//后面
 						newBall = new Ball(ball.pos-64,test.GameData.pos,emitBall.sId);
 					} else {
-						newBall = new Ball(ball.pos,test.GameData.pos,emitBall.sId);
+						newBall = new Ball(ball.pos + 64,test.GameData.pos,emitBall.sId);
 					}
 
 					index = addIndex;
 
-					ballGroup.addBall(newBall,index);
-					this._ballContainer.addChild(newBall);
+					// ballGroup.addBall(newBall,index);
+					// this._ballContainer.addChild(newBall);
 
+					let endPos = newBall.pos;
+					console.log('ball.pos:' + ball.pos + ' endPos:' + endPos);
+					let endX:number = test.GameData.pos[endPos * 3];
+					let endY:number = test.GameData.pos[endPos * 3 + 1];
+
+					this.dropBall(emitBall.x,emitBall.y,ball.x,ball.y,endX,endY,emitBall.sId);
 
 					//调整插入前面的位置
-					ballGroup.fixPos(index,64);
+					// ballGroup.fixPos(index,64);
+					/*
 					//test 消除检查
 					// this.x(index,ballGroup);
 					this.xIndex = index;
 					this.xBallGroup = ballGroup;
 					this.state = 1;
-					// */
+					*/
 
 					break;
 				}
@@ -147,6 +153,41 @@ module test {
 			// }
 			return ball;
 		}
+
+		/**
+		 * 落球移动处理
+		 */
+		private dropBall(sx:number,sy:number,refX:number,refY:number,endX:number,endY:number,sId:number):void{
+			console.log('sx:' + sx + ' sy:' + sy + ' refX:' + refX + ' refY:' + refY + ' endX:' + endX + ' endY:' + endY + ' sId:' + sId);	
+			let startAngle:number = Math.atan2(sy - refY,sx - refX) * 180 / Math.PI;
+			let endAngle:number = Math.atan2(endY - refY,endX-refX) * 180 / Math.PI;
+
+			// startAngle = startAngle < 0?360+startAngle:startAngle;
+			// endAngle = endAngle < 0?360+endAngle:endAngle;
+
+			//计算角度间的间隔  从最短的路径移动，（圆上，分解成，顺时针，逆时针问题）
+			let dis = Math.abs( (startAngle < 0?360+startAngle:startAngle)   -  (endAngle < 0?360+endAngle:endAngle) );
+			if(dis <= 180){
+				startAngle = startAngle < 0?360+startAngle:startAngle;
+				endAngle = endAngle < 0?360+endAngle:endAngle;
+			}
+			console.log('startAngle:' + startAngle + ' endAngle:' + endAngle);
+			let obj = {angle:startAngle};
+			let moveBall = new EmitBall(sId);
+			this._ballContainer.addChild(moveBall);
+
+			egret.Tween.get(obj,{loop:false,onChange:()=>{
+				// console.log(obj.angle);
+				// this.emitBall.x = 
+				let radians = obj.angle * Math.PI / 180;
+				moveBall.x = refX + 64 * Math.cos(radians);
+				moveBall.y = refY + 64 * Math.sin(radians);
+			},onChangeObj:this}).to({angle:endAngle},200).call((ball:EmitBall)=>{
+				// console.log(p);
+				ball.parent.removeChild(ball);
+			},this,[moveBall]);
+		}
+
 
 		/**
 		 * 碰撞后查找添加球的位置
