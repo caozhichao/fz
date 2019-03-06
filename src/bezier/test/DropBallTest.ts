@@ -50,8 +50,16 @@ module test {
 			let startAngle:number = Math.atan2(this.emitBall.y - this.c1.y,this.emitBall.x - this.c1.x) * 180 / Math.PI;
 			let endAngle:number = Math.atan2(this.c3.y - this.c1.y,this.c3.x-this.c1.x) * 180 / Math.PI;
 
-			startAngle = startAngle < 0?360+startAngle:startAngle;
-			endAngle = endAngle < 0?360+endAngle:endAngle;
+			// startAngle = startAngle < 0?360+startAngle:startAngle;
+			// endAngle = endAngle < 0?360+endAngle:endAngle;
+
+			//计算角度间的间隔  从最短的路径移动，（圆上，分解成，顺时针，逆时针问题）
+			let dis = Math.abs( (startAngle < 0?360+startAngle:startAngle)   -  (endAngle < 0?360+endAngle:endAngle) );
+			if(dis <= 180){
+				startAngle = startAngle < 0?360+startAngle:startAngle;
+				endAngle = endAngle < 0?360+endAngle:endAngle;
+			}
+
 
 			console.log('startAngle:' + startAngle + ' endAngle:' + endAngle);
 			let obj = {angle:startAngle};

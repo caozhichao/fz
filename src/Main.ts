@@ -116,8 +116,8 @@ class Main extends eg.EgMain {
         // this.addChild(a);
 
         // eg.UIManager.Instance.showUI(new test.ZMTest2());
-        // eg.UIManager.Instance.showUI(new test.BezierView());
-        eg.UIManager.Instance.showUI(new test.DropBallTest());
+        eg.UIManager.Instance.showUI(new test.BezierView());
+        // eg.UIManager.Instance.showUI(new test.DropBallTest());
         // this.addChild(new test.ZMCollisionTest());
         //        
         // new test.RegExpTest();

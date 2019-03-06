@@ -99,9 +99,27 @@ module test {
 				if(ball){
 					// console.log(ball.pos);
 					console.log('碰撞index:' + index);
-					let newBall:Ball = new Ball(ball.pos,test.GameData.pos,emitBall.sId);
+					// let newBall:Ball = new Ball(ball.pos,test.GameData.pos,emitBall.sId);
+					// ballGroup.addBall(newBall,index);
+					// this._ballContainer.addChild(newBall);
+
+					let addIndex:number = this.findAddIndex(index,emitBall,ball);
+
+					// /*
+					let newBall:Ball;
+					if(addIndex != index){
+						//后面
+						newBall = new Ball(ball.pos-64,test.GameData.pos,emitBall.sId);
+					} else {
+						newBall = new Ball(ball.pos,test.GameData.pos,emitBall.sId);
+					}
+
+					index = addIndex;
+
 					ballGroup.addBall(newBall,index);
 					this._ballContainer.addChild(newBall);
+
+
 					//调整插入前面的位置
 					ballGroup.fixPos(index,64);
 					//test 消除检查
@@ -109,6 +127,8 @@ module test {
 					this.xIndex = index;
 					this.xBallGroup = ballGroup;
 					this.state = 1;
+					// */
+
 					break;
 				}
 			}
@@ -126,6 +146,33 @@ module test {
 			// 	this.x(index);
 			// }
 			return ball;
+		}
+
+		/**
+		 * 碰撞后查找添加球的位置
+		 */
+		private findAddIndex(collisionIndex:number,emitBall:EmitBall,ball:Ball):number{
+
+			//获取下一个坐标点
+			let nextPos = ball.pos + 1;
+			let nextX:number = test.GameData.pos[nextPos * 3];
+			let nextY:number = test.GameData.pos[nextPos * 3 + 1];
+			// let degrees = test.GameData.pos[ball.pos+2];
+			let degrees = Math.atan2(nextY - ball.y,nextX - ball.x) * 180 / Math.PI;
+
+			//转化成正角
+			// degrees = degrees < 0?360+degrees:degrees;
+			//以该角度的方向画垂线，分割圆为2个180的半圆
+			let min:number = degrees - 90;
+			let max:number = degrees + 90;
+
+			//计算碰撞形成的夹角
+			let degrees2 = Math.atan2(emitBall.y - ball.y,emitBall.x - ball.x) * 180 / Math.PI;
+
+			if(degrees2 >= degrees && degrees2 <= max){
+				return collisionIndex;
+			}
+			return collisionIndex + 1;
 		}
 
 		/**

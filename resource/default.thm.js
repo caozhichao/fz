@@ -189,8 +189,8 @@ window.skins={};
 		t.fillColor = 0xf49902;
 		t.height = 64;
 		t.width = 64;
-		t.x = 482.68;
-		t.y = 250.04;
+		t.x = 481.15;
+		t.y = 248.4;
 		return t;
 	};
 	_proto.c2_i = function () {
@@ -204,7 +204,7 @@ window.skins={};
 		t.height = 64;
 		t.width = 64;
 		t.x = 594;
-		t.y = 577.06;
+		t.y = 162.18;
 		return t;
 	};
 	_proto._btn_i = function () {
