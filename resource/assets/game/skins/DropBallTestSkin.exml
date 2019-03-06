@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<e:Skin class="skins.DropBallTestSkin" width="1280" xmlns:e="http://ns.egret.com/eui" xmlns:w="http://ns.egret.com/wing" height="720">
+	<e:Rect id="c1" width="64" height="64" x="530" y="294" ellipseWidth="64" ellipseHeight="64" fillColor="0xf70202" anchorOffsetX="32" anchorOffsetY="32"/>
+	<e:Rect id="c3" width="64" height="64" x="482.68" y="250.04" ellipseWidth="64" ellipseHeight="64" anchorOffsetX="32" anchorOffsetY="32" fillColor="0xf49902"/>
+	<e:Rect id="c2" width="64" height="64" x="594" y="577.06" ellipseWidth="64" ellipseHeight="64" fillColor="0x071af7" anchorOffsetX="32" anchorOffsetY="32"/>
+	<e:Button id="_btn" label="测试" x="839.33" y="609.06"/>
+</e:Skin>

@@ -17,6 +17,7 @@
 	"autoGenerateExmlsList": true,
 	"exmls": [
 		"resource/assets/game/skins/BezierViewSkin.exml",
+		"resource/assets/game/skins/DropBallTestSkin.exml",
 		"resource/assets/game/skins/FishViewSkin.exml",
 		"resource/assets/game/skins/landscape_test.exml",
 		"resource/assets/game/skins/LoadingUISkin.exml",

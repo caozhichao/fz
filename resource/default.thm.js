@@ -153,6 +153,69 @@ window.skins={};
 		return t;
 	};
 	return BezierViewSkin;
+})(eui.Skin);generateEUI.paths['resource/assets/game/skins/DropBallTestSkin.exml'] = window.skins.DropBallTestSkin = (function (_super) {
+	__extends(DropBallTestSkin, _super);
+	function DropBallTestSkin() {
+		_super.call(this);
+		this.skinParts = ["c1","c3","c2","_btn"];
+		
+		this.height = 720;
+		this.width = 1280;
+		this.elementsContent = [this.c1_i(),this.c3_i(),this.c2_i(),this._btn_i()];
+	}
+	var _proto = DropBallTestSkin.prototype;
+
+	_proto.c1_i = function () {
+		var t = new eui.Rect();
+		this.c1 = t;
+		t.anchorOffsetX = 32;
+		t.anchorOffsetY = 32;
+		t.ellipseHeight = 64;
+		t.ellipseWidth = 64;
+		t.fillColor = 0xf70202;
+		t.height = 64;
+		t.width = 64;
+		t.x = 530;
+		t.y = 294;
+		return t;
+	};
+	_proto.c3_i = function () {
+		var t = new eui.Rect();
+		this.c3 = t;
+		t.anchorOffsetX = 32;
+		t.anchorOffsetY = 32;
+		t.ellipseHeight = 64;
+		t.ellipseWidth = 64;
+		t.fillColor = 0xf49902;
+		t.height = 64;
+		t.width = 64;
+		t.x = 482.68;
+		t.y = 250.04;
+		return t;
+	};
+	_proto.c2_i = function () {
+		var t = new eui.Rect();
+		this.c2 = t;
+		t.anchorOffsetX = 32;
+		t.anchorOffsetY = 32;
+		t.ellipseHeight = 64;
+		t.ellipseWidth = 64;
+		t.fillColor = 0x071af7;
+		t.height = 64;
+		t.width = 64;
+		t.x = 594;
+		t.y = 577.06;
+		return t;
+	};
+	_proto._btn_i = function () {
+		var t = new eui.Button();
+		this._btn = t;
+		t.label = "测试";
+		t.x = 839.33;
+		t.y = 609.06;
+		return t;
+	};
+	return DropBallTestSkin;
 })(eui.Skin);generateEUI.paths['resource/assets/game/skins/FishViewSkin.exml'] = window.skins.FishViewSkin = (function (_super) {
 	__extends(FishViewSkin, _super);
 	function FishViewSkin() {
