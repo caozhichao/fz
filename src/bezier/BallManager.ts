@@ -9,6 +9,14 @@ module test {
 		private _ballGroups:BallGroup[];
 		private _ballContainer:egret.DisplayObjectContainer;
 
+		//0 移动 1 碰撞加球 
+		private state:number = 0;
+
+		private xIndex:number;
+		private xBallGroup:BallGroup;
+
+		private _moveBallGroup:BallGroup[];
+
 		public constructor() {			
 
 		}	
@@ -25,13 +33,28 @@ module test {
 			this._ballContainer = ballContainer;
 			this._defalult = new BallGroup();
 			this._ballGroups = [this._defalult];
+			this._moveBallGroup = [this._defalult];
 		}
 
 		public update(passTime:number):void{
-			this._defalult.update(passTime);			
-			this.defaultAddBall();
-			//合并球组
-			this.mergeBallGroup();
+			if(this.state == 0){
+				// this._defalult.update(passTime);			
+				this.checkBallGroupMove();
+
+				this.moveBall(passTime);
+				this.defaultAddBall();
+				//合并球组
+				this.mergeBallGroup();
+			} else if(this.state == 1) {
+				this.x(this.xIndex,this.xBallGroup);
+				this.state = 0;				
+			}
+		}
+
+		private moveBall(passTime:number):void{
+			this._moveBallGroup.forEach(element => {
+				element.update(passTime);
+			});
 		}
 
 		/**
@@ -82,7 +105,10 @@ module test {
 					//调整插入前面的位置
 					ballGroup.fixPos(index,64);
 					//test 消除检查
-					this.x(index,ballGroup);
+					// this.x(index,ballGroup);
+					this.xIndex = index;
+					this.xBallGroup = ballGroup;
+					this.state = 1;
 					break;
 				}
 			}
@@ -124,8 +150,13 @@ module test {
 					let newBallGroup = new BallGroup(newBalls);
 					// this._ballGroups.push(newBallGroup);
 					this._ballGroups.splice(groupIndex+1,0,newBallGroup);
+
+					//加入到移动的球组列表中
+					// newBallGroup.changeDir();
+					// newBallGroup.speed = 600;
+					// this._moveBallGroup.push(newBallGroup);
 				}
-				//原有的组如果为空，并且不是第一个组，删除，
+				//原有的组如果为空，并且不是第一个组(第一个组为出球的组，不能删除)，删除，
 				if(ballGroup.ballLength == 0 && groupIndex != 0){
 					this._ballGroups.splice(groupIndex,1);
 				}
@@ -133,6 +164,9 @@ module test {
 			console.log('min:' + min + ' max:' + max + ' count:' + count);
 		}
 
+		/**
+		 * 合并球组
+		 */
 		private mergeBallGroup():void{
 			let len = this._ballGroups.length;
 			let mergeBallGroup = this._ballGroups[0];
@@ -154,11 +188,49 @@ module test {
 						//合并
 						mergeBallGroup.merge(ballGroup.getBalls());
 						this._ballGroups.splice(i,1);
+
+						//合并后从移动的球组中删除
+						let index = this._moveBallGroup.indexOf(ballGroup);
+						this._moveBallGroup.splice(index,index);
+
+						//合并后，检查消除
+						this.x(ballGroup.ballLength-1,mergeBallGroup);
 						break;
 					}
 				}								 
 				mergeBallGroup = ballGroup;			
 			}
 		}
+
+		/**
+		 * 检查拆分的组是否回滚移动
+		 * 检查相邻的2个组的，前后2个球是否相同，如果是，则加入到可移动组中
+		 */
+		public checkBallGroupMove():void{
+			let len = this._ballGroups.length;
+			let headBallGroup:BallGroup = this._ballGroups[0];
+			let headBall:Ball;
+			let tailBall:Ball;
+
+			let ballGroup:BallGroup;
+			for(let i:number = 1; i < len; i++){
+				headBall = headBallGroup.getBall(0);
+				ballGroup = this._ballGroups[i];
+				if(headBall){
+					tailBall = ballGroup.getBall(ballGroup.ballLength-1);
+					if(headBall.sId == tailBall.sId){
+						//加入移动组
+						let index = this._moveBallGroup.indexOf(ballGroup);
+						if(index == -1){
+							ballGroup.changeDir();
+							ballGroup.speed = 600;
+							this._moveBallGroup.push(ballGroup);
+						}
+					}
+				}
+				headBallGroup = ballGroup;
+			}
+		}
+
 	}
 }

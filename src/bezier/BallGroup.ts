@@ -3,7 +3,9 @@ module test {
 		private _balls:Ball[];
 		private _passTime:number;
 		private _speed:number;
-		private _updateTime:number;		
+		private _updateTime:number;	
+		//移动方向
+		private _dir:number = 1;	
 		public constructor(balls:Ball[]=null) {						
 			this.init(balls);
 		}
@@ -45,7 +47,7 @@ module test {
 
 		private updateBallPos():void{
 			this._balls.forEach(element => {
-				element.updatePos(1);
+				element.updatePos(1 * this._dir);
 			});
 		}
 
@@ -128,6 +130,15 @@ module test {
 			for(let i:number = len-1; i >= 0; i--){
 				this._balls.unshift(balls[i]);
 			}			
-		}		
+		}	
+
+		public changeDir():void{
+			this._dir = -this._dir;
+		}	
+
+		public set speed(value:number){
+			this._speed = value;
+			this._updateTime = 1000 / this._speed;
+		}
 	}
 }
