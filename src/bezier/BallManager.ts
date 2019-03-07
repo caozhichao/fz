@@ -107,16 +107,20 @@ module test {
 
 					let newBall:Ball;
 					if(addIndex != index){
-						//后面
-						newBall = new Ball(ball.pos-64,test.GameData.pos,emitBall.sId);
+						//后面(取碰撞到的球的再后面一个,插在这个球的前面)
+						// newBall = new Ball(ball.pos-64,test.GameData.pos,emitBall.sId);
+						ball = ballGroup.getBall(addIndex);   //(数组边界情况，需要处理)
+						newBall = new Ball(ball.pos+64,test.GameData.pos,emitBall.sId);
 					} else {
 						newBall = new Ball(ball.pos + 64,test.GameData.pos,emitBall.sId);
 					}
 
 					index = addIndex;
 
-					// ballGroup.addBall(newBall,index);
-					// this._ballContainer.addChild(newBall);
+					ballGroup.addBall(newBall,index);
+					setTimeout(()=> {
+						this._ballContainer.addChild(newBall);					
+					}, 200);
 
 					let endPos = newBall.pos;
 					console.log('ball.pos:' + ball.pos + ' endPos:' + endPos);
@@ -126,7 +130,7 @@ module test {
 					this.dropBall(emitBall.x,emitBall.y,ball.x,ball.y,endX,endY,emitBall.sId);
 
 					//调整插入前面的位置
-					// ballGroup.fixPos(index,64);
+					ballGroup.fixPos(index,64);
 					/*
 					//test 消除检查
 					// this.x(index,ballGroup);
@@ -175,17 +179,19 @@ module test {
 			let obj = {angle:startAngle};
 			let moveBall = new EmitBall(sId);
 			this._ballContainer.addChild(moveBall);
-
+			// moveBall.x = sx;
+			// moveBall.y = sy;
+			// /*
 			egret.Tween.get(obj,{loop:false,onChange:()=>{
-				// console.log(obj.angle);
-				// this.emitBall.x = 
+				console.log(obj.angle);				
 				let radians = obj.angle * Math.PI / 180;
 				moveBall.x = refX + 64 * Math.cos(radians);
 				moveBall.y = refY + 64 * Math.sin(radians);
 			},onChangeObj:this}).to({angle:endAngle},200).call((ball:EmitBall)=>{
-				// console.log(p);
+				console.log(moveBall.x + '|' + moveBall.y);
 				ball.parent.removeChild(ball);
 			},this,[moveBall]);
+			// */
 		}
 
 

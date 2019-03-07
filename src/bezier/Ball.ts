@@ -44,7 +44,8 @@ module test {
 		}
 		
 		public set pos(value:number){
-			this._pos = value;
+			// console.log(value);
+			this._pos = value | 0;
 			this.updatePos(0);
 		}
 

@@ -69,9 +69,11 @@ module test {
 		public fixPos(index:number,step:number):void{
 			let len = this._balls.length;
 			let ball:Ball;
-			for(let i:number = 0; i <= index; i++){
+			for(let i:number = 0; i < index; i++){
 				ball = this._balls[i];
-				ball.pos += step;
+				// ball.pos += step;
+				let pos = ball.pos + step;
+				egret.Tween.get(ball).to({pos:pos},256);
 			}
 		}
 
