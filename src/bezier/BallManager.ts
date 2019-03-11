@@ -163,9 +163,13 @@ module test {
 		 */
 		private dropBall(sx:number,sy:number,refX:number,refY:number,endX:number,endY:number,sId:number):void{
 			console.log('sx:' + sx + ' sy:' + sy + ' refX:' + refX + ' refY:' + refY + ' endX:' + endX + ' endY:' + endY + ' sId:' + sId);	
+			let d = Math.sqrt((endX - refX) * (endX - refX) + (endY - refY) * (endY - refY));
+			console.log(d);
 			let startAngle:number = Math.atan2(sy - refY,sx - refX) * 180 / Math.PI;
 			let endAngle:number = Math.atan2(endY - refY,endX-refX) * 180 / Math.PI;
-
+			console.log('endAngle1:' + endAngle);
+			console.log(refX + 64 * Math.cos(endAngle * Math.PI / 180 ));
+			console.log(refY + 64 * Math.sin(endAngle * Math.PI / 180 ));
 			// startAngle = startAngle < 0?360+startAngle:startAngle;
 			// endAngle = endAngle < 0?360+endAngle:endAngle;
 
@@ -176,6 +180,8 @@ module test {
 				endAngle = endAngle < 0?360+endAngle:endAngle;
 			}
 			console.log('startAngle:' + startAngle + ' endAngle:' + endAngle);
+			console.log(refX + 64 * Math.cos(endAngle * Math.PI / 180 ));
+			console.log(refY + 64 * Math.sin(endAngle * Math.PI / 180 ));
 			let obj = {angle:startAngle};
 			let moveBall = new EmitBall(sId);
 			this._ballContainer.addChild(moveBall);
@@ -183,12 +189,14 @@ module test {
 			// moveBall.y = sy;
 			// /*
 			egret.Tween.get(obj,{loop:false,onChange:()=>{
-				console.log(obj.angle);				
+				// console.log(obj.angle);				
 				let radians = obj.angle * Math.PI / 180;
 				moveBall.x = refX + 64 * Math.cos(radians);
 				moveBall.y = refY + 64 * Math.sin(radians);
-			},onChangeObj:this}).to({angle:endAngle},200).call((ball:EmitBall)=>{
-				console.log(moveBall.x + '|' + moveBall.y);
+				console.log('onChange:' + obj.angle + '|' + moveBall.x + '|' + moveBall.y);
+			},onChangeObj:this}).to({angle:endAngle},200).wait(10).call((ball:EmitBall)=>{
+				//wait(10) 避免call 在最后一次onChange 之前执行，导致，moveBall 最后一次坐标没有看到更新，而被删除，出现的闪的问题
+				console.log(ball.x + ':' + ball.y);
 				ball.parent.removeChild(ball);
 			},this,[moveBall]);
 			// */

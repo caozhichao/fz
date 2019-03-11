@@ -64,11 +64,13 @@ module test {
 			console.log('startAngle:' + startAngle + ' endAngle:' + endAngle);
 			let obj = {angle:startAngle};
 			egret.Tween.get(obj,{loop:false,onChange:()=>{
-				console.log(obj.angle);
+				// console.log(obj.angle);
 				// this.emitBall.x = 
 				let radians = obj.angle * Math.PI / 180;
 				this.emitBall.x = this.c1.x + 64 * Math.cos(radians);
 				this.emitBall.y = this.c1.y + 64 * Math.sin(radians);
+
+				console.log(obj.angle + '|' + this.emitBall.x + "|" + this.emitBall.y);
 
 			},onChangeObj:this}).to({angle:endAngle},200);
 		}
