@@ -66,14 +66,18 @@ module test {
 			}			
 			return [ball,i];
 		}
-		public fixPos(index:number,step:number):void{
+		public fixPos(index:number,step:number,tween:boolean=true):void{
 			let len = this._balls.length;
 			let ball:Ball;
 			for(let i:number = 0; i < index; i++){
 				ball = this._balls[i];
-				// ball.pos += step;
-				let pos = ball.pos + step;
-				egret.Tween.get(ball).to({pos:pos},256);
+				if(!tween){
+					ball.pos += step;
+
+				} else {
+					let pos = ball.pos + step;
+					egret.Tween.get(ball).to({pos:pos},256);
+				}
 			}
 		}
 

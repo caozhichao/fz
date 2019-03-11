@@ -160,12 +160,17 @@ module test {
 					if(collisionPos > 0){
 						centerX = test.GameData.pos[collisionPos * 3];
 						centerY = test.GameData.pos[collisionPos * 3 + 1];
+						this.state = 100;
 						this.dropBall(emitBall.x,emitBall.y,centerX,centerY,endX,endY,emitBall.sId);
 					}
 
 					//调整插入前面的位置
 					// ballGroup.fixPos(index,64);
 					ballGroup.fixPos(index,64);
+
+					this.xIndex = index;
+					this.xBallGroup = ballGroup;
+
 					/*
 					//test 消除检查
 					// this.x(index,ballGroup);
@@ -233,6 +238,7 @@ module test {
 				//wait(10) 避免call 在最后一次onChange 之前执行，导致，moveBall 最后一次坐标没有看到更新，而被删除，出现的闪的问题
 				console.log(ball.x + ':' + ball.y);
 				ball.parent.removeChild(ball);
+				this.state = 1;
 			},this,[moveBall]);
 			// */
 		}
@@ -321,7 +327,7 @@ module test {
 					if(dis <= 64){
 						console.log('dis:' + dis);
 						//修正坐标
-						ballGroup.fixPos(ballGroup.ballLength-1,64 - dis);
+						ballGroup.fixPos(ballGroup.ballLength,64 - dis,false);
 						//合并
 						mergeBallGroup.merge(ballGroup.getBalls());
 						this._ballGroups.splice(i,1);
