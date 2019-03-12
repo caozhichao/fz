@@ -46,8 +46,8 @@ module test {
 				//合并球组
 				this.mergeBallGroup();
 			} else if(this.state == 1) {
-				this.x(this.xIndex,this.xBallGroup);
-				this.state = 0;				
+				// this.x(this.xIndex,this.xBallGroup);
+				// this.state = 0;				
 			}
 		}
 
@@ -110,16 +110,25 @@ module test {
 					// let centerPos:number;
 					let collisionPos:number = ball.pos;
 
+					
+
+					let fixPosIndex:number = addIndex;
+
 					let newBall:Ball;
 					let newPos:number;
 					if(addIndex != index){
 						//后面(取碰撞到的球的再后面一个,插在这个球的前面)
 						// newBall = new Ball(ball.pos-64,test.GameData.pos,emitBall.sId);
-						collisionPos -= 64;
+						if(addIndex != ballGroup.ballLength){//不是最后面的位置(在球组中不存在)
+							collisionPos -= 64;
+							newPos = collisionPos + 64;
+						}  else {
+							newPos = collisionPos - 64;
+							fixPosIndex = -1; //最后面不需要移动位置
+						}
 						// if(collisionPos < 0){
 						// 	collisionPos = 0;
 						// }
-						newPos = collisionPos + 64;
 						
 						// ball = ballGroup.getBall(addIndex);   //(数组边界情况，需要处理)
 						// if(ball){
@@ -140,9 +149,9 @@ module test {
 					if(collisionPos < 0){
 						delay = 0;
 					}
-					setTimeout(()=> {
-						this._ballContainer.addChild(newBall);					
-					}, delay);
+					// setTimeout(()=> {
+					// 	this._ballContainer.addChild(newBall);						
+					// }, delay);
 
 					// let endPos = newBall.pos;
 					let endPos = newPos;
@@ -166,10 +175,17 @@ module test {
 
 					//调整插入前面的位置
 					// ballGroup.fixPos(index,64);
-					ballGroup.fixPos(index,64);
+					ballGroup.fixPos(fixPosIndex,64);
 
-					this.xIndex = index;
-					this.xBallGroup = ballGroup;
+					TweenLite.delayedCall(delay/1000,(thisObj,index,ballGroup,newBall)=>{
+						thisObj._ballContainer.addChild(newBall);		
+						thisObj.x(index,ballGroup);
+						this.state = 0;
+					},[this,index,ballGroup,newBall]);
+
+
+					// this.xIndex = index;
+					// this.xBallGroup = ballGroup;
 
 					/*
 					//test 消除检查
@@ -204,12 +220,12 @@ module test {
 		private dropBall(sx:number,sy:number,refX:number,refY:number,endX:number,endY:number,sId:number):void{
 			console.log('sx:' + sx + ' sy:' + sy + ' refX:' + refX + ' refY:' + refY + ' endX:' + endX + ' endY:' + endY + ' sId:' + sId);	
 			let d = Math.sqrt((endX - refX) * (endX - refX) + (endY - refY) * (endY - refY));
-			console.log(d);
+			// console.log(d);
 			let startAngle:number = Math.atan2(sy - refY,sx - refX) * 180 / Math.PI;
 			let endAngle:number = Math.atan2(endY - refY,endX-refX) * 180 / Math.PI;
-			console.log('endAngle1:' + endAngle);
-			console.log(refX + 64 * Math.cos(endAngle * Math.PI / 180 ));
-			console.log(refY + 64 * Math.sin(endAngle * Math.PI / 180 ));
+			// console.log('endAngle1:' + endAngle);
+			// console.log(refX + 64 * Math.cos(endAngle * Math.PI / 180 ));
+			// console.log(refY + 64 * Math.sin(endAngle * Math.PI / 180 ));
 			// startAngle = startAngle < 0?360+startAngle:startAngle;
 			// endAngle = endAngle < 0?360+endAngle:endAngle;
 
@@ -219,15 +235,15 @@ module test {
 				startAngle = startAngle < 0?360+startAngle:startAngle;
 				endAngle = endAngle < 0?360+endAngle:endAngle;
 			}
-			console.log('startAngle:' + startAngle + ' endAngle:' + endAngle);
-			console.log(refX + 64 * Math.cos(endAngle * Math.PI / 180 ));
-			console.log(refY + 64 * Math.sin(endAngle * Math.PI / 180 ));
+			// console.log('startAngle:' + startAngle + ' endAngle:' + endAngle);
+			// console.log(refX + 64 * Math.cos(endAngle * Math.PI / 180 ));
+			// console.log(refY + 64 * Math.sin(endAngle * Math.PI / 180 ));
 			let obj = {angle:startAngle};
 			let moveBall = new EmitBall(sId);
 			this._ballContainer.addChild(moveBall);
 			// moveBall.x = sx;
 			// moveBall.y = sy;
-			// /*
+			/*
 			egret.Tween.get(obj,{loop:false,onChange:()=>{
 				// console.log(obj.angle);				
 				let radians = obj.angle * Math.PI / 180;
@@ -240,7 +256,34 @@ module test {
 				ball.parent.removeChild(ball);
 				this.state = 1;
 			},this,[moveBall]);
-			// */
+			*/
+
+			//TweenLite 代替 egret.Tween (onChange call 执行顺序有问题)
+
+			TweenLite.to(obj,0.22,{angle:endAngle,
+			onUpdate:()=>{
+				let radians = obj.angle * Math.PI / 180;
+				moveBall.x = refX + 64 * Math.cos(radians);
+				moveBall.y = refY + 64 * Math.sin(radians);
+				// console.log('onChange:' + obj.angle + '|' + moveBall.x + '|' + moveBall.y);
+				console.log("onUpdate");
+			},
+			onComplete:(ball)=>{
+				console.log(ball.x + ':' + ball.y);
+				// setTimeout(function() {
+				// 	console.log(ball + "||" + ball.parent);
+				// 	try {
+				// 		ball.parent.removeChild(ball);										
+				// 	} catch (error) {
+				// 		console.log(error);
+				// 	}
+				// }, 10);				
+				ball.parent.removeChild(ball);														
+				// this.state = 1;
+			},
+			onCompleteParams:[moveBall]
+			})
+
 		}
 
 
@@ -304,7 +347,7 @@ module test {
 					this._ballGroups.splice(groupIndex,1);
 				}
 			}
-			console.log('min:' + min + ' max:' + max + ' count:' + count);
+			console.log('index:' + index + ' min:' + min + ' max:' + max + ' count:' + count);
 		}
 
 		/**
@@ -337,7 +380,9 @@ module test {
 						this._moveBallGroup.splice(index,index);
 
 						//合并后，检查消除
-						this.x(ballGroup.ballLength-1,mergeBallGroup);
+						if(headBall.sId == tailBall.sId){ //首尾相同检查消除
+							this.x(ballGroup.ballLength-1,mergeBallGroup);
+						}
 						break;
 					}
 				}								 

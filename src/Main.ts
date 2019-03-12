@@ -122,7 +122,7 @@ class Main extends eg.EgMain {
         //        
         // new test.RegExpTest();
 
-        // this.addChild(new test.CircleMotion());
+        // this.addChild(new test.TweenLiteTest());
         // new PromiseTest();
         // new decorators_test();
 
