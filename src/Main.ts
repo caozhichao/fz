@@ -128,6 +128,7 @@ class Main extends eg.EgMain {
 
         // new test.TweenTest();
         new test.DijkstraTest();
+        // this.addChild(new test.MatrixTest());
 
     }
 

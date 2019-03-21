@@ -2,7 +2,46 @@ module test {
 	export class MatrixTest extends egret.Sprite{
 		public constructor() {
 			super();
-			this.test();
+			// this.test();
+			this.test2();
+		}
+
+		private test2():void{
+
+			/*
+			let m = new egret.Matrix();
+			m.rotate(90 * Math.PI / 180);			
+			// m.translate(10,0);
+			m.scale(2,1);
+			let result = new egret.Point();
+			m.transformPoint(10,0,result);
+
+			console.log(result);
+
+			let radian = 90 * Math.PI / 180;
+			// console.log(Math.cos(radian));
+			let x = 10;
+			let y = 0;
+			let x1 = x * Math.cos(radian) - y * Math.sin(radian);
+			let y1 = x * Math.sin(radian) + y * Math.cos(radian);
+			console.log('x1:' + x1 + ' y1:' + y1);
+			*/
+			let spr:egret.Sprite = new egret.Sprite();
+			spr.graphics.beginFill(0xff0000);
+			spr.graphics.drawRect(0,0,100,50);
+			spr.graphics.endFill();
+			this.addChild(spr);
+			spr.anchorOffsetX = 50;
+			spr.anchorOffsetY = 25;
+
+			let m:egret.Matrix = new egret.Matrix();
+			// m.rotate(45);
+			// m.translate(100,100);
+			m.translate(100,100);
+			m.rotate(45);
+			
+			spr.matrix = m;
+
 		}
 
 		private test():void{
