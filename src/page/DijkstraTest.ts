@@ -5,7 +5,8 @@ module test {
 			// let g:eg.Graph = new eg.Graph();
 			// let d = new eg.Dijkstra(g);
 			// d.find(0);
-			new eg.Dijkstra();
+			let d = new eg.Dijkstra();
+			d.find(3);
 		}
 	}
 }
