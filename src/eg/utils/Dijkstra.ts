@@ -123,12 +123,15 @@ module eg {
 		private wMatrix:number[][];
 		//不可达权重值
 		public static M = 100000000;
-		constructor(){
+		constructor(vetexs:string[],w,vetexNum){
 			this.u = [];
 
-			let vetexNum = 7;
-			for(let i = 0; i < vetexNum;i++){
-				this.u[i] = new Node(i);
+			// let vetexNum;
+			let index:number = 0;
+			for(let i = 0; i < vetexs.length;i+=3){
+				this.u.push(new Node(index,parseInt(vetexs[i])));
+				// vetexNum = parseInt( vetexs[i] );
+				index++;
 			}
 			//边(连接点)的权重
 			this.wMatrix = [];
@@ -141,27 +144,28 @@ module eg {
 			//fg(9)
 			//abcdefg;
 			let M = Dijkstra.M;
-			let w = [
-				//  a, b,c,d,e,f, g
-					0,12,M,M,M,16,14,
-					M,0,10,M,M,7,M,
-					M,M,0,3,5,6,M,
-					M,M,M,0,4,M,M,
-					M,M,M,M,0,2,8,
-					M,M,M,M,M,0,9,
-				]
-
+			// let w = [
+			// 	//  a, b,c,d,e,f, g
+			// 		0,12,M,M,M,16,14,
+			// 		M,0,10,M,M,7,M,
+			// 		M,M,0,3,5,6,M,
+			// 		M,M,M,0,4,M,M,
+			// 		M,M,M,M,0,2,8,
+			// 		M,M,M,M,M,0,9,
+			// 	]
+			// vetexNum += 1;
 			for(let i:number = 0;i < vetexNum;i++){
 				this.wMatrix[i] = [];
-				for(let j:number=0; j < vetexNum;j++){
+				for(let j:number=0; j < vetexNum;j++){					
 					this.wMatrix[i][j] = w[i*vetexNum+j] || Dijkstra.M;
+					this.wMatrix[i][j] = parseInt(this.wMatrix[i][j].toString());
 				}
 			}
 			console.log(this.wMatrix);
 
 		}
 
-		public find(id:number):void{
+		public find(id:number,findId:number):number[]{
 			let t1:number = egret.getTimer();
 			let s:Node[] = [];
 			let u:Node[] = this.u;
@@ -188,7 +192,7 @@ module eg {
 				for(i; i < len;i++){
 					node = u[i];	
 					if(node.s == 0){
-						edgeW = this.getWeight(sNode.id,node.id);
+						edgeW = this.getWeight(sNode.wId,node.wId);
 						if(edgeW != Dijkstra.M){
 							w = sNode.weight + edgeW;
 							if(w < node.weight) {//找到比之前小的节点路径 替换父节点
@@ -201,15 +205,32 @@ module eg {
 							minW = w;
 							minId = node.id;
 						}
-						console.log(sNode.id + '->' + node.id + ' w:' + w);						
+						// console.log(sNode.id + '->' + node.id + ' w:' + w);						
+						console.log(sNode.wId + '->' + node.wId + ' w:' + w);						
 					}				
 				}
-				sNode = this.getNode(minId);				
-				s[sNode.id] = sNode;	
-				sNode.s = 1;			
+				sNode = this.getNode(minId);					
+				// s[sNode.id] = sNode;	
+				sNode.s = 1;							
 			}
 			// }
 			console.log('time:' + (egret.getTimer() - t1) );
+			// return this.u;
+
+			// let n = this.u[findId];
+			let n;
+			this.u.forEach(element => {
+				if(element.wId == findId){
+					n = element;
+				}
+			});
+
+			let paths = [];
+			while(n){
+				paths.push(n.wId);
+				n = n.pNode;
+			}
+			return paths.reverse();
 		}
 
 		private getWeight(start,end):number{
@@ -237,9 +258,10 @@ module eg {
 	/**
 	 * 节点类
 	 */
-	class Node{
+	export class Node{
 		//节点id
 		public id:number;
+		public wId:number;
 		//几点名称
 		public name:string;
 		/**父节点 */
@@ -249,8 +271,9 @@ module eg {
 
 		//是否在s集合中(用于优化不从u集合中删除只标记这个状态)
 		public s:number;
-		constructor(id:number){
+		constructor(id:number,wId:number){
 			this.id = id;
+			this.wId = wId;
 			this._weight = Dijkstra.M;
 			this.s = 0;
 		}

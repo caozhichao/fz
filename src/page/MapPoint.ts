@@ -5,10 +5,13 @@ module test {
 
 		private matrixLine:Line[][];
 		private _map:egret.Bitmap;
+		private _points:Point[];
 
 		public _container:eui.Group;
 		public _mapImg:eui.Image;
 		public _sl:eui.Scroller;
+		public _btn:eui.Button;
+
 
 		private _kb:KeyBoard;
 
@@ -28,8 +31,65 @@ module test {
 			this._kb = new KeyBoard();
 			this._kb.addEventListener(KeyBoard.onkeydown,this.onKeyDown,this);		
 			this.changeState();
-
 			eg.EventDispatcher.Instance.addEventListener('remove_line',this.onRemoveLine,this);
+
+			this._points = [];
+			this._btn.addEventListener(egret.TouchEvent.TOUCH_TAP,this.onCreateMapData,this);
+		}
+
+		private onCreateMapData(evt:egret.TouchEvent):void{
+
+			console.log('onCreateMapData');
+			let wMatrix:number[][] = [];
+
+			let vNum = this._points.length;
+
+			let len = this.matrixLine.length;
+			let line:Line;
+			for(let i = 0; i < vNum; i++){
+				let arr = this.matrixLine[i] || [];
+				wMatrix[i] = [];				
+				for(let j = 0; j < vNum;j++){					
+					line = arr[j];					
+					if(line){
+						wMatrix[i][j] = line.weight;
+					} else {
+						wMatrix[i][j] = undefined;
+					}
+				}				
+			}
+			console.log(wMatrix.toString());
+
+
+			let vArr = [];
+			let p:Point;
+			for(let i = 0; i < vNum;i++){
+				p = this._points[i];				
+				if(p){
+					vArr.push(p.id,p.x,p.y);
+					// vArr.push({id:p.id,x:p.x,p.y})
+				} else {
+					// vArr.push(undefined,undefined);
+				}
+			}
+
+			console.log(vArr.toString());
+
+			//测试寻路
+			
+			let vetexs = '138,156,255,156,371,159,185,283,374,306'.split(',');
+			vetexs = vArr.toString().split(',');
+
+			vNum = vetexs.length / 3;
+			let w = ',117,,135,,,,116,,,,,,,,,,,,190,,,,,'.split(',');
+			w = wMatrix.toString().split(',');
+
+			let d = new eg.Dijkstra(vetexs,w,this._points.length);
+			let paths = d.find(0,this.select.id);
+			console.log(paths);
+
+
+
 		}
 
 		private onRemoveLine(evt:egret.Event):void{
@@ -71,6 +131,7 @@ module test {
 				}
 
 				if(this.select){
+					this._points[this.select.id] = null;
 					this.select.remove();
 					this.select = null;
 				}
@@ -173,6 +234,7 @@ module test {
 				p.y = evt.localY;
 				this._container.addChild(p);							
 				// flag = true;
+				this._points[p.id] = p;
 			} 		
 
 			if(this.select && this.select.id != p.id){
@@ -314,6 +376,10 @@ module test {
 
 		private onRemovePoint():void{			
 			eg.EventDispatcher.Instance.dispatchEventWith('remove_line',false,{startId:this.startId(),endId:this.endId()});
+		}
+
+		public get weight():number{
+			return egret.Point.distance(new egret.Point(this._p1.x,this._p1.y),new egret.Point(this._p2.x,this._p2.y)) | 0;
 		}
 	}
 }

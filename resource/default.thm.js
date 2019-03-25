@@ -335,7 +335,7 @@ window.skins={};
 	__extends(Map2dSkin, _super);
 	function Map2dSkin() {
 		_super.call(this);
-		this.skinParts = ["_mapImg","_container","_sl"];
+		this.skinParts = ["_mapImg","_btn","_container","_sl"];
 		
 		this.height = 720;
 		this.width = 1280;
@@ -357,7 +357,7 @@ window.skins={};
 	_proto._container_i = function () {
 		var t = new eui.Group();
 		this._container = t;
-		t.elementsContent = [this._mapImg_i()];
+		t.elementsContent = [this._mapImg_i(),this._btn_i()];
 		return t;
 	};
 	_proto._mapImg_i = function () {
@@ -366,6 +366,14 @@ window.skins={};
 		t.source = "52b7cb7821232fca53000004_201809211329088743_png";
 		t.x = 0;
 		t.y = 0;
+		return t;
+	};
+	_proto._btn_i = function () {
+		var t = new eui.Button();
+		this._btn = t;
+		t.label = "生成数据";
+		t.x = 1137;
+		t.y = 36;
 		return t;
 	};
 	return Map2dSkin;

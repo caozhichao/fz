@@ -3,6 +3,7 @@
 	<e:Scroller id="_sl" width="1280" height="720" left="0" top="0" bounces="false">
 		<e:Group id="_container">
 			<e:Image id="_mapImg" source="52b7cb7821232fca53000004_201809211329088743_png" y="0" x="0"/>
+			<e:Button id="_btn" label="生成数据" x="1137" y="36"/>
 		</e:Group>
 	</e:Scroller>
 </e:Skin>
