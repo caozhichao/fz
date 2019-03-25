@@ -127,10 +127,13 @@ class Main extends eg.EgMain {
         // new decorators_test();
 
         // new test.TweenTest();
-        new test.DijkstraTest();
+        // new test.DijkstraTest();
         // this.addChild(new test.MatrixTest());
         // this.addChild(new test.ShaderTest());
         // new test.AStartTest2();
+
+        // this.addChild( new test.MapPoint() );
+        eg.UIManager.Instance.showUI(new test.MapPoint());
 
     }
 

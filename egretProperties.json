@@ -46,6 +46,10 @@
     {
       "name": "md5",
       "path": "./libs/md5"
+    },
+    { 
+      "name":"keyboard",
+      "path":"./libs/keyboard"
     }
   ]
 }

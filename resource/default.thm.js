@@ -331,6 +331,44 @@ window.skins={};
 		return t;
 	};
 	return LoadingUISkin;
+})(eui.Skin);generateEUI.paths['resource/assets/game/skins/Map2dSkin.exml'] = window.skins.Map2dSkin = (function (_super) {
+	__extends(Map2dSkin, _super);
+	function Map2dSkin() {
+		_super.call(this);
+		this.skinParts = ["_mapImg","_container","_sl"];
+		
+		this.height = 720;
+		this.width = 1280;
+		this.elementsContent = [this._sl_i()];
+	}
+	var _proto = Map2dSkin.prototype;
+
+	_proto._sl_i = function () {
+		var t = new eui.Scroller();
+		this._sl = t;
+		t.bounces = false;
+		t.height = 720;
+		t.left = 0;
+		t.top = 0;
+		t.width = 1280;
+		t.viewport = this._container_i();
+		return t;
+	};
+	_proto._container_i = function () {
+		var t = new eui.Group();
+		this._container = t;
+		t.elementsContent = [this._mapImg_i()];
+		return t;
+	};
+	_proto._mapImg_i = function () {
+		var t = new eui.Image();
+		this._mapImg = t;
+		t.source = "52b7cb7821232fca53000004_201809211329088743_png";
+		t.x = 0;
+		t.y = 0;
+		return t;
+	};
+	return Map2dSkin;
 })(eui.Skin);generateEUI.paths['resource/assets/game/skins/NumberSXSkin.exml'] = window.skins.NumberSXSkin = (function (_super) {
 	__extends(NumberSXSkin, _super);
 	function NumberSXSkin() {

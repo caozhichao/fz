@@ -1,7 +1,7 @@
 {
 	"groups": [
 		{
-			"keys": "bg_png,img_game_c9_png,img_game_d0_png,red_png,tap_rank_3_png,img_main_a0_jpg,fish0_png,bg3_png,fish0_json,hongqiu_png,qiu0_png,qiu1_png,qiu2_png",
+			"keys": "bg_png,img_game_c9_png,img_game_d0_png,red_png,tap_rank_3_png,img_main_a0_jpg,fish0_png,bg3_png,fish0_json,hongqiu_png,qiu0_png,qiu1_png,qiu2_png,52b7cb7821232fca53000004_201809211329088743_png",
 			"name": "preload"
 		}
 	],
@@ -302,6 +302,11 @@
 			"name": "qiu2_png",
 			"type": "image",
 			"url": "assets/game/images/qiu2.png"
+		},
+		{
+			"name": "52b7cb7821232fca53000004_201809211329088743_png",
+			"type": "image",
+			"url": "assets/game/images/map2d/52b7cb7821232fca53000004_201809211329088743.png"
 		}
 	]
 }
