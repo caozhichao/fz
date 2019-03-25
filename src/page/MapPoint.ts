@@ -1,6 +1,8 @@
 module test {
 	export class MapPoint extends eg.PageBase{
 		private select:Point;
+		private _line:Line;
+
 		private matrixLine:Line[][];
 		private _map:egret.Bitmap;
 
@@ -26,6 +28,12 @@ module test {
 			this._kb = new KeyBoard();
 			this._kb.addEventListener(KeyBoard.onkeydown,this.onKeyDown,this);		
 			this.changeState();
+
+			eg.EventDispatcher.Instance.addEventListener('remove_line',this.onRemoveLine,this);
+		}
+
+		private onRemoveLine(evt:egret.Event):void{
+			this.removeLine(evt.data.startId,evt.data.endId);			
 		}
 
 		private onKeyDown(evt):void{
@@ -33,8 +41,58 @@ module test {
 			if(this._kb.isContain(evt.data,KeyBoard.A)){
 				this._keyState[KeyBoard.A] = !this._keyState[KeyBoard.A];			
 				this.changeState();			
+			} else if(this._kb.isContain(evt.data,KeyBoard.C)){
+				if(this.select){
+					this.select.changeColor(0xff0000);
+					this.select = null;
+				}
+				if(this._line){
+					this._line.changeColor(0x00ff00);
+					this._line = null;
+				}
+			} else if(this._kb.isContain(evt.data,KeyBoard.D)){
+				//删除
+				if(this._line){
+					//删除matrix数据
+					// let startId:number = this._line.startId();
+					// let endId:number = this._line.endId();
+
+					// if(startId < endId){
+					// 	this.matrixLine[startId][endId] = null;
+					// } else {
+					// 	this.matrixLine[endId][startId] = null;
+					// }
+
+					// this._line.remove();
+
+					this.removeLine(this._line.startId(),this._line.endId());
+
+					this._line = null;
+				}
+
+				if(this.select){
+					this.select.remove();
+					this.select = null;
+				}
+
 			}
 			console.log(this._keyState);
+		}
+
+		private removeLine(startId,endId):void{
+
+			let temp;
+			if(startId > endId){
+				temp = startId;
+				startId = endId;
+				endId = temp;
+			} 				
+			let line = this.matrixLine[startId][endId];
+			if(line){
+				line.remove();
+				this.matrixLine[startId][endId] = null;
+			}
+			
 		}
 
 		private changeState():void{
@@ -92,16 +150,20 @@ module test {
 			}
 
 			console.log(evt);
-			if(this.select){
-				this.select.changeColor(0xff0000);					
-			}
+			// if(this.select){
+			// 	this.select.changeColor(0xff0000);					
+			// }
 			let p = evt.target;	
 			let flag = false;		
 			if(p instanceof Line){
 
-				let l = p as Line;
-				l.changeColor(0x0000ff);
+				if(this._line && this._line != p){
+					this._line.changeColor(0x00ff00);
+				}
 
+				let l = p as Line;
+				l.changeColor(0x000000);
+				this._line = l;
 
 				return;
 			}
@@ -111,11 +173,14 @@ module test {
 				p.y = evt.localY;
 				this._container.addChild(p);							
 				// flag = true;
-			} 			
+			} 		
 
 			if(this.select && this.select.id != p.id){
 				// console.log('line');
 				// this.matrix[]
+
+				this.select.changeColor(0xff0000);
+
 				let i = this.select.id;
 				let j = p.id;
 				let tmp;
@@ -184,11 +249,18 @@ module test {
 
 			this.dispatchEventWith('changeXY');
 		}
+
+		public remove():void{
+			this.dispatchEventWith('remove');
+			this.parent.removeChild(this);
+		}
+
 	}
 
 	class Line extends egret.Sprite{
 		private _p1:Point;
 		private _p2:Point;
+		private _isDispose:boolean = false;
 		public constructor(p1:Point,p2:Point){
 			super();	
 			this._p1 = p1;
@@ -201,6 +273,9 @@ module test {
 
 			this._p1.addEventListener('changeXY',this.onChangeXY,this);
 			this._p2.addEventListener('changeXY',this.onChangeXY,this);
+
+			this._p1.addEventListener('remove',this.onRemovePoint,this);
+			this._p2.addEventListener('remove',this.onRemovePoint,this);
 
 			this.touchEnabled = true;
 		}
@@ -217,6 +292,28 @@ module test {
 			this.graphics.endFill();
 		}
 
-		
+		public remove():void{
+			if(!this._isDispose){
+				this._isDispose = true;
+				this._p1.removeEventListener('changeXY',this.onChangeXY,this);
+				this._p2.removeEventListener('changeXY',this.onChangeXY,this);
+				this._p1.removeEventListener('remove',this.onRemovePoint,this);
+				this._p2.removeEventListener('remove',this.onRemovePoint,this);
+				this.parent.removeChild(this);
+
+			}
+		}		
+
+		public startId():number{
+			return this._p1.id;
+		}
+
+		public endId():number{
+			return this._p2.id;
+		}
+
+		private onRemovePoint():void{			
+			eg.EventDispatcher.Instance.dispatchEventWith('remove_line',false,{startId:this.startId(),endId:this.endId()});
+		}
 	}
 }
