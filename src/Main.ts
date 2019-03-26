@@ -133,7 +133,9 @@ class Main extends eg.EgMain {
         // new test.AStartTest2();
 
         
-        eg.UIManager.Instance.showUI(new test.MapPoint());
+        // eg.UIManager.Instance.showUI(new test.MapPoint());
+
+        this.addChild(new test.test_data());
 
     }
 

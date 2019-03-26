@@ -84,9 +84,9 @@ module test {
 			let w = ',117,,135,,,,116,,,,,,,,,,,,190,,,,,'.split(',');
 			w = wMatrix.toString().split(',');
 
-			let d = new eg.Dijkstra(vetexs,w,this._points.length);
-			let paths = d.find(0,this.select.id);
-			console.log(paths);
+			// let d = new eg.Dijkstra(vetexs,w,this._points.length);
+			// let paths = d.find(0,this.select.id);
+			// console.log(paths);
 
 
 
@@ -275,6 +275,7 @@ module test {
 		private _tf:egret.TextField;
 		private _id:number;
 		private static num:number=0;
+		private _radius:number = 20;
 		public constructor(){
 			super();
 			this.initUI();
@@ -288,10 +289,10 @@ module test {
 			this._tf = new egret.TextField();
 			this._tf.text = this._id + '';
 			// this._tf.border = true;
-			this._tf.width = 40;
-			this._tf.height = 40;
-			this._tf.anchorOffsetX = 20;
-			this._tf.anchorOffsetY = 20;
+			this._tf.width = this._radius * 2;
+			this._tf.height = this._radius * 2;
+			this._tf.anchorOffsetX = this._radius;
+			this._tf.anchorOffsetY = this._radius;
 			this._tf.textAlign = egret.HorizontalAlign.CENTER;
 			this._tf.verticalAlign = egret.VerticalAlign.MIDDLE;
 
@@ -302,7 +303,7 @@ module test {
 		}
 		public changeColor(value:number):void{
 			this.graphics.beginFill(value);
-			this.graphics.drawCircle(0,0,20);
+			this.graphics.drawCircle(0,0,this._radius);
 			this.graphics.endFill();
 		}
 		public changeXY(x:number,y:number):void{

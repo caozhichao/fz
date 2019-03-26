@@ -123,16 +123,24 @@ module eg {
 		private wMatrix:number[][];
 		//不可达权重值
 		public static M = 100000000;
-		constructor(vetexs:string[],w,vetexNum){
+		// constructor(vetexs:string[],w,vetexNum){
+		constructor(vetexs:any[],w){
 			this.u = [];
 
-			// let vetexNum;
+			let vetexNum = vetexs.length;
+
+			// /*
 			let index:number = 0;
-			for(let i = 0; i < vetexs.length;i+=3){
-				this.u.push(new Node(index,parseInt(vetexs[i])));
-				// vetexNum = parseInt( vetexs[i] );
-				index++;
+			// for(let i = 0; i < vetexs.length;i+=3){
+			for(let i = 0; i < vetexs.length;i++){
+				// this.u.push(new Node(index,parseInt(vetexs[i])));
+				// index++;
+
+				this.u.push(new Node(i,i));
 			}
+			// */
+
+
 			//边(连接点)的权重
 			this.wMatrix = [];
 			// this.wMatrix[0] = 
@@ -157,8 +165,13 @@ module eg {
 			for(let i:number = 0;i < vetexNum;i++){
 				this.wMatrix[i] = [];
 				for(let j:number=0; j < vetexNum;j++){					
-					this.wMatrix[i][j] = w[i*vetexNum+j] || Dijkstra.M;
-					this.wMatrix[i][j] = parseInt(this.wMatrix[i][j].toString());
+					// this.wMatrix[i][j] = w[i*vetexNum+j] || Dijkstra.M;
+					// this.wMatrix[i][j] = parseInt(this.wMatrix[i][j].toString());
+					if(w[i]){
+						this.wMatrix[i][j] = w[i][j] || Dijkstra.M;
+					} else {
+						this.wMatrix[i][j] = Dijkstra.M;
+					}
 				}
 			}
 			console.log(this.wMatrix);
@@ -206,7 +219,7 @@ module eg {
 							minId = node.id;
 						}
 						// console.log(sNode.id + '->' + node.id + ' w:' + w);						
-						console.log(sNode.wId + '->' + node.wId + ' w:' + w);						
+						// console.log(sNode.wId + '->' + node.wId + ' w:' + w);						
 					}				
 				}
 				sNode = this.getNode(minId);					
