@@ -135,7 +135,9 @@ class Main extends eg.EgMain {
         
         // eg.UIManager.Instance.showUI(new test.MapPoint());
 
-        this.addChild(new test.test_data());
+        // this.addChild(new test.TabBarDemo());
+
+        this.addChild(new bug.Graphics_GlowFilter());
 
     }
 
