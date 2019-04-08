@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>threejs demo</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">    
+    <script src="three.js"></script>
+</head>
+<body>
+    <canvas id='demo' width="400" height="400"></canvas>
+    <script>
+        var camera, scene, renderer;
+        var geometry, material, mesh;
+        var angle = 0;
+        var m1;
+        var m2;
+        init();
+        animate();
+
+        function init() {
+
+            var canvas = document.getElementById('demo');
+            // camera = new THREE.PerspectiveCamera( 70, window.innerWidth / window.innerHeight, 0.01, 10 );
+            camera = new THREE.PerspectiveCamera( 70, canvas.clientWidth / canvas.clientHeight, 0.01, 10 );
+
+            var helper = new THREE.CameraHelper( camera );
+            
+            // camera = new THREE.OrthographicCamera(-1,1,1,-1,0.01,10);
+            // camera.position.z = 10;
+            camera.position.set(0,0,5);
+            // camera.rotation = new THREE.Euler(0,1,0);
+            // camera.rotateY(45 * Math.PI / 180);
+            camera.lookAt(new THREE.Vector3(0,0,0));
+
+            scene = new THREE.Scene();
+
+            var axesHelper = new THREE.AxesHelper( 5 );
+            scene.add( axesHelper );
+
+            // scene.add( helper );
+
+            // geometry = new THREE.BoxGeometry( 0.2, 0.2, 0.2 );
+            // geometry = new THREE.BoxGeometry( 1.0, 1.0, 1.0 );
+            geometry = new THREE.BoxGeometry( 1.0, 1.0, 1.0 );
+            material = new THREE.MeshNormalMaterial();
+
+            mesh = new THREE.Mesh( geometry, material );
+
+            // mesh.rotation = new THREE.Euler(0,0,0.5);
+            // mesh.rotateZ(45 * Math.PI / 180);
+            // mesh.rotateX(45 * Math.PI / 180);
+            // mesh.rotateY(45 * Math.PI / 180);
+            // mesh.rotateOnAxis(new THREE.Vector3(1,0,0),45 * Math.PI / 180);
+            // mesh.position.x = 0.5;
+            // mesh.rotateOnWorldAxis(new THREE.Vector3(0,1,0),45 * Math.PI / 180);
+
+            /*
+            var m = new THREE.Matrix4();
+            m.setPosition(new THREE.Vector3(1.0,0,0));
+            // m.makeRotationX(45 * Math.PI / 180);
+            // m.makeRotationY(45 * Math.PI / 180);
+            // m.makeRotationZ(45 * Math.PI / 180);
+            // m.makeScale(2,2,2);
+            var m2 = new THREE.Matrix4();
+            // m2.makeRotationX(45 * Math.PI / 180);
+            m2.makeRotationY(30 * Math.PI / 180);
+            // m.multiply(m2);
+            m.premultiply(m2);
+
+            mesh.applyMatrix(m);
+            */
+
+            m1 = new THREE.Matrix4();
+            m1.setPosition(new THREE.Vector3(1.0,1,0));
+            // mesh.applyMatrix(m1);
+
+            m2 = new THREE.Matrix4();
+            m2.makeRotationY(0.5 * Math.PI / 180);
+
+            scene.add( mesh );
+
+            renderer = new THREE.WebGLRenderer( { antialias: true ,canvas:canvas} );
+            // renderer.setSize( window.innerWidth, window.innerHeight );
+            // renderer.setSize( 400, 400 );
+            // document.body.appendChild( renderer.domElement );
+
+        }
+
+        function animate() {
+
+            requestAnimationFrame( animate );
+
+            // mesh.rotation.x += 0.01;
+            // mesh.rotation.y += 0.02;
+
+            angle = 1;
+            // mesh.rotateOnWorldAxis(new THREE.Vector3(0,1,0),angle * Math.PI / 180);
+            // m2.makeRotationY(angle * Math.PI / 180);
+            // m1 = new THREE.Matrix4();
+            // m1.setPosition(new THREE.Vector3(1.0,0,0));            
+            // m2 = new THREE.Matrix4();
+            // m2.makeRotationY(angle * Math.PI / 180);
+            // m1.premultiply(m2);
+            // mesh.applyMatrix(m2);
+            // mesh.rotation.y += 0.01;
+
+            camera.applyMatrix(m2);
+
+            renderer.render( scene, camera );
+
+        }
+
+    </script>
+</body>
+</html>
