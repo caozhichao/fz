@@ -137,7 +137,9 @@ class Main extends eg.EgMain {
 
         // this.addChild(new test.TabBarDemo());
 
-        this.addChild(new bug.Graphics_GlowFilter());
+        // this.addChild(new bug.Graphics_GlowFilter());
+
+        this.addChild(new test.MatrixTest());
 
     }
 

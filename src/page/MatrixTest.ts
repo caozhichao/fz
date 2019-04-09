@@ -1,4 +1,9 @@
 module test {
+	/***
+	 * 矩阵
+	 * https://www.cnblogs.com/alantu2018/p/8528299.html
+	 * 
+	 */
 	export class MatrixTest extends egret.Sprite{
 		public constructor() {
 			super();
@@ -7,6 +12,50 @@ module test {
 		}
 
 		private test2():void{
+
+			let container = new egret.DisplayObjectContainer();
+
+			container.x = 10;
+
+			let spr = new egret.Sprite();
+			spr.graphics.beginFill(0xff0000,1);
+			spr.graphics.drawRect(0,0,100,100);
+			spr.graphics.endFill();
+			spr.x = 10;
+			container.addChild(spr);
+			this.addChild(container);
+
+			let resultPoint = new egret.Point();
+			// let m:egret.Matrix = spr.matrix;
+			// m.transformPoint(100,0,resultPoint);
+
+			// m = container.matrix;
+			// m.transformPoint(resultPoint.x,resultPoint.y,resultPoint);
+
+			// let m1 = container.matrix;
+			// let m1 = spr.matrix;
+
+			let m:egret.Matrix = new egret.Matrix();
+			// m.copyFrom(spr.matrix);
+			// m.prepend(m1.a,m1.b,m1.c,m1.d,m1.tx,m1.ty);
+			// m.transformPoint(100,0,resultPoint);
+			// m.copyFrom(container.matrix).append(m1.a,m1.b,m1.c,m1.d,m1.tx,m1.ty);
+			// m.transformPoint(0,0,resultPoint);
+			// console.log(resultPoint);
+
+			m.translate(10,0);
+
+			let m1:egret.Matrix = new egret.Matrix();
+			m1.translate(10,0);
+
+			// m.concat(m1);
+			m.append(m1.a,m1.b,m1.c,m1.d,m1.tx,m1.ty);
+			console.log('aaa');
+
+
+
+
+
 
 			/*
 			let m = new egret.Matrix();
@@ -26,6 +75,7 @@ module test {
 			let y1 = x * Math.sin(radian) + y * Math.cos(radian);
 			console.log('x1:' + x1 + ' y1:' + y1);
 			*/
+			/*
 			let spr:egret.Sprite = new egret.Sprite();
 			spr.graphics.beginFill(0xff0000);
 			spr.graphics.drawRect(0,0,100,50);
@@ -41,6 +91,7 @@ module test {
 			m.rotate(45);
 			
 			spr.matrix = m;
+			*/
 
 		}
 
