@@ -3,6 +3,9 @@ module test {
 	 * 矩阵
 	 * https://www.cnblogs.com/alantu2018/p/8528299.html
 	 * 
+	 * 动态注册点
+	 * https://www.cnblogs.com/kenkofox/p/3305241.html
+	 * 
 	 */
 	export class MatrixTest extends egret.Sprite{
 		public constructor() {
@@ -13,15 +16,22 @@ module test {
 
 		private test2():void{
 
-			let container = new egret.DisplayObjectContainer();
+			let container = new egret.Sprite();
+			container.graphics.beginFill(0x0);
+			container.graphics.drawRect(0,0,300,300);
+			container.graphics.endFill();
 
-			container.x = 10;
+			container.x = 150;
+			container.y = 150;
 
 			let spr = new egret.Sprite();
 			spr.graphics.beginFill(0xff0000,1);
 			spr.graphics.drawRect(0,0,100,100);
 			spr.graphics.endFill();
-			spr.x = 10;
+			// spr.x = 50;
+			// spr.anchorOffsetX = 50;
+			// spr.anchorOffsetY = 50;
+
 			container.addChild(spr);
 			this.addChild(container);
 
@@ -43,13 +53,35 @@ module test {
 			// m.transformPoint(0,0,resultPoint);
 			// console.log(resultPoint);
 
-			m.translate(10,0);
+			// m.translate(10,0);
 
-			let m1:egret.Matrix = new egret.Matrix();
-			m1.translate(10,0);
+			// let m1:egret.Matrix = new egret.Matrix();
+			// m1.translate(10,0);
 
-			// m.concat(m1);
-			m.append(m1.a,m1.b,m1.c,m1.d,m1.tx,m1.ty);
+			// // m.concat(m1);
+			// m.append(m1.a,m1.b,m1.c,m1.d,m1.tx,m1.ty);
+
+
+			// m.translate(10,0);
+
+			// m.transformPoint(0,0,resultPoint);
+
+			// m.invert();
+
+			// m.transformPoint(resultPoint.x,resultPoint.y,resultPoint);
+
+			m = spr.matrix.clone();
+			// m.translate(-50,-50);
+			m.translate(100,0);
+			// m.rotate(45 * Math.PI / 180);
+			// m.translate(50,50);
+			// spr.matrix = m;
+			this.addEventListener(egret.Event.ENTER_FRAME,(evt)=>{
+				// spr.rotation += 1;
+				m.rotate(2 * Math.PI / 180);
+				spr.matrix = m;
+			},this)
+
 			console.log('aaa');
 
 
