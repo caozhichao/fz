@@ -97,6 +97,11 @@ light.shadowDarkness = 0.3;
     }
 
 
+    var controls = new THREE.OrbitControls( camera );
+    controls.target.set( 0, 0, 0 );
+    controls.update();
+
+
 
 
     // setTimeout(function() {
