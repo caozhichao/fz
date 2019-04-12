@@ -69,16 +69,21 @@ module test {
 			// m.invert();
 
 			// m.transformPoint(resultPoint.x,resultPoint.y,resultPoint);
-
+			spr.x = 100;
 			m = spr.matrix.clone();
 			// m.translate(-50,-50);
-			m.translate(100,0);
+			// m.translate(100,0);
+			// m.translate(0,0);
 			// m.rotate(45 * Math.PI / 180);
 			// m.translate(50,50);
 			// spr.matrix = m;
+			// m.translate(0,0);
+			
 			this.addEventListener(egret.Event.ENTER_FRAME,(evt)=>{
 				// spr.rotation += 1;
+				m.translate(-100,0);
 				m.rotate(2 * Math.PI / 180);
+				m.translate(100,0);
 				spr.matrix = m;
 			},this)
 
