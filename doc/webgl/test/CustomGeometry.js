@@ -12,7 +12,7 @@ function main(){
     var r = 400 / 300;
 
 
-    camera = new THREE.OrthographicCamera(-2, 2, 1.5, -1.5, 1, 10);
+    camera = new THREE.OrthographicCamera(-2, 2, 1.5, -1.5, 1, 100);
     // var camera = new THREE.PerspectiveCamera(45, 400 / 300, 1, 10);
     camera.position.set(3, 5, 5);
     // camera.position.set(4, -3, 5);
@@ -83,7 +83,18 @@ geometry.addAttribute( 'position', new THREE.BufferAttribute( vertices, 3 ) );
         })
     );
 
-    scene.add(cube);
+    // scene.add(cube);
+
+
+    //线
+    var geometry = new THREE.Geometry();
+    geometry.vertices.push(new THREE.Vector3( -10, 0, 0) );
+    geometry.vertices.push(new THREE.Vector3( 0, 10, 0) );
+    geometry.vertices.push(new THREE.Vector3( 10, 0, 0) );
+    var material = new THREE.LineBasicMaterial( { color: 0x0000ff,wireframe: true } );
+    var line = new THREE.Line( geometry, material );
+    scene.add( line );
+
 
     renderer = new THREE.WebGLRenderer( { antialias: true ,canvas:canvas} );    
     // renderer.render( scene, camera );

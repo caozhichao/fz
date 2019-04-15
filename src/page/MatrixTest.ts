@@ -11,7 +11,17 @@ module test {
 		public constructor() {
 			super();
 			// this.test();
-			this.test2();
+			// this.test2();
+			this.test3();
+		}
+
+		private test3():void{
+			let matrix:egret.Matrix = new egret.Matrix();
+			matrix.translate(1,0);
+			matrix.scale(0.5,0.5);
+			let p = new egret.Point(1,1);
+			matrix.transformPoint(p.x,p.y,p);
+			console.log(p.x + '|' + p.y);
 		}
 
 		private test2():void{
