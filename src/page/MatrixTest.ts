@@ -12,7 +12,67 @@ module test {
 			super();
 			// this.test();
 			// this.test2();
-			this.test3();
+			// this.test3();
+			this.test4();
+		}
+
+		private test4():void{
+
+			let s1:egret.Shape = new egret.Shape();
+			s1.graphics.beginFill(0xff0000);
+			s1.graphics.drawRect(0,0,50,10);
+			s1.graphics.endFill();
+
+			let s2:egret.Shape = new egret.Shape();
+			s2.graphics.beginFill(0x00ff00);
+			s2.graphics.drawRect(0,0,50,10);
+			s2.graphics.endFill();
+
+			this.addChild(s1);
+			this.addChild(s2);
+
+
+			s2.x = 50;
+
+			this.x = 300;
+			this.y = 300;
+
+			let m:egret.Matrix = new egret.Matrix();
+			// m.rotate(1 * Math.PI / 180);
+
+			let a = 1;
+
+			let tmp = s2.matrix.clone();
+
+			this.addEventListener(egret.Event.ENTER_FRAME,(evt)=>{
+				
+				s1.rotation += 1;
+				// s1.matrix.concat(m);
+				// s1.matrix = s1.matrix;
+				// let matrix = s1.matrix.clone();
+				// matrix.concat(m);
+				// s1.matrix = matrix;
+
+				
+
+				let matrix2 = tmp.clone();
+				// matrix2.concat(m);
+				let m:egret.Matrix = new egret.Matrix();
+				m.rotate(a * Math.PI / 180);				
+				matrix2.translate(-50,0);
+				matrix2.concat(m);
+				matrix2.translate(50,0);
+
+				matrix2.concat(m);
+
+				// matrix2.concat(matrix);
+				// matrix2.concat(matrix);
+				s2.matrix = matrix2;
+				a++;
+
+
+			},this);
+
 		}
 
 		private test3():void{
