@@ -13,7 +13,34 @@ module test {
 			// this.test();
 			// this.test2();
 			// this.test3();
-			this.test4();
+			// this.test4();
+			this.test5();
+		}
+
+		private test5():void{
+
+			this.x = 1;
+
+			let s1:egret.Shape = new egret.Shape();
+			s1.graphics.beginFill(0xff0000);
+			s1.graphics.drawRect(0,0,200,100);
+			s1.graphics.endFill();
+
+			let container:egret.DisplayObjectContainer = new egret.DisplayObjectContainer();
+
+			this.addChild(s1);
+
+			s1.x = 50;
+
+			// let result = s1.matrix.transformPoint(0,0);
+			let m:egret.Matrix = this.matrix.clone();
+			m.concat(s1.matrix);
+			let result = m.transformPoint(0,0);
+			console.log(result);
+			// this.addChild(container);
+
+			result = s1.localToGlobal(0,0);
+
 		}
 
 		private test4():void{
