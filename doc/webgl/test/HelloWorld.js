@@ -12,7 +12,7 @@ function main(){
     camera = new THREE.OrthographicCamera(-2, 2, 1.5, -1.5, 1, 100);
     // var camera = new THREE.PerspectiveCamera(45, 400 / 300, 1, 10);
     // camera.position.set(3, 5, 5);
-    camera.position.set(2, 0, 5);
+    camera.position.set(0, 0, 5);
     // camera.rotateY(-15 * Math.PI / 180);
     // camera.position.z = 5;
     // camera.position.x = 3;
@@ -29,6 +29,13 @@ function main(){
             // vertexColors:THREE.VertexColors
         })
     );
+
+    let loader = new THREE.ImageLoader();
+    loader.load('./background.jpg', (map)=>{
+        scene.add(new THREE.Mesh(new THREE.PlaneGeometry(1024,768), new THREE.MeshBasicMaterial({
+            map: new THREE.Texture(map)
+        })))
+    })
 
     scene.add(mesh);
     renderer = new THREE.WebGLRenderer( { antialias: true ,canvas:canvas} );    
@@ -64,9 +71,24 @@ function onDocumentMouseMove( event ) {
     // var intersects = raycaster.intersectObjects( scene.children,true);
     // console.log(intersects.length,event);
 
-    let p = new THREE.Vector3(mouse.x, mouse.y, 0).unproject(camera);    
+    console.log(mouse.x + '|' + mouse.y);
+
+
+    let p = new THREE.Vector3(mouse.x, mouse.y, 0.5).unproject(camera);    
 
     mesh.position.set(p.x,p.y,p.z);
 
+    // var p = new THREE.Vector3(1, 1, 0).unproject(camera);    
+    // mesh.position.set(p.x,p.y,p.z);
     console.log(p);
+    camera.position.x = 2;
+
+    // x: 2
+    // y: 1.5000000000000002
+    // z: -45.5
+    // p = new THREE.Vector3(mouse.x * 2,mouse.y * 1.5,-45.5);
+    // mesh.position.set(p)
+    // mesh.position.set(p.x,p.y,p.z);
+
+
 }
