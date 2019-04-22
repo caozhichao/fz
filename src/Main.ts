@@ -140,7 +140,8 @@ class Main extends eg.EgMain {
         // this.addChild(new bug.Graphics_GlowFilter());
 
         // this.addChild(new test.MatrixTest());
-        this.addChild(new ScrollMapTest());
+        // this.addChild(new ScrollMapTest());
+        new Vector2Test();
 
     }
 
