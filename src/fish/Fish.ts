@@ -12,7 +12,7 @@ module fish {
 			let mc:egret.MovieClip = new egret.MovieClip(mcData);
 			this.addChild(mc);
 			mc.play(-1);			
-			egret.Tween.get(mc,{loop:true}).to({rotation:360},1000);
+			// egret.Tween.get(mc,{loop:true}).to({rotation:360},1000);
 		}
 	}
 }
