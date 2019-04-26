@@ -1,4 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<e:Skin class="skins.StageScaleModeTestSkin" width="1206" height="750" xmlns:e="http://ns.egret.com/eui">
-	<e:Rect width="1206" height="750" y="0" x="0" fillColor="0x0940f9"/>
+<e:Skin class="skins.StageScaleModeTestSkin" width="720" height="1280" xmlns:e="http://ns.egret.com/eui">
+	<e:Rect width="350" height="300" y="0" x="0" fillColor="0x0940f9"/>
+	<e:Image source="img_main_a0_jpg" x="0" y="312" width="720"/>
 </e:Skin>

@@ -580,19 +580,27 @@ window.skins={};
 		_super.call(this);
 		this.skinParts = [];
 		
-		this.height = 750;
-		this.width = 1206;
-		this.elementsContent = [this._Rect1_i()];
+		this.height = 1280;
+		this.width = 720;
+		this.elementsContent = [this._Rect1_i(),this._Image1_i()];
 	}
 	var _proto = StageScaleModeTestSkin.prototype;
 
 	_proto._Rect1_i = function () {
 		var t = new eui.Rect();
 		t.fillColor = 0x0940f9;
-		t.height = 750;
-		t.width = 1206;
+		t.height = 300;
+		t.width = 350;
 		t.x = 0;
 		t.y = 0;
+		return t;
+	};
+	_proto._Image1_i = function () {
+		var t = new eui.Image();
+		t.source = "img_main_a0_jpg";
+		t.width = 720;
+		t.x = 0;
+		t.y = 312;
 		return t;
 	};
 	return StageScaleModeTestSkin;
