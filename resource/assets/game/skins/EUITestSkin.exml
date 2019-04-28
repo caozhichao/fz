@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<e:Skin class="skins.EUITestSkin" width="720" height="1280" xmlns:e="http://ns.egret.com/eui" xmlns:eg="eg.*">
+	<e:Button label="Button100" x="63" y="32">
+		<e:skinName>
+			<e:Skin states="up,down,disabled">
+			<e:Image width="100%" height="100%" source="aa_png"/>
+			<e:Label id="labelDisplay" horizontalCenter="0" verticalCenter="0"/>
+			</e:Skin>
+		</e:skinName>
+	</e:Button>
+	<e:Button label="Button" x="533" y="93"/>
+	<eg:GButton label="GButton" x="237" y="293">
+		<eg:skinName>
+			<e:Skin states="up,down,disabled">
+			<e:Image width="100%" height="100%" source="aa_png"/>
+			<e:Label id="labelDisplay" horizontalCenter="0" verticalCenter="0"/>
+			</e:Skin>
+		</eg:skinName>
+	</eg:GButton>
+</e:Skin>

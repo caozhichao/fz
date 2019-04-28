@@ -141,8 +141,8 @@ class Main extends eg.EgMain {
 
         // this.addChild(new test.MatrixTest());
         // this.addChild(new ScrollMapTest());
-        // this.addChild(new Vector2Test());        
-        eg.UIManager.Instance.showUI(new test.StageScaleModeTest());
+        // this.addChild(new test.ColorMatrixFilterTest());        
+        eg.UIManager.Instance.showUI(new test.EUITest());
 
     }
 

@@ -216,6 +216,122 @@ window.skins={};
 		return t;
 	};
 	return DropBallTestSkin;
+})(eui.Skin);generateEUI.paths['resource/assets/game/skins/EUITestSkin.exml'] = window.skins.EUITestSkin = (function (_super) {
+	__extends(EUITestSkin, _super);
+	var EUITestSkin$Skin1 = 	(function (_super) {
+		__extends(EUITestSkin$Skin1, _super);
+		function EUITestSkin$Skin1() {
+			_super.call(this);
+			this.skinParts = ["labelDisplay"];
+			
+			this.elementsContent = [this._Image1_i(),this.labelDisplay_i()];
+			this.states = [
+				new eui.State ("up",
+					[
+					])
+				,
+				new eui.State ("down",
+					[
+					])
+				,
+				new eui.State ("disabled",
+					[
+					])
+			];
+		}
+		var _proto = EUITestSkin$Skin1.prototype;
+
+		_proto._Image1_i = function () {
+			var t = new eui.Image();
+			t.percentHeight = 100;
+			t.source = "aa_png";
+			t.percentWidth = 100;
+			return t;
+		};
+		_proto.labelDisplay_i = function () {
+			var t = new eui.Label();
+			this.labelDisplay = t;
+			t.horizontalCenter = 0;
+			t.verticalCenter = 0;
+			return t;
+		};
+		return EUITestSkin$Skin1;
+	})(eui.Skin);
+
+	var EUITestSkin$Skin2 = 	(function (_super) {
+		__extends(EUITestSkin$Skin2, _super);
+		function EUITestSkin$Skin2() {
+			_super.call(this);
+			this.skinParts = ["labelDisplay"];
+			
+			this.elementsContent = [this._Image1_i(),this.labelDisplay_i()];
+			this.states = [
+				new eui.State ("up",
+					[
+					])
+				,
+				new eui.State ("down",
+					[
+					])
+				,
+				new eui.State ("disabled",
+					[
+					])
+			];
+		}
+		var _proto = EUITestSkin$Skin2.prototype;
+
+		_proto._Image1_i = function () {
+			var t = new eui.Image();
+			t.percentHeight = 100;
+			t.source = "aa_png";
+			t.percentWidth = 100;
+			return t;
+		};
+		_proto.labelDisplay_i = function () {
+			var t = new eui.Label();
+			this.labelDisplay = t;
+			t.horizontalCenter = 0;
+			t.verticalCenter = 0;
+			return t;
+		};
+		return EUITestSkin$Skin2;
+	})(eui.Skin);
+
+	function EUITestSkin() {
+		_super.call(this);
+		this.skinParts = [];
+		
+		this.height = 1280;
+		this.width = 720;
+		this.elementsContent = [this._Button1_i(),this._Button2_i(),this._GButton1_i()];
+	}
+	var _proto = EUITestSkin.prototype;
+
+	_proto._Button1_i = function () {
+		var t = new eui.Button();
+		t.label = "Button100";
+		t.x = 63;
+		t.y = 32;
+		t.skinName = EUITestSkin$Skin1;
+		return t;
+	};
+	_proto._Button2_i = function () {
+		var t = new eui.Button();
+		t.label = "Button";
+		t.x = 533;
+		t.y = 93;
+		return t;
+	};
+	_proto._GButton1_i = function () {
+		var t = new eg.GButton();
+		t.label = "GButton";
+		t.x = 237;
+		t.y = 293;
+		t.skinName = EUITestSkin$Skin2;
+		return t;
+	};
+	return EUITestSkin;
 })(eui.Skin);generateEUI.paths['resource/assets/game/skins/FishViewSkin.exml'] = window.skins.FishViewSkin = (function (_super) {
 	__extends(FishViewSkin, _super);
 	function FishViewSkin() {

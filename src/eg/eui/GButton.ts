@@ -5,104 +5,65 @@ module eg {
 	 * 
 	 * 
 	 */
-	export class GButton extends eui.Button implements IDispose{
-		//public bgIcon:eui.Image;
+	export class GButton extends eui.Button implements IDispose{	
+		private _matrix:egret.Matrix;	
+		private _m1:egret.Matrix;
 		public constructor() {
-			super();
-			// this.addEventListener(egret.TouchEvent.TOUCH_TAP,this.onTap,this);
-			eg.log('GButton');
+			super();			
+			this._m1 = egret.Matrix.create();
 		}
 
-		protected buttonReleased():void{
-			eg.log('onTap:' + this.name);
-			// let page= this.parent;
-			// eg.log(page instanceof PageBase);
-			if(Config.isAutoUploadPageData && this.name){
-				let self = this.parent;
-				while(self){
-					if(self instanceof PageBase){
-						eg.log(self);
-						break;
-					}
-					self = self.parent;
-				}
-				if(self){
-					//数据埋点上报
-					let page:PageBase = <PageBase>self;
-					ActLog.Instance.log({event_type:51,refer_page_name:page.upPageExtraData['upPageName'],current_page_name:page.pageName,element_name:this.name});				
-				}
-			}
+		protected onTouchBegin(event:egret.TouchEvent):void {
+			super.onTouchBegin(event);						
+			this.applyScaleMatrix('down');
+			console.log('onTouchBegin');
+			this.stage.addEventListener(egret.TouchEvent.TOUCH_RELEASE_OUTSIDE,this.onOutSide,this);
 		}
 
 		/**
-		 * 重写get set 方法 必须同时重写
-		 * 
+		 * 应用缩放matrix
 		 */
-		public set enabled(value:boolean){
-			// eg.log('enabled');
-			// value = !!value;
-			// this.$setEnabled(value);
-			egret.superSetter(eg.GButton,this,'enabled',value);
-			if(!value){
-				var mat:number[] =[0.3086,0.6094,0.082,0,0,0.3086,0.6094,0.082,0,0,0.3086,0.6094,0.082,0,0,0,0,0,1,0];
-				var colorMat:egret.ColorMatrixFilter = new egret.ColorMatrixFilter(mat);
-				this.filters = [colorMat];
+		private applyScaleMatrix(type:string):void{
+			let w = this.width;
+			let h = this.height;			
+			let m:egret.Matrix = this._m1;
+			m.identity();
+			if(type == 'down'){
+				m.scale(0.9,0.9);
+				m.translate(w * 0.1 / 2,h*0.1/2);
 			} else {
-				this.filters = [];
+				m.scale(1,1);		
 			}
+			if(!this._matrix){
+				this._matrix = this.matrix;
+			}
+			let m1 = this._matrix.clone().append(m.a,m.b,m.c,m.d,m.tx,m.ty);
+			// m1.concat(m);
+			// this.matrix = m1;
+			let a = this.matrix;
+			egret.Tween.get(a,{onChange:()=>{					
+				this.matrix = a;				
+			}}).to({a:m1.a,b:m1.b,c:m1.c,d:m1.d,tx:m1.tx,ty:m1.ty},50);	
 		}
 
-		public get enabled():boolean {
-            // return this.$Component[eui.sys.ComponentKeys.enabled];
-			return egret.superGetter(eg.GButton,this,'enabled');
-        }
-
-		protected getCurrentState():string {
-			let state:string = super.getCurrentState();						
-			if(state == 'down'){
-				this.scaleX = this.scaleY = 0.9;
-			} else {			
-				this.scaleX = this.scaleY = 1;
-			}			
-			
-			return state;
+		protected onTouchCancle(event:egret.TouchEvent):void {
+			super.onTouchCancle(event);
+			console.log('onTouchCancle');
 		}
 
-		protected partAdded(partName:string, instance:any):void {
-			eg.log(partName);
+		protected buttonReleased():void {
+			console.log('buttonReleased');			
+			this.applyScaleMatrix('up');
+			this.stage.removeEventListener(egret.TouchEvent.TOUCH_RELEASE_OUTSIDE,this.onOutSide,this);
         }
 
-		protected childrenCreated():void {
-			//eg.log('childrenCreated:' + this.bgIcon);
-			//this.bgIcon.x = -100;
-			// this.bgIcon.anchorOffsetX = this.bgIcon.width / 2;
-			// this.bgIcon.anchorOffsetY = this.bgIcon.height / 2;
-			// for(let i:number = 0; i < this.numChildren; i++){
-			// 	let child:eui.UIComponent = this.getChildAt(0) as eui.UIComponent;
-			// 	child.percentWidth = child.percentHeight = 100;
-			// 	child.horizontalCenter = 0;
-			// 	child.verticalCenter = 0;				
-			// } 
-			//this.invalidateState();
-			//let a = this.skin.states;
-        }
+		private onOutSide(evt):void{
+			console.log('onOutSide');			
+			this.applyScaleMatrix('up');
+			this.stage.removeEventListener(egret.TouchEvent.TOUCH_RELEASE_OUTSIDE,this.onOutSide,this);
+		}
 
-
-		//  protected getCurrentState():string {
-        //     // if (!this.enabled)
-        //     //     return "disabled";
-
-        //     // if (this.touchCaptured)
-        //     //     return "down";
-
-        //     // return "up";
-		// 	let state:string = super.getCurrentState();
-		// 	eg.log('state:' + state);
-		// 	return state;
-        // }
-		
-		public dispose():void{
-			// this.removeEventListener(egret.TouchEvent.TOUCH_TAP,this.onTap,this);			
+		public dispose():void{			
 			eg.log('GButtion dispose');
 		}
 	}
