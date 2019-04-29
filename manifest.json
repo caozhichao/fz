@@ -204,6 +204,7 @@
 		"bin-debug/page/Vector2Test.js",
 		"bin-debug/page/VideoTest .js",
 		"bin-debug/page/ViewStackDemo.js",
+		"bin-debug/page/WebglRenderTest.js",
 		"bin-debug/page/WSTest.js",
 		"bin-debug/page/WX_addCard_Test.js",
 		"bin-debug/page/WXOpenDataTest.js",
