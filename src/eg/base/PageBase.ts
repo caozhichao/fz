@@ -41,7 +41,8 @@ module eg {
 			eg.Loading.Instance.show();
 			await this.loadRes(this.resName);	
 			let data = await this.pageData();
-			await this.setPageSkin();
+			// await this.setPageSkin();
+			this.setPageSkin();			
 			eg.Loading.Instance.hide();		
 			this.initUI(data);
 			this.enter();
@@ -107,13 +108,14 @@ module eg {
 			this._extraData = null;
 			this._upPageExtraData = null;
 
-			//删除所有的子对象
-			while(this.numChildren > 0){
-				let element = this.removeChildAt(0);				
-				if(egret.is(element,"eg.IDispose")){
-					element['dispose']();
-				} 
-			}
+
+			// //删除所有的子对象
+			// while(this.numChildren > 0){
+			// 	let element = this.removeChildAt(0);				
+			// 	if(egret.is(element,"eg.IDispose")){
+			// 		element['dispose']();
+			// 	} 
+			// }
 		}
 
 		public get pageSkinName():string{
@@ -121,6 +123,7 @@ module eg {
 		}
 
 		public setPageSkin(){	
+			/*
 			let self = this;
 			return new Promise((resolve,reject)=>{				
 				self.once(eui.UIEvent.COMPLETE,(evt:eui.UIEvent)=>{					
@@ -139,7 +142,13 @@ module eg {
 					resolve();
 				}
 			});
-
+			*/
+			//先检查皮肤资源是否存在	
+			if(egret.getDefinitionByName(this.pageSkinName)){				
+				egret.superSetter(eg.PageBase,this,'skinName',this.pageSkinName);
+			} else {
+				eg.log(this.pageSkinName + '皮肤资源未找到');
+			}
 		}
 
 		public get pageName():string{

@@ -1,6 +1,4 @@
 <?xml version="1.0" encoding="utf-8"?>
 <e:Skin class="skins.PopupBaseUITestSkin" width="750" height="1206" xmlns:e="http://ns.egret.com/eui" xmlns:w="http://ns.egret.com/wing">
-	<e:Group id="_container" width="750" height="1206" horizontalCenter="0" verticalCenter="0" anchorOffsetX="375" anchorOffsetY="603">
-		<e:Image id="_icon" source="p1_png" y="520" x="320"/>
-	</e:Group>
+	<e:Button id="btn" label="打开界面2" x="325" y="486"/>
 </e:Skin>

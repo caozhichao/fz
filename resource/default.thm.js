@@ -153,6 +153,27 @@ window.skins={};
 		return t;
 	};
 	return BezierViewSkin;
+})(eui.Skin);generateEUI.paths['resource/assets/game/skins/ComponentSkin2.exml'] = window.skins.ComponentSkin2 = (function (_super) {
+	__extends(ComponentSkin2, _super);
+	function ComponentSkin2() {
+		_super.call(this);
+		this.skinParts = ["btn"];
+		
+		this.height = 1206;
+		this.width = 750;
+		this.elementsContent = [this.btn_i()];
+	}
+	var _proto = ComponentSkin2.prototype;
+
+	_proto.btn_i = function () {
+		var t = new eui.Button();
+		this.btn = t;
+		t.label = "返回界面1";
+		t.x = 294;
+		t.y = 470;
+		return t;
+	};
+	return ComponentSkin2;
 })(eui.Skin);generateEUI.paths['resource/assets/game/skins/DropBallTestSkin.exml'] = window.skins.DropBallTestSkin = (function (_super) {
 	__extends(DropBallTestSkin, _super);
 	function DropBallTestSkin() {
@@ -661,32 +682,20 @@ window.skins={};
 	__extends(PopupBaseUITestSkin, _super);
 	function PopupBaseUITestSkin() {
 		_super.call(this);
-		this.skinParts = ["_icon","_container"];
+		this.skinParts = ["btn"];
 		
 		this.height = 1206;
 		this.width = 750;
-		this.elementsContent = [this._container_i()];
+		this.elementsContent = [this.btn_i()];
 	}
 	var _proto = PopupBaseUITestSkin.prototype;
 
-	_proto._container_i = function () {
-		var t = new eui.Group();
-		this._container = t;
-		t.anchorOffsetX = 375;
-		t.anchorOffsetY = 603;
-		t.height = 1206;
-		t.horizontalCenter = 0;
-		t.verticalCenter = 0;
-		t.width = 750;
-		t.elementsContent = [this._icon_i()];
-		return t;
-	};
-	_proto._icon_i = function () {
-		var t = new eui.Image();
-		this._icon = t;
-		t.source = "p1_png";
-		t.x = 320;
-		t.y = 520;
+	_proto.btn_i = function () {
+		var t = new eui.Button();
+		this.btn = t;
+		t.label = "打开界面2";
+		t.x = 325;
+		t.y = 486;
 		return t;
 	};
 	return PopupBaseUITestSkin;

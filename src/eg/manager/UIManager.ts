@@ -8,6 +8,8 @@ module eg {
 		private _tips:eg.IPage;
 		//当前显示的窗口字典类 按pageType分类
 		private _dic:Object = {};
+		//ui对象缓存(减少exml重复初始化 也可考虑缓存Skin对象)
+		private _uiCache = {};
 		public constructor() {
 		}
 
@@ -31,17 +33,30 @@ module eg {
 
 			let type = typeof param;
 			eg.log('type:' + type);	
+
+			let className:string;
+
 			switch(type){
 				case 'function':
-					page = new param();
+					// page = new param();
+					className = param.prototype.__class__;
 					break;
 				case 'string':
-					page = new (egret.getDefinitionByName(param))();
+					// page = new (egret.getDefinitionByName(param))();
+					className = param;
 					break;
 				case 'object':
 					page = param as IPage;
 					break;
-			}					
+			}
+
+			if(!page){
+				page = this._uiCache[className] || new (egret.getDefinitionByName(className))();
+			}
+			//缓存ui对象
+			className = egret.getQualifiedClassName(page);
+			this._uiCache[className] = page;
+
 			//绑定上一页的额外数据(同层数据传递)
 			this.bindData(page);		
 			//添加到显示层
@@ -62,9 +77,13 @@ module eg {
 			layer.addChild(page.content);
 			//关闭上一页
 			let upPage:IPage = this._dic[page.pageType];		
-			if(upPage && !upPage.isDispose){
+			// if(upPage && !upPage.isDispose){
+			// 	upPage.close();
+			// }
+			
+			if(upPage){
 				upPage.close();
-			}			
+			}
 			this._dic[page.pageType] = page;
 
 			// switch(pageType){
