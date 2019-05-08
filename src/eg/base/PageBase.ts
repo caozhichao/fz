@@ -12,7 +12,7 @@ module eg {
 		private _resName:string[];
 		public constructor() {
 			super();
-			// this.height = eg.Config.STAGE_H;
+			this.height = eg.Config.STAGE_H;
 			// this.width = eg.Config.STAGE_W;
 		}
 
@@ -108,6 +108,13 @@ module eg {
 			this._extraData = null;
 			this._upPageExtraData = null;
 
+
+			for(let i = 0; i < this.numChildren;i++){
+				let element = this.getChildAt(i);	
+				if(egret.is(element,"eg.IDispose")){
+					element['dispose']();
+				} 
+			}
 
 			// //删除所有的子对象
 			// while(this.numChildren > 0){
