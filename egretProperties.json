@@ -50,6 +50,10 @@
     { 
       "name":"keyboard",
       "path":"./libs/keyboard"
+    },
+    {
+      "name":"physics",
+      "path":"./libs/physics"
     }
   ]
 }
