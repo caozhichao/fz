@@ -1,4 +1,7 @@
 module test {
+
+	//p2坐标系参考
+	// https://www.cnblogs.com/luoeeyang/p/6841161.html
 	export class p2_test extends egret.Sprite{
 
 		//debug模式，使用图形绘制
