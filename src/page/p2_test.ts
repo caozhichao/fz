@@ -27,13 +27,13 @@ module test {
 
 			//添加一个矩形
 
-			let p2Pos = this.toP2Position(300,300);
+			let p2Pos = this.getPhysicsCoord(300,300);
 
 			
 
 
 			var boxShape: p2.Shape = new p2.Box({width: 2, height: 1});
-			var boxBody: p2.Body = new p2.Body({ mass: 1, position: [p2Pos[0], p2Pos[1]], angularVelocity: 0 ,fixedY :true});
+			var boxBody: p2.Body = new p2.Body({ mass: 1, position: [p2Pos[0], p2Pos[1]], angularVelocity: 1 ,fixedY :false});
 			boxBody.addShape(boxShape);
 
 			let display = this.createBox((<p2.Box>boxShape).width * factor,(<p2.Box>boxShape).height * factor);
@@ -77,15 +77,41 @@ module test {
 
 			//添加鼠标约束
 
-
+			let mouseBody = new p2.Body();
+			mouseBody.displays = [];
+        	world.addBody(mouseBody);
+			let mouseConstraint;
 			let _stage = eg.Config.stage;
 			_stage.addEventListener(egret.TouchEvent.TOUCH_BEGIN,(evt:egret.TouchEvent)=>{
-				let p2Pos = this.toP2Position(evt.stageX,evt.stageY);
-				var hitBodies = world.hitTest(p2Pos, [boxBody],10);
-				console.log(hitBodies);
+				let position = this.getPhysicsCoord(evt.stageX,evt.stageY);
+				var hitBodies = world.hitTest(position, [boxBody],5);
+				// console.log(hitBodies);
+				if(hitBodies.length > 0){
+					mouseBody.position[0] = position[0];
+					mouseBody.position[1] = position[1];
 
+
+					mouseConstraint = new p2.RevoluteConstraint(mouseBody, boxBody, {
+						worldPivot: position,
+						collideConnected:false
+            		});
+            		world.addConstraint(mouseConstraint);
+
+				}
 			},this);
 
+			_stage.addEventListener(egret.TouchEvent.TOUCH_MOVE,(evt:egret.TouchEvent)=>{
+				let position = this.getPhysicsCoord(evt.stageX,evt.stageY);
+				mouseBody.position[0] = position[0];
+				mouseBody.position[1] = position[1];
+			},this);
+
+			_stage.addEventListener(egret.TouchEvent.TOUCH_END,(evt:egret.TouchEvent)=>{
+				if(mouseConstraint){
+					world.removeConstraint(mouseConstraint);
+          			mouseConstraint = null;
+				}
+			},this);
 
 
 
@@ -176,10 +202,10 @@ module test {
 		 * @param y  stageY
 		 * egret 坐标转换到p2坐标
 		 */
-		public toP2Position(x:number,y:number):number[]{
-			var positionX: number = Math.floor(x / 50);
-			var positionY: number = Math.floor((egret.MainContext.instance.stage.stageHeight - y) / 50);
-			console.log(positionX + '|' + positionY);
+		public getPhysicsCoord(x:number,y:number):number[]{
+			var positionX: number = x / 50;  //注意不要做上下取整 会影响鼠标约束点击判断
+			var positionY: number = (eg.Config.STAGE_H - y) / 50;
+			console.log(x + '|' + y + '-' + positionX + '|' + positionY);
 			return [positionX,positionY];
 
 			// x = (x - w / 2) / 50;
