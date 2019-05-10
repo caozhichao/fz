@@ -2,6 +2,8 @@ module test {
 
 	//p2坐标系参考
 	// https://www.cnblogs.com/luoeeyang/p/6841161.html
+	//资源
+	//https://bbs.egret.com/forum.php?mod=viewthread&tid=15762&highlight=p2
 	export class p2_test extends egret.Sprite{
 
 		//debug模式，使用图形绘制
@@ -10,7 +12,7 @@ module test {
 		public constructor() {
 			super();
 
-			
+			let _stage = eg.Config.stage;
 
 			var factor: number = 50;
 
@@ -20,9 +22,12 @@ module test {
 
 			//创建plane
 			var planeShape: p2.Plane = new p2.Plane();
-			var planeBody: p2.Body = new p2.Body();
+			var planeBody: p2.Body = new p2.Body({position:[0,1]});
 			planeBody.addShape(planeShape);
-			planeBody.displays = [];
+
+			let planeDisplay = this.createBox(_stage.stageWidth,50);
+			this.addChild(planeDisplay);
+			planeBody.displays = [planeDisplay];
 			world.addBody(planeBody);
 
 			//添加一个矩形
@@ -81,7 +86,7 @@ module test {
 			mouseBody.displays = [];
         	world.addBody(mouseBody);
 			let mouseConstraint;
-			let _stage = eg.Config.stage;
+			// let _stage = eg.Config.stage;
 			_stage.addEventListener(egret.TouchEvent.TOUCH_BEGIN,(evt:egret.TouchEvent)=>{
 				let position = this.getPhysicsCoord(evt.stageX,evt.stageY);
 				var hitBodies = world.hitTest(position, [boxBody],5);

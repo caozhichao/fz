@@ -148,7 +148,12 @@ class Main extends eg.EgMain {
         // let f = test.ComponentTest;
         // console.log(f);
         // eg.UIManager.Instance.showUI(test.ComponentTest);
+        //p2
         this.addChild(new test.p2_test());
+        // this.addChild(new Examples_box());
+        // this.addChild(new Examples_kinematic());
+        // this.addChild(new Template_p2DebugDraw());
+        // this.addChild(new Examples_applyImpulse());
 
     }
 

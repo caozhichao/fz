@@ -1,6 +1,6 @@
 //////////////////////////////////////////////////////////////////////////////////////
 //
-//  Copyright (c) 2014-present, Egret Technology.
+//  Copyright (c) 2014-2015, Egret Technology Inc.
 //  All rights reserved.
 //  Redistribution and use in source and binary forms, with or without
 //  modification, are permitted provided that the following conditions are met:
@@ -35,11 +35,16 @@ class p2DebugDraw {
     private COLOR_K: number = 0x7f7fe5;
     private COLOR_S: number = 0x7fe57f;
 
+    private lineWidth:number = 1;
+
     public constructor(world: p2.World) {
         this.world = world;
     }
     public setSprite(sprite: egret.Sprite) {
         this.sprite = sprite;
+    }
+    public setLineWidth(value:number):void{
+        this.lineWidth = value;
     }
     public drawDebug(): void {
         this.sprite.graphics.clear();
@@ -49,7 +54,9 @@ class p2DebugDraw {
             var body: p2.Body = this.world.bodies[i];
             for (var j: number = 0; j < body.shapes.length; j++) {
                 var shape: p2.Shape = body.shapes[j];
-                if (shape instanceof p2.Convex) {
+                if (shape instanceof p2.Box) {
+                    this.drawBox(<p2.Box>shape, body);
+                }else if (shape instanceof p2.Convex) {
                     this.drawConvex(<p2.Convex>shape, body);
                 } else if (shape instanceof p2.Circle) {
                     this.drawCircle(<p2.Circle>shape, body);
@@ -65,11 +72,26 @@ class p2DebugDraw {
             }
         }
     }
+    public drawRay(start, end, color?){
+        // Draw line
+        var g: egret.Graphics = this.sprite.graphics;
+
+        g.lineStyle(this.lineWidth, color);
+        g.moveTo(start[0], start[1]);
+        g.lineTo(end[0], end[1]);
+
+        g.endFill();
+    }
+
+    private drawBox(shape: p2.Box, b: p2.Body): void {
+        this.drawConvex(shape,b);
+    }
+
     private drawCircle(shape: p2.Circle, b: p2.Body): void {
         var color: number = this.getColor(b);
 
         var g: egret.Graphics = this.sprite.graphics;
-        g.lineStyle(1, color);
+        g.lineStyle(this.lineWidth, color);
         g.beginFill(color, 0.5);
         g.drawCircle(b.position[0], b.position[1], shape.radius);
 
@@ -97,16 +119,16 @@ class p2DebugDraw {
         b.toWorldFrame(a2, [-len / 2, 0]);
 
         var g: egret.Graphics = this.sprite.graphics;
-        g.lineStyle(1, color);
+        g.lineStyle(this.lineWidth, color);
         g.beginFill(color, 0.5);
         g.drawCircle(a1[0], a1[1], radius);
         g.endFill();
-        g.lineStyle(1, color);
+        g.lineStyle(this.lineWidth, color);
         g.beginFill(color, 0.5);
         g.drawCircle(a2[0], a2[1], radius);
         g.endFill();
 
-        g.lineStyle(1, color);
+        g.lineStyle(this.lineWidth, color);
         g.beginFill(color, 0.5);
         g.moveTo(p1[0], p1[1]);
         g.lineTo(p2[0], p2[1]);
@@ -127,7 +149,7 @@ class p2DebugDraw {
 
         var g: egret.Graphics = this.sprite.graphics;
 
-        g.lineStyle(1, color);
+        g.lineStyle(this.lineWidth, color);
         g.moveTo(p1[0], p1[1]);
         g.lineTo(p2[0], p2[1]);
 
@@ -137,12 +159,12 @@ class p2DebugDraw {
         var color: number = this.getColor(b);
 
         var g: egret.Graphics = this.sprite.graphics;
-        g.lineStyle(1, color);
+        g.lineStyle(this.lineWidth, color);
         g.beginFill(color, 0.5);
         g.drawCircle(b.position[0], b.position[1], 1);
         g.endFill();
 
-        g.lineStyle(1, color);
+        g.lineStyle(this.lineWidth, color);
         g.drawCircle(b.position[0], b.position[1], 5);
         g.endFill();
     }
@@ -151,7 +173,7 @@ class p2DebugDraw {
 
         var l: number = shape.vertices.length;
         var g: egret.Graphics = this.sprite.graphics;
-        g.lineStyle(1, color);
+        g.lineStyle(this.lineWidth, color);
         g.beginFill(color, 0.5);
 
         var worldPoint: number[] = new Array();
@@ -171,7 +193,7 @@ class p2DebugDraw {
     private drawPlane(shape: p2.Plane, b: p2.Body): void {
         var color: number = this.COLOR_D_SLEEP;
         var g: egret.Graphics = this.sprite.graphics;
-        g.lineStyle(1, color);
+        g.lineStyle(this.lineWidth, color);
         g.beginFill(color, 1);
 
         var start: number[] = new Array();
