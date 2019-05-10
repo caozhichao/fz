@@ -30,6 +30,17 @@ module test {
 			planeBody.displays = [planeDisplay];
 			world.addBody(planeBody);
 
+			//上
+			var upPlaneShape = new p2.Plane();
+			var p2_pos = this.getPhysicsCoord(0,0);
+			planeBody = new p2.Body({position:p2_pos,angle:Math.PI});
+			planeBody.displays = [];
+			planeBody.addShape(upPlaneShape);
+			world.addBody(planeBody);
+
+
+
+
 			//添加一个矩形
 
 			let p2Pos = this.getPhysicsCoord(300,300);
@@ -37,7 +48,7 @@ module test {
 			
 
 
-			var boxShape: p2.Shape = new p2.Box({width: 2, height: 1});
+			var boxShape: p2.Shape = new p2.Box({width: 1, height: 1});
 			var boxBody: p2.Body = new p2.Body({ mass: 1, position: [p2Pos[0], p2Pos[1]], angularVelocity: 1 ,fixedY :false});
 			boxBody.addShape(boxShape);
 
@@ -47,7 +58,12 @@ module test {
 			this.addChild(display);
 
 			boxBody.displays = [display];
-			world.addBody(boxBody);
+
+
+			setTimeout(function() {
+				world.addBody(boxBody);			
+			}, 1000);
+
 
 
 			egret.Ticker.getInstance().register(function(dt) {
@@ -101,8 +117,15 @@ module test {
 						collideConnected:false
             		});
             		world.addConstraint(mouseConstraint);
+				} else {
+					//冲击力
 
+					// boxBody.applyImpulse([0,1000],[0.5,0.5]);
+					boxBody.applyForce([0,1000],[0.5,0.5])
 				}
+
+
+
 			},this);
 
 			_stage.addEventListener(egret.TouchEvent.TOUCH_MOVE,(evt:egret.TouchEvent)=>{
