@@ -41,7 +41,7 @@ class Examples_concave extends egret.Sprite {
         
         this.addEventListener(egret.Event.ENTER_FRAME,this.loop,this);
         
-        // this.createDebug();
+        this.createDebug();
 
         //画图
         this._test = new egret.Shape();
@@ -61,9 +61,61 @@ class Examples_concave extends egret.Sprite {
 
 
 
-
+        this.stage.addEventListener(egret.TouchEvent.TOUCH_BEGIN, this.touchEventHandler, this);
+        this.stage.addEventListener(egret.TouchEvent.TOUCH_END, this.touchEventHandler, this);
 
     }
+
+
+    private prePoint: number[];
+    private points: number[][] = new Array();
+
+    private touchEventHandler(te: egret.TouchEvent): void {
+        var mousePos: number[] = new Array(te.stageX/50, (this.stage.stageHeight - te.stageY)/50);
+
+        switch (te.type) {
+            case egret.TouchEvent.TOUCH_BEGIN:
+                this.prePoint = this.copyPoint(mousePos);
+                this.points.push(this.prePoint,this.prePoint);
+                this.stage.addEventListener(egret.TouchEvent.TOUCH_MOVE, this.touchEventHandler, this);
+                break;
+            case egret.TouchEvent.TOUCH_END:
+                this.createConvexBody();
+                this.stage.removeEventListener(egret.TouchEvent.TOUCH_MOVE, this.touchEventHandler, this);
+                break;
+            case egret.TouchEvent.TOUCH_MOVE:
+                var dis: number = p2.vec2.dist(mousePos, this.prePoint);
+                if (dis > 50/50) {
+                    this.points.push(this.prePoint);
+                    this.prePoint = this.copyPoint(mousePos);
+                    this.points[this.points.length - 1] = this.copyPoint(mousePos);
+                } else {
+                    this.points[this.points.length-1] = this.copyPoint(mousePos);
+                }
+                break;
+        }
+    }
+
+    private createConvexBody(): void {
+        /* 错误的做法，使用Convex形状，创建多边形.
+        var triangleShape: p2.Convex = new p2.Convex({vertices:this.points});
+        var body: p2.Body = new p2.Body({ mass: 1, position:[100/this.factor,100/this.factor] });
+        body.addShape(triangleShape);
+        */
+
+        //正确的做法，使用fromPolygon()函数，来创建刚体
+        var body: p2.Body = new p2.Body({ mass: 1 });
+        body.fromPolygon(this.points, {optimalDecomp:false});
+
+        this.scene.world.addBody(body);
+        this.points = [];
+    }
+
+     private copyPoint(p: number[]): number[] {
+        return new Array(p[0], p[1]);
+    }
+
+
 
     private _test:egret.Shape;
     private _sPoint = new egret.Point();
@@ -116,12 +168,15 @@ class Examples_concave extends egret.Sprite {
         var convex: p2.Convex = <p2.Convex>this.concave.shapes[0];
         this.drawConvex(convex,this.concave);
 
-        this._bodys.forEach(element => {
-            this.drawConvex(element.shapes[0],element);
-        });
+        // this._bodys.forEach(element => {
+        //     this.drawConvex(element.shapes[0],element);
+        // });
 
         
-        // this.debugDraw.drawDebug();
+        this.debugDraw.drawDebug();
+
+
+        if (this.points.length > 1) this.debugDraw.drawConvex(this.points, 0x000000, 1, false);
     }
     
     private createConcave(): void {
@@ -192,9 +247,10 @@ class Examples_concave extends egret.Sprite {
     }
     
     
-    private debugDraw: p2DebugDraw;
+    private debugDraw: p2DebugDraw2;
     private debugSpr: egret.Sprite;
     private createDebug(): void {
+        /*
         //创建调试试图
         this.debugDraw = new p2DebugDraw(this.scene.world);
         this.debugSpr = new egret.Sprite();
@@ -208,6 +264,13 @@ class Examples_concave extends egret.Sprite {
         var scale = 50;
         this.debugSpr.scaleX = scale;
         this.debugSpr.scaleY = -scale;
+        */
+        this.debugSpr = new egret.Sprite();
+        this.addChild(this.debugSpr);
+        this.debugSpr.scaleY = -1;
+        this.debugSpr.y = this.stage.stageHeight;
+        this.debugDraw = new p2DebugDraw2(this.scene.world,this.debugSpr);
+
     }
  
 }

@@ -1,0 +1,15 @@
+{
+	"initial": [
+		"libs/modules/egret/egret.js",
+		"libs/modules/egret/egret.web.js",
+		"libs/modules/game/game.js",
+		"libs/modules/tween/tween.js",
+		"libs/modules/res/res.js",
+		"p2Physics/bin/p2Physics/p2Physics.js"
+	],
+	"game": [
+		"bin-debug/AbstractP2Test.js",
+		"bin-debug/p2DebugDraw.js",
+		"bin-debug/TestFromPolygon.js"
+	]
+}

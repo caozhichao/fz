@@ -146,6 +146,7 @@
 		"bin-debug/p2test/HelloWorld.js",
 		"bin-debug/p2test/p2DebugDraw_bk.js",
 		"bin-debug/p2test/p2DebugDraw.js",
+		"bin-debug/p2test/p2DebugDraw2.js",
 		"bin-debug/p2test/Test.js",
 		"bin-debug/p2test/Test2.js",
 		"bin-debug/p2test/examples/Examples_addBasicBody.js",
