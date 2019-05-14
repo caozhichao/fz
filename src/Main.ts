@@ -149,12 +149,15 @@ class Main extends eg.EgMain {
         // console.log(f);
         // eg.UIManager.Instance.showUI(test.ComponentTest);
         //p2
-        this.addChild(new test.p2_test());
+        // this.addChild(new test.p2_test());
         // this.addChild(new Examples_box());
         // this.addChild(new Examples_kinematic());
         // this.addChild(new Template_p2DebugDraw());
         // this.addChild(new Examples_applyImpulse());
-
+        // this.addChild(new Examples_toWorldFrame());
+        // this.addChild(new Examples_carWithMotor());
+        // this.addChild(new Examples_concave());
+        this.addChild(new Examples_prismaticBasic());
     }
 
     private facade:game.ApplicationFacade;

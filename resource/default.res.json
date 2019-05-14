@@ -1,7 +1,7 @@
 {
 	"groups": [
 		{
-			"keys": "bg_png,img_game_c9_png,img_game_d0_png,red_png,tap_rank_3_png,img_main_a0_jpg,fish0_png,bg3_png,fish0_json,hongqiu_png,qiu0_png,qiu1_png,qiu2_png,52b7cb7821232fca53000004_201809211329088743_png,background_jpg",
+			"keys": "bg_png,img_game_c9_png,img_game_d0_png,red_png,tap_rank_3_png,img_main_a0_jpg,fish0_png,bg3_png,fish0_json,hongqiu_png,qiu0_png,qiu1_png,qiu2_png,52b7cb7821232fca53000004_201809211329088743_png,background_jpg,rect",
 			"name": "preload"
 		}
 	],
@@ -210,7 +210,7 @@
 		{
 			"url": "assets/game/images/rect.png",
 			"type": "image",
-			"name": "rect_png"
+			"name": "rect"
 		},
 		{
 			"url": "assets/game/images/matterjs/rock.png",
@@ -254,64 +254,64 @@
 			"name": "img_game_d0_png"
 		},
 		{
-			"name": "red_png",
+			"url": "assets/game/images/red.png",
 			"type": "image",
-			"url": "assets/game/images/red.png"
+			"name": "red_png"
 		},
 		{
-			"name": "tap_rank_3_png",
+			"url": "assets/game/images/tap_rank_3.png",
 			"type": "image",
-			"url": "assets/game/images/tap_rank_3.png"
+			"name": "tap_rank_3_png"
 		},
 		{
-			"name": "img_main_a0_jpg",
+			"url": "assets/game/images/img_main_a0.jpg",
 			"type": "image",
-			"url": "assets/game/images/img_main_a0.jpg"
+			"name": "img_main_a0_jpg"
 		},
 		{
-			"name": "fish0_png",
+			"url": "assets/game/images/fish/fish0.png",
 			"type": "image",
-			"url": "assets/game/images/fish/fish0.png"
+			"name": "fish0_png"
 		},
 		{
-			"name": "bg3_png",
+			"url": "assets/game/images/fish/bg.png",
 			"type": "image",
-			"url": "assets/game/images/fish/bg.png"
+			"name": "bg3_png"
 		},
 		{
-			"name": "fish0_json",
+			"url": "assets/game/images/fish/fish0.json",
 			"type": "json",
-			"url": "assets/game/images/fish/fish0.json"
+			"name": "fish0_json"
 		},
 		{
-			"name": "hongqiu_png",
+			"url": "assets/game/images/hongqiu.png",
 			"type": "image",
-			"url": "assets/game/images/hongqiu.png"
+			"name": "hongqiu_png"
 		},
 		{
-			"name": "qiu0_png",
+			"url": "assets/game/images/qiu0.png",
 			"type": "image",
-			"url": "assets/game/images/qiu0.png"
+			"name": "qiu0_png"
 		},
 		{
-			"name": "qiu1_png",
+			"url": "assets/game/images/qiu1.png",
 			"type": "image",
-			"url": "assets/game/images/qiu1.png"
+			"name": "qiu1_png"
 		},
 		{
-			"name": "qiu2_png",
+			"url": "assets/game/images/qiu2.png",
 			"type": "image",
-			"url": "assets/game/images/qiu2.png"
+			"name": "qiu2_png"
 		},
 		{
-			"name": "52b7cb7821232fca53000004_201809211329088743_png",
+			"url": "assets/game/images/map2d/52b7cb7821232fca53000004_201809211329088743.png",
 			"type": "image",
-			"url": "assets/game/images/map2d/52b7cb7821232fca53000004_201809211329088743.png"
+			"name": "52b7cb7821232fca53000004_201809211329088743_png"
 		},
 		{
-			"name": "background_jpg",
+			"url": "assets/game/images/background.jpg",
 			"type": "image",
-			"url": "assets/game/images/background.jpg"
+			"name": "background_jpg"
 		}
 	]
 }

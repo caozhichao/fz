@@ -41,15 +41,87 @@ class Examples_concave extends egret.Sprite {
         
         this.addEventListener(egret.Event.ENTER_FRAME,this.loop,this);
         
-        //this.createDebug();
+        // this.createDebug();
+
+        //画图
+        this._test = new egret.Shape();
+        this._test.graphics.lineStyle(1,0x0);
+        this.addChild(this._test);
+        // this.stage.addEventListener(egret.TouchEvent.TOUCH_BEGIN,this.onBegin,this);
+        // this.stage.addEventListener(egret.TouchEvent.TOUCH_MOVE,this.onMove,this);
+        // this.stage.addEventListener(egret.TouchEvent.TOUCH_END,this.onEnd,this);
+
+        // this._test.graphics.drawRect(10,10,100,50);
+        // this._test.graphics.moveTo(10,10);
+        // this._test.graphics.lineTo(100,10);
+        // this._test.graphics.lineTo(100,50);
+        // this._test.graphics.lineTo(10,10);
+        // this._test.graphics.endFill();
+        // let rect = this._test.getBounds();
+
+
+
+
+
     }
+
+    private _test:egret.Shape;
+    private _sPoint = new egret.Point();
+    private _drawPath = [];
+    private _bodys = [];
+    private onBegin(evt:egret.TouchEvent):void{
+        // console.log('onBegin');
+        this._sPoint.x = evt.stageX;
+        this._sPoint.y = evt.stageY;
+
+        this._test.graphics.moveTo(evt.stageX,evt.stageY);
+        this._drawPath = [[evt.stageX,evt.stageY]];
+    }
+
+    private onMove(evt:egret.TouchEvent):void{
+        // console.log('onMove');
+        this._test.graphics.lineTo(evt.stageX,evt.stageY);
+        this._drawPath.push([evt.stageX,evt.stageY]);
+    }
+
+    private onEnd(evt:egret.TouchEvent):void{
+        // console.log('onEnd');
+        this._test.graphics.lineTo(this._sPoint.x,this._sPoint.y);
+
+        let rect = this._test.getBounds();
+        console.log(rect);
+
+        let m:egret.Matrix = new egret.Matrix();
+        m.translate(-rect.x,-rect.y);
+
+        let result = new egret.Point();
+        for(let i = 0; i < this._drawPath.length;i++){
+            m.transformPoint(this._drawPath[i][0],this._drawPath[i][1],result);
+            this._drawPath[i][0] = result.x / 50;
+            this._drawPath[i][1] = -result.y / 50;            
+        }
+        var concaveBody = new p2.Body({
+            mass: 1,
+            position: [8,5]
+        });
+        concaveBody.fromPolygon(this._drawPath,{removeCollinearPoints:true});        
+        this.scene.world.addBody(concaveBody);
+        this._bodys.push(concaveBody);
+    }
+
 	
     private loop(): void {
- 
+        this.drawCtn.graphics.clear();
+
         var convex: p2.Convex = <p2.Convex>this.concave.shapes[0];
         this.drawConvex(convex,this.concave);
+
+        this._bodys.forEach(element => {
+            this.drawConvex(element.shapes[0],element);
+        });
+
         
-        //this.debugDraw.drawDebug();
+        // this.debugDraw.drawDebug();
     }
     
     private createConcave(): void {
@@ -62,12 +134,26 @@ class Examples_concave extends egret.Sprite {
         // Give a concave path to the body.
         // Body.prototype.fromPolygon will automatically add shapes at
         // proper offsets and adjust the center of mass.
-        var path = [[-1,1],
+        // var path = [[-1,1],
+        //     [-1,0],
+        //     [1,0],
+        //     [1,1],
+        //     [0.5,0.5]];
+        // var path = [
+        //     [-1,1],
+        //     [-1,0],
+        //     [1,0],
+        //     [1,1]
+        // ]
+
+        var path = [
+            [0,1],
             [-1,0],
-            [1,0],
-            [1,1],
-            [0.5,0.5]];
+            [1,0]            
+        ]
+
         concaveBody.fromPolygon(path);
+
         
 
         // Add the body to the world
@@ -80,7 +166,7 @@ class Examples_concave extends egret.Sprite {
         var path:any[] = b["concavePath"];
         var l: number = path.length;
         var g: egret.Graphics = this.drawCtn.graphics;
-        g.clear();
+        // g.clear();
         
 
         var worldPoint: number[] = [b.position[0],b.position[1]];
