@@ -27,7 +27,7 @@
                 this.drawShape(shape, body);
                 if (this.isDrawAABB) this.drawAABB(body);
             }
-        }
+        }        
         l = this.world.constraints.length;
         var jointType: number, joint: p2.Constraint;
         for (var j: number = 0; j < l; j++) {
