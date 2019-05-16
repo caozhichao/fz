@@ -22,7 +22,7 @@ module test {
 			// this.addEventListener(egret.Event.ADDED_TO_STAGE,this.onAddedToStage,this);
 		}
 
-		public initUI(data:any):void{
+		public initComplete(data:any):void{
 
 			this._container.addEventListener(egret.TouchEvent.TOUCH_BEGIN,this.onTap,this);
 			this.stage.addEventListener(egret.TouchEvent.TOUCH_MOVE,this.onMove,this);

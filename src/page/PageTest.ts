@@ -4,8 +4,8 @@ module fz {
 		public constructor() {
 			super();
 		}
-		public initUI(data:any):void{
-			super.initUI(data);
+		public initComplete(data:any):void{
+			super.initComplete(data);
 			// let spr:egret.HashObject = eg.Pool.Instance.getItemByClass(egret.Sprite);
 			// eg.log(spr.hashCode);
 			// eg.Pool.Instance.recover(spr);

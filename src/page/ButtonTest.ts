@@ -5,8 +5,8 @@ module test {
 		public constructor() {
 			super();
 		}
-		public initUI(data:any):void{
-			super.initUI(data);
+		public initComplete(data:any):void{
+			super.initComplete(data);
 			let spr:egret.Sprite = new egret.Sprite();
 			spr.graphics.beginFill(0xff0000);
 			spr.graphics.drawRect(0,0,100,100);

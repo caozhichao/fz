@@ -19,8 +19,8 @@ module fz {
 			super();
 		}
 
-		public initUI(data:any):void{
-			super.initUI(data);	
+		public initComplete(data:any):void{
+			super.initComplete(data);	
 			// /*		
 			this.map = new Map();
 			this.map.y = eg.Config.STAGE_H;

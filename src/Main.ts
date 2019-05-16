@@ -147,7 +147,7 @@ class Main extends eg.EgMain {
         // this.addChild(new test.ComponentTest());
         // let f = test.ComponentTest;
         // console.log(f);
-        // eg.UIManager.Instance.showUI(test.ComponentTest);
+        eg.UIManager.Instance.showUI(test.ComponentTest);
         //p2
         // this.addChild(new test.p2_test());
         // this.addChild(new Examples_box());
@@ -159,7 +159,8 @@ class Main extends eg.EgMain {
         // this.addChild(new Examples_concave());
         // this.addChild(new Examples_concave());
 
-        this.addChild(new test.ShaderTest());
+        // this.addChild(new test.ShaderTest());
+
     }
 
     private facade:game.ApplicationFacade;

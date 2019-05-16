@@ -47,8 +47,8 @@ module test {
 			this.skinName = 'skins.BezierViewSkin';
 		}
 
-		public initUI(data:any):void{
-			super.initUI(data);
+		public initComplete(data:any):void{
+			super.initComplete(data);
 
 			this.shape = new egret.Shape();
 			this.addChild(this.shape);

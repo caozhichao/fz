@@ -6,8 +6,8 @@ class RunwayTest extends eg.PageBase{
 		super();
 	}
 
-	public initUI(data:any):void{
-		super.initUI(data);
+	public initComplete(data:any):void{
+		super.initComplete(data);
 		
 		let p:egret.Shape = new egret.Shape();
 		p.graphics.beginFill(0x00ff00);

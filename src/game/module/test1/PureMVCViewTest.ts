@@ -5,8 +5,8 @@ module test {
 			super();					
 			this.skinName = 'skins.Test1Skin';
 		}
-		public initUI(data:any):void{
-			super.initUI(data);
+		public initComplete(data:any):void{
+			super.initComplete(data);
 			eg.log('PureMVCViewTest');
 			let img:eui.Image = new eui.Image();
 			img.addEventListener(egret.Event.COMPLETE,(evt)=>{				

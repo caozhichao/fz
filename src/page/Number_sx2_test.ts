@@ -8,8 +8,8 @@ module sx {
 			super();
 			this.skinName = 'skins.NumberSXSkin';
 		}
-		public initUI(data:any):void{
-			super.initUI(data);
+		public initComplete(data:any):void{
+			super.initComplete(data);
 			let sx:Number_sx2 = new Number_sx2();
 			sx.x = 100;
 			sx.y = 200;

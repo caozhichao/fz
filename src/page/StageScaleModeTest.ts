@@ -10,8 +10,8 @@ module test {
 			this.skinName = 'skins.StageScaleModeTestSkin';			
 		}
 
-		public initUI(data):void{
-			super.initUI(data);
+		public initComplete(data):void{
+			super.initComplete(data);
 			console.log(this.stage.stageWidth + "|" + this.stage.stageHeight);
 			console.log(this.width + '|' + this.height);
 

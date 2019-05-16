@@ -7,8 +7,8 @@ module fish {
 			super();
 			this.skinName = 'skins.FishViewSkin';
 		}
-		public initUI(data:any):void{
-			super.initUI(data);
+		public initComplete(data:any):void{
+			super.initComplete(data);
 
 			// for(let i:number = 0; i < 0;i++){
 			// 	let fish:Fish = new Fish();

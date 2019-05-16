@@ -8,8 +8,8 @@ module test {
 			this.skinName = 'ws_test';
 		}
 
-		public initUI(data:any):void{
-			super.initUI(data);
+		public initComplete(data:any):void{
+			super.initComplete(data);
 
 			this._ws = eg.WS.getInstance();
 			// this._ws.addEventListener

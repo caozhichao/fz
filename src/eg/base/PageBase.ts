@@ -1,34 +1,41 @@
 module eg {
 	export class PageBase extends eui.Component implements eg.IPage{
-		public static INIT_COMPLETE:string = 'init_complete';
-
-		private _upPageName:string;
-		private _extraData:any;
-		private _upPageExtraData:any;
-		private _skinName:string;
+		public static INIT_COMPLETE:string = 'init_complete';	
+		private _extraData:any;		
+		private _uiSkinName:string;
 		//是否释放
 		private _isDispose:boolean = false;
 		//资源组的名称
 		private _resName:string[];
+		private _pageType:string;
+		private _pageId:number;
+		private _pageName:string;
 		public constructor() {
 			super();
 			this.height = eg.Config.STAGE_H;
 			// this.width = eg.Config.STAGE_W;
 		}
 
+		public set pageType(value:string){
+			this._pageType = value;
+		}
 		public get pageType():string{
-			return UILayer.LAYER_SCENCE;
+			return this._pageType || UILayer.LAYER_SCENCE;
+		}
+
+		public set pageId(value:number){
+			this._pageId = value;
 		}
 
 		public get pageId():number{
-			return -1;
+			return this._pageId || -1;
 		}
 
 		public get content():egret.DisplayObject{
 			return this;
 		}
 
-		public initUI(pageData:any):void{
+		public initComplete(pageData:any):void{
 			eg.log(pageData);
 			this.dispatchEventWith(PageBase.INIT_COMPLETE);
 		}
@@ -40,13 +47,11 @@ module eg {
 		public async open(){
 			eg.Loading.Instance.show();
 			await this.loadRes(this.resName);	
-			let data = await this.pageData();
-			// await this.setPageSkin();
-			this.setPageSkin();			
+			let data = await this.pageData();			
+			this.initUISkin();			
 			eg.Loading.Instance.hide();		
-			this.initUI(data);
-			this.enter();
-			this.loadRes(this.preNextResName);
+			this.initComplete(data);
+			this.enter();			
 		}
 
 		private async loadRes(groups:string[]){
@@ -95,9 +100,6 @@ module eg {
 			this._resName = value;
 		}
 
-		public get preNextResName():string[]{
-			return null;
-		}
 
 		public dispose():void{
 			this._isDispose = true;
@@ -106,9 +108,7 @@ module eg {
 				eg.EventDispatcher.Instance.dispatchEventWith(egret.Event.CLOSE);
 			}
 			this._extraData = null;
-			this._upPageExtraData = null;
-
-
+			// this._upPageExtraData = null;
 			for(let i = 0; i < this.numChildren;i++){
 				let element = this.getChildAt(i);	
 				if(egret.is(element,"eg.IDispose")){
@@ -125,74 +125,42 @@ module eg {
 			// }
 		}
 
-		public get pageSkinName():string{
-			return this._skinName;
+		public get uiSkinName():string{
+			return this._uiSkinName;
 		}
 
-		public setPageSkin(){	
-			/*
-			let self = this;
-			return new Promise((resolve,reject)=>{				
-				self.once(eui.UIEvent.COMPLETE,(evt:eui.UIEvent)=>{					
-					resolve(); //保证内部组件初始化完成
-				},self);
-				
-				if(self.pageSkinName != "" && self.pageSkinName != null){	
-					//先检查皮肤资源是否存在	
-					if(egret.getDefinitionByName(self.pageSkinName)){
-						// this.skinName = this.pageSkinName;
-						egret.superSetter(eg.PageBase,self,'skinName',self.pageSkinName);
-					} else {
-						eg.log(self.pageSkinName + '皮肤资源未找到');
-					}	
-				} else {					
-					resolve();
-				}
-			});
-			*/
+		public set uiSkinName(value:string){
+			this._uiSkinName = value;
+		}
+
+
+		private initUISkin(){
 			//先检查皮肤资源是否存在	
-			if(egret.getDefinitionByName(this.pageSkinName)){				
-				egret.superSetter(eg.PageBase,this,'skinName',this.pageSkinName);
+			if(egret.getDefinitionByName(this._uiSkinName)){				
+				egret.superSetter(eg.PageBase,this,'skinName',this._uiSkinName);
 			} else {
-				eg.log(this.pageSkinName + '皮肤资源未找到');
+				eg.log(this._uiSkinName + '皮肤资源未找到');
 			}
 		}
 
+		public set pageName(value:string){
+			this._pageName = value;
+		}
+
 		public get pageName():string{
-			return this.name;
+			return this._pageName || this.name;
 		}
 
-		public get upPageName():string{
-			return this._upPageName;
-		}
-
-		public set upPageName(value:string){
-			this._upPageName = value;
-		}
-
-		public get curPageExtraData():any{
-			return this._extraData;
-		}
-
-		public set curPageExtraData(extraData:any){
-			this._extraData = extraData;
-		}
-
-		public get upPageExtraData():any{
-			return this._upPageExtraData;
-		}
-
-		public set upPageExtraData(extraData:any){
-			this._upPageExtraData = extraData;
-		}	
-
-		public set skinName(value:any) {
-			this._skinName = value;
+		/**
+		 * 重写Component中的skinName 兼容使用
+		 */
+		public set skinName(value:any) {			
+			this.uiSkinName = value;
 		}
 
 		public get skinName():any{			
-			// return egret.superGetter(eg.getDefinition(this),this,'skinName');
-			return this.pageSkinName;
+			// return egret.superGetter(eg.getDefinition(this),this,'skinName');			
+			return this.uiSkinName;
 		}
 
 		public get isDispose():boolean{

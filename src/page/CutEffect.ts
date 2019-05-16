@@ -13,8 +13,8 @@ module fz {
             super();
         }
 
-        public initUI(data:any):void{
-            super.initUI(data);
+        public initComplete(data:any):void{
+            super.initComplete(data);
             eg.log('CutEffect');
 
             // this.filters = [new egret.GlowFilter(0x00FFCC,1,6,6)];

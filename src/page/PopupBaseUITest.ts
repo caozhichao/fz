@@ -5,8 +5,8 @@ module test {
 			this.skinName = 'skins.PopupBaseUITestSkin';
 		}
 
-		public initUI(data:any):void{
-			super.initUI(data);
+		public initComplete(data:any):void{
+			super.initComplete(data);
 		}
 	}
 }

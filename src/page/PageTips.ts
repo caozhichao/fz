@@ -6,8 +6,8 @@ module fz {
 			this.skinName = 'skins.PageTipsSkin';			
 		}
 
-		public initUI(data:any):void{
-			super.initUI(data);
+		public initComplete(data:any):void{
+			super.initComplete(data);
 			// this.stage.addEventListener(egret.TouchEvent.TOUCH_TAP,this.onTap,this);
 			if(eg.Config.STAGE_H < 1206){
 				this._container.scaleX = this._container.scaleY = eg.Config.DesignScale;

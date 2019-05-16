@@ -16,8 +16,8 @@ module test {
 			this.skinName = 'skins.DropBallTestSkin';
 		}
 
-		public initUI():void{
-			super.initUI(null);
+		public initComplete():void{
+			super.initComplete(null);
 
 			this._btn.addEventListener(egret.TouchEvent.TOUCH_TAP,this.onTest,this);
 			// this.t1 = egret.getTimer();

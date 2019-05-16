@@ -30,8 +30,8 @@ module fz {
 			super();
 		}
 
-		public initUI(data:any):void{
-			super.initUI(data);
+		public initComplete(data:any):void{
+			super.initComplete(data);
 			let map = new egret.Bitmap(RES.getRes("1_png"));
 			this.addChild(map);
 			// this.posList = [-25,249,25,249,75,249,125,249,175,249,225,249,275,249,325,249,325,299,325,349,325,399,325,449,325,399,325,549,325,599,325,649];	

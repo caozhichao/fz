@@ -3,8 +3,8 @@ module test {
 		public constructor() {
 			super();
 		}
-		public initUI(data:any):void{
-			super.initUI(data);
+		public initComplete(data:any):void{
+			super.initComplete(data);
 			console.log(this.stage);
 			this.stage.addEventListener(egret.TouchEvent.TOUCH_TAP,this.onTap,this);
 		}

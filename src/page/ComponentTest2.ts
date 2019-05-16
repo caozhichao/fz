@@ -6,7 +6,7 @@ module test {
 			this.skinName = 'skins.ComponentSkin2';				
 		}
 
-		public initUI(data):void{
+		public initComplete(data):void{
 			this.btn.addEventListener(egret.TouchEvent.TOUCH_TAP,this.onTap,this);
 		}
 

@@ -58,11 +58,11 @@ module eg {
 			this._uiCache[className] = page;
 
 			//绑定上一页的额外数据(同层数据传递)
-			this.bindData(page);		
+			// this.bindData(page);		
 			//添加到显示层
 			this.show(page);
 			//数据上报
-			this.uploadPageData(page);		
+			// this.uploadPageData(page);		
 			return page;
 		}
 
@@ -106,17 +106,17 @@ module eg {
 		 * 绑定上一页的额外数据到当前页
 		 */
 		private bindData(page:IPage):void{
-			let upPage:IPage = this._dic[page.pageType];		
-			page.upPageExtraData = this.getPageExtraData(upPage);	
+			// let upPage:IPage = this._dic[page.pageType];		
+			// page.upPageExtraData = this.getPageExtraData(upPage);	
 		}
 		
 		/**
 		 * 获取上一页的额外数据
 		 */
 		private getPageExtraData(page:IPage):any{
-			let upPageExtraData = (page?page.curPageExtraData:{})||{};
-			upPageExtraData.upPageName = page?page.pageName:"";
-			return upPageExtraData;		
+			// let upPageExtraData = (page?page.curPageExtraData:{})||{};
+			// upPageExtraData.upPageName = page?page.pageName:"";
+			// return upPageExtraData;		
 		}
 
 		/**

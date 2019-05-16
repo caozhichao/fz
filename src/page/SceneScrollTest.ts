@@ -26,8 +26,8 @@ module test {
 			super();
 		}
 
-		public initUI(data:any):void{
-			super.initUI(data);			
+		public initComplete(data:any):void{
+			super.initComplete(data);			
 			this._mapPos = new egret.Point(0,0);
 
 			this._map = new Map();

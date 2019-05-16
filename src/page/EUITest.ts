@@ -5,8 +5,8 @@ module test {
 			this.skinName = 'skins.EUITestSkin';
 		}
 
-		public initUI(data):void{
-			super.initUI(data);
+		public initComplete(data):void{
+			super.initComplete(data);
 
 		}
 	}

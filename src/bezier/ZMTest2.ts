@@ -17,8 +17,8 @@ module test {
 			super();
 			this.skinName = 'skins.ZMTestSkin';
 		}
-		public initUI(data:any):void{
-			super.initUI(data);
+		public initComplete(data:any):void{
+			super.initComplete(data);
 
 			this._drawPath = new egret.Shape();
 

@@ -10,8 +10,8 @@ module eg {
 			super();
 		}
 
-		public initUI(data:any):void{
-			super.initUI(data);
+		public initComplete(data:any):void{
+			super.initComplete(data);
 			this._bg = new eui.Rect(eg.Config.STAGE_W,eg.Config.STAGE_H);
 			this._bg.fillColor = 0x0;
 			this._bg.fillAlpha = PopupBaseUI.MASK_ALPHA;

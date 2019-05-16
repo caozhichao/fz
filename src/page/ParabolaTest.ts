@@ -13,8 +13,8 @@ module test {
 			this.resName = ['ParabolaTest']
 		}
 
-		public initUI(data:any):void{
-			super.initUI(data);		
+		public initComplete(data:any):void{
+			super.initComplete(data);		
 			this.flag = false;
 			this.friction = 0;
 			this.gravity = 0;
