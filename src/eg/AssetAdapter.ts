@@ -46,10 +46,12 @@ class AssetAdapter implements eui.IAssetAdapter {
                 onGetRes(data);
             }
             else {
+                eg.log('getResAsync url:' + source);
                 RES.getResAsync(source, onGetRes, this);
             }
         }
         else {
+            eg.log('getResByUrl url:' + source);
             RES.getResByUrl(source, onGetRes, this, RES.ResourceItem.TYPE_IMAGE);
         }
     }

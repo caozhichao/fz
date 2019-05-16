@@ -246,6 +246,7 @@
 		"bin-debug/page/decorators_test.js",
 		"bin-debug/page/DijkstraTest.js",
 		"bin-debug/page/DragonBonesTest.js",
+		"bin-debug/page/EUIListTest.js",
 		"bin-debug/page/EUITest.js",
 		"bin-debug/page/EventTest.js",
 		"bin-debug/page/GameData.js",

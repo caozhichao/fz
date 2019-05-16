@@ -237,6 +237,39 @@ window.skins={};
 		return t;
 	};
 	return DropBallTestSkin;
+})(eui.Skin);generateEUI.paths['resource/assets/game/skins/EUIListTestSkin.exml'] = window.skins.EUIListTestSkin = (function (_super) {
+	__extends(EUIListTestSkin, _super);
+	function EUIListTestSkin() {
+		_super.call(this);
+		this.skinParts = ["_list"];
+		
+		this.height = 1280;
+		this.width = 720;
+		this.elementsContent = [this._Scroller1_i()];
+	}
+	var _proto = EUIListTestSkin.prototype;
+
+	_proto._Scroller1_i = function () {
+		var t = new eui.Scroller();
+		t.anchorOffsetY = 0;
+		t.height = 150;
+		t.width = 200;
+		t.x = 102;
+		t.y = 194;
+		t.viewport = this._list_i();
+		return t;
+	};
+	_proto._list_i = function () {
+		var t = new eui.List();
+		this._list = t;
+		t.layout = this._VerticalLayout1_i();
+		return t;
+	};
+	_proto._VerticalLayout1_i = function () {
+		var t = new eui.VerticalLayout();
+		return t;
+	};
+	return EUIListTestSkin;
 })(eui.Skin);generateEUI.paths['resource/assets/game/skins/EUITestSkin.exml'] = window.skins.EUITestSkin = (function (_super) {
 	__extends(EUITestSkin, _super);
 	var EUITestSkin$Skin1 = 	(function (_super) {
@@ -410,6 +443,27 @@ window.skins={};
 		return t;
 	};
 	return landscape_test;
+})(eui.Skin);generateEUI.paths['resource/assets/game/skins/ListRenderTestSkin.exml'] = window.skins.ListRenderTestSkin = (function (_super) {
+	__extends(ListRenderTestSkin, _super);
+	function ListRenderTestSkin() {
+		_super.call(this);
+		this.skinParts = [];
+		
+		this.height = 100;
+		this.width = 200;
+		this.elementsContent = [this._Image1_i()];
+	}
+	var _proto = ListRenderTestSkin.prototype;
+
+	_proto._Image1_i = function () {
+		var t = new eui.Image();
+		t.source = "red_png";
+		t.width = 200;
+		t.x = 0;
+		t.y = 0;
+		return t;
+	};
+	return ListRenderTestSkin;
 })(eui.Skin);generateEUI.paths['resource/assets/game/skins/LoadingUISkin.exml'] = window.skins.LoadingUISkin = (function (_super) {
 	__extends(LoadingUISkin, _super);
 	function LoadingUISkin() {
