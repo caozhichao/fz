@@ -76,30 +76,11 @@ module eg {
 			let layer:egret.Sprite = UILayer.Instance.getLayerByType(pageType);
 			layer.addChild(page.content);
 			//关闭上一页
-			let upPage:IPage = this._dic[page.pageType];		
-			// if(upPage && !upPage.isDispose){
-			// 	upPage.close();
-			// }
-			
+			let upPage:IPage = this._dic[pageType];								
 			if(upPage){
 				upPage.close();
 			}
-			this._dic[page.pageType] = page;
-
-			// switch(pageType){
-			// 	case UILayer.LAYER_WINDOW:	
-			// 		if(this._window != null){				
-			// 			this._window.close();
-			// 		}
-			// 		this._window = page;				
-			// 		break;
-			// 	case UILayer.LAYER_TIPS_WINDOW:
-			// 		if(this._tips){
-			// 			this._tips.close();
-			// 		}
-			// 		this._tips = page;						
-			// 		break;
-			// }			
+			this._dic[pageType] = page;			
 		}
 
 		/**

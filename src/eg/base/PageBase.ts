@@ -35,8 +35,7 @@ module eg {
 			return this;
 		}
 
-		public initComplete(pageData:any):void{
-			eg.log(pageData);
+		public initComplete(pageData:any):void{			
 			this.dispatchEventWith(PageBase.INIT_COMPLETE);
 		}
 
