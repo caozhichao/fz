@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<e:Skin class="GameEndSkin" width="480" height="800" xmlns:e="http://ns.egret.com/eui" xmlns:w="http://ns.egret.com/wing">
+	<e:Image width="100%" height="100%" x="0" y="0" source="bgMap_1"/>
+	<e:Image id="titleImg" width="340" height="69" source="game-over_png" horizontalCenter="0" y="130"/>
+	<e:Rect width="380" height="282" y="262" anchorOffsetX="0" anchorOffsetY="0" fillColor="0x232323" strokeAlpha="0.7" horizontalCenter="0" fillAlpha="0.9"/>
+	<e:BitmapLabel id="killnum" width="166" height="48" x="161" y="328" font="test_fnt" anchorOffsetX="0" anchorOffsetY="0"/>
+	<e:Label text="当前一共击杀敌机：" x="50" y="280" anchorOffsetX="0" width="380" textAlign="center" verticalAlign="middle"/>
+	<e:Button id="restarBtn" label="按钮" x="161" y="638">
+		<e:skinName>
+			<e:Skin states="up,down,disabled">
+			<e:Image width="100%" height="100%" source="restart_png" source.down="restart_png" source.disabled="restart_png" width.down="98%" height.down="98%" x.down="2" y.down="2"/>
+			</e:Skin>
+		</e:skinName>
+	</e:Button>
+</e:Skin>

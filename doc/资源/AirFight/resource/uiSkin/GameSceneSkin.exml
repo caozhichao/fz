@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<e:Skin class="GameSceneSkin" width="480" height="49" xmlns:e="http://ns.egret.com/eui" xmlns:w="http://ns.egret.com/wing">
+	<e:Image width="64" height="39" x="280" y="0" source="hp_png"/>
+	<e:Label text="击杀数：" x="87" y="4" anchorOffsetX="0" width="127"/>
+	<e:Label id="numTxt" text="0" x="191" y="5" anchorOffsetX="0" width="80"/>
+	<e:ProgressBar id="progressBar" width="130" height="30" x="347" y="4" anchorOffsetX="0" anchorOffsetY="0"/>
+</e:Skin>
