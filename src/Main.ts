@@ -157,7 +157,9 @@ class Main extends eg.EgMain {
         // this.addChild(new Examples_toWorldFrame());
         // this.addChild(new Examples_carWithMotor());
         // this.addChild(new Examples_concave());
-        this.addChild(new Examples_concave());
+        // this.addChild(new Examples_concave());
+
+        this.addChild(new test.ShaderTest());
     }
 
     private facade:game.ApplicationFacade;

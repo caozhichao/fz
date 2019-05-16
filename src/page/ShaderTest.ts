@@ -48,6 +48,7 @@ module test {
 
             "uniform float lineWidth;",
             "uniform float offset;",
+            "uniform float offset1;",
 
             "void main()",
             "{",
@@ -57,14 +58,14 @@ module test {
             "float modPart = mod(vTextureCoord.y, lineWidth);",
             "float solidPart = (1.0 - offset) * lineWidth;",
 
-            "if(modPart > solidPart) {",
-            "gl_FragColor = texture2D(uSampler, texCoord);",
-            "} else {",
-            "gl_FragColor = vec4(0., 0., 0., 1.);",
-            // "if(vTextureCoord.y>0.8){",
-            //     "gl_FragColor=texture2D(uSampler, texCoord);",
-            // "}else{",            
-            //     "gl_FragColor=vec4(0.0,0.0,0.0,1.0);",
+            // "if(modPart < solidPart) {",
+            // "gl_FragColor = texture2D(uSampler, texCoord);",
+            // "} else {",
+            // "gl_FragColor = vec4(0., 0., 0., 1.);",
+            "if(vTextureCoord.y<offset || vTextureCoord.y > offset1){",
+                "gl_FragColor=texture2D(uSampler, texCoord);",
+            "}else{",            
+                "gl_FragColor=vec4(0.0,0.0,0.0,0.0);",
             "}",
             "}"
         	].join("\n");	
@@ -73,21 +74,28 @@ module test {
                                 vertexSrc,
                                 fragmentSrc4,
                                 {
-                                    lineWidth: 1,
-                                    offset: 0
+                                    lineWidth: 0.5,
+                                    offset: 0.5,
+                                    offset1: 0.5
                                 }
                             );
 
             // spr.filters = [fragmentSrc4];
 
             spr.filters = [customFilter4];
-            customFilter4.uniforms.offset = 0.5;
-            // this.addEventListener(egret.Event.ENTER_FRAME,()=>{
-            //      customFilter4.uniforms.offset += 0.01;
-            //     if (customFilter4.uniforms.offset > 1) {
-            //         customFilter4.uniforms.offset = 0.0;
-            //     }
-            // },this);
+            // customFilter4.uniforms.offset = 0.5;
+            this.addEventListener(egret.Event.ENTER_FRAME,()=>{
+                 customFilter4.uniforms.offset -= 0.001;
+                if (customFilter4.uniforms.offset <= 0) {
+                    customFilter4.uniforms.offset = 0.5;
+                }
+
+                 customFilter4.uniforms.offset1 += 0.001;
+                if (customFilter4.uniforms.offset1 > 1.0) {
+                    customFilter4.uniforms.offset1 = 0.5;
+                }
+
+            },this);
 		}
 	}
 }
