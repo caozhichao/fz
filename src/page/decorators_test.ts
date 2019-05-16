@@ -6,6 +6,14 @@ class decorators_test {
 		let h = new Hello();
 		let a = h.greeting;
 		console.log(a);
+
+		console.log("--------------------------------");
+		let g = new Greeter("aaa");
+		// g.greet();
+
+		for(let k in g){
+			console.log(k);
+		}
 	}
 }
 
@@ -34,4 +42,24 @@ function DefaultValue(value: string) {
 class Hello {
     @DefaultValue("world") 
 	greeting: string;
+}
+
+
+class Greeter {
+    greeting: string;
+    constructor(message: string) {
+        this.greeting = message;
+    }
+
+    @enumerable(false)
+    greet() {
+        return "Hello, " + this.greeting;
+    }
+}
+
+
+function enumerable(value: boolean) {
+    return function (target: any, propertyKey: string, descriptor: PropertyDescriptor) {
+        descriptor.enumerable = value;
+    };
 }
