@@ -2,9 +2,15 @@ class WebglRenderTest extends egret.Sprite{
 	public constructor() {
 		super();
 		console.log('WebglRenderTest');
-		// this.graphics.beginFill(0xff0000);
-		// this.graphics.drawRect(0,0,400,300);
-		// this.graphics.endFill();
+
+		this.graphics.beginFill(0xff0000);
+		this.graphics.drawRect(0,0,50,50);
+		this.graphics.endFill();
+		this.x = 100;
+		this.y = 150;
+
+		this.alpha = 0.5;
+
 
 		// RES.getResByUrl('resource/assets/game/gold.png',(evt)=>{
 		// 	console.log('a');
@@ -12,6 +18,9 @@ class WebglRenderTest extends egret.Sprite{
 
 		// let image:eui.Image = new eui.Image('resource/assets/game/images/gold.png');			
 		// this.addChild(image);
+
+
+		/*
 		let imageLoader:egret.ImageLoader = new egret.ImageLoader();
 		imageLoader.addEventListener(egret.Event.COMPLETE,(evt)=>{
 			console.log(evt);
@@ -32,5 +41,7 @@ class WebglRenderTest extends egret.Sprite{
 
 		},this);
 		imageLoader.load('resource/assets/game/images/gold.png');
+		*/
+
 	}
 }

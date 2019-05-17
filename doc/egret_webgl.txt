@@ -1,0 +1,16 @@
+egret webgl 绘制
+一次绘制过程
+1.上传所有顶点buffer数据
+2.上传所有顶点顺序buffer数据（会提前）
+3.根据drawData绘制  drawData 中记录了同批次处理的数据
+
+一次渲染
+
+private size: number = 2000;
+private vertexMaxSize: number = this.size * 4;
+private indicesMaxSize: number = this.size * 6;
+private vertSize: number = 5;
+
+
+一个顶点的数据 5个数据
+x,y,u,v,alpha
