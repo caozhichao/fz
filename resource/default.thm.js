@@ -449,7 +449,6 @@ window.skins={};
 		_super.call(this);
 		this.skinParts = [];
 		
-		this.height = 100;
 		this.width = 200;
 		this.elementsContent = [this._Image1_i()];
 	}
@@ -457,6 +456,7 @@ window.skins={};
 
 	_proto._Image1_i = function () {
 		var t = new eui.Image();
+		t.height = 100;
 		t.source = "red_png";
 		t.width = 200;
 		t.x = 0;

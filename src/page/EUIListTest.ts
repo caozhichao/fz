@@ -51,8 +51,13 @@ class ListRenderTest extends eui.ItemRenderer{
 		this.addChild(s);
 
 		//更新对象的高度
-		this.height += 50;
-		// this.invalidateSize();
+		// this.height += 50;		
+		this.invalidateSize();
+	}
+
+	protected measure():void {
+		super.measure();
+		console.log("aaa");
 	}
 
 }

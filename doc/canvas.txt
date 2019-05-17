@@ -1,1 +1,7 @@
 https://segmentfault.com/a/1190000005892330
+
+//egret 第三方扩展库
+https://github.com/a365344743s/egret-extension
+
+//数字处理
+https://github.com/MikeMcl/decimal.js
