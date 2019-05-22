@@ -5,7 +5,7 @@ module test {
     }
     protected createChildren(): void {
         super.createChildren();
-		/*
+		// /*
         var theme = new eui.Theme(`resource/default.thm.json`, this.stage);
         var exml = `
         <e:Skin xmlns:e="http://ns.egret.com/eui" states="up,down" height="50"> 
@@ -29,17 +29,17 @@ module test {
         viewStack.selectedIndex = 1;
         this.addChild(viewStack);
         this.addChild(tabBar);
-		*/
+		// */
 
-		  var exml = `
-        <e:Skin xmlns:e="http://ns.egret.com/eui" states="up,down" height="50"> 
-            <e:Label text="{data}" textColor.down="0xFFFFFF" textColor.up="0x666666" horizontalCenter="0" verticalCenter="0"/> 
-        </e:Skin>`;
-        var tabBar = new eui.TabBar();
-        tabBar.dataProvider = new eui.ArrayCollection(["tab1", "tab2", "tab3"]);
-        tabBar.itemRendererSkinName = exml;
-        this.addChild(tabBar);
-        tabBar.addEventListener(eui.ItemTapEvent.ITEM_TAP, this.onBarItemTap, this);
+		//   var exml = `
+        // <e:Skin xmlns:e="http://ns.egret.com/eui" states="up,down" height="50"> 
+        //     <e:Label text="{data}" textColor.down="0xFFFFFF" textColor.up="0x666666" horizontalCenter="0" verticalCenter="0"/> 
+        // </e:Skin>`;
+        // var tabBar = new eui.TabBar();
+        // tabBar.dataProvider = new eui.ArrayCollection(["tab1", "tab2", "tab3"]);
+        // tabBar.itemRendererSkinName = exml;
+        // this.addChild(tabBar);
+        // tabBar.addEventListener(eui.ItemTapEvent.ITEM_TAP, this.onBarItemTap, this);
     }
 
 		private onBarItemTap(e: eui.ItemTapEvent): void {
