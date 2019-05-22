@@ -5,3 +5,6 @@ https://github.com/a365344743s/egret-extension
 
 //数字处理
 https://github.com/MikeMcl/decimal.js
+
+//js prototype 博客
+//https://www.cnblogs.com/wangfupeng1988/p/3978131.html

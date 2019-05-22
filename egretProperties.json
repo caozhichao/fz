@@ -55,5 +55,9 @@
       "name":"physics",
       "path":"./libs/physics"
     }
-  ]
+  ],
+  "urlParams":{
+        "okok":12,
+        "id":455464564
+  }
 }
