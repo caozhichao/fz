@@ -1,0 +1,165 @@
+<!doctype html>
+<html>
+<head>
+    <title>document object model(DOM)</title>
+    <style>
+        ol{
+            list-style-type: none;
+        }
+        *{
+            margin: 0;
+            padding: 0;
+        }
+        .ol_test{
+            margin-left: 40px;
+        }
+        .ol_test ol{
+            margin-left: 40px;
+        }
+        .ol_test > li{
+            font-size: 20px;
+            color: blue;
+        }
+        .div_ol{
+            width: 300px;
+            background-color: red;
+            height: 100px;
+            overflow-y: scroll;
+        }
+
+    </style>
+</head>    
+<body>
+<!--<p id='intro'>Hello World</p>
+<p>本例演示 <b>getElementById</b> 方法！</p>-->
+
+<!--<div id="d1">
+    <p id="p1">This is a paragraph.</p>
+    <p id="p2">This is another paragraph.</p>
+</div>-->
+
+<!--<input type="button" value="Change background color" onclick="ChangeText()"/>
+<p id='p1'>Hello world</p>-->
+
+<!--<h1 onclick="changetext(this)">请点击这段文本!</h1>-->
+<!--<button onclick="displayDate()">试一试</button>
+<p id='demo'></p>-->
+<!--<div onmouseover="mOver(this)" onmouseout="mOut(this)" onmousedown="mDown(this)" onmouseup="mUp(this)" style="background-color: #D94A38;width: 200px;height: 50px;padding-top: 25px;text-align: center">
+Mouse Over Me
+</div>-->
+<!--<p>Hello World!</p>
+<p>DOM 很有用！</p>-->
+
+<!--<form>
+请选择您喜欢的水果：
+<select id="mySelect">
+  <option>苹果</option>
+  <option>桃子</option>
+  <option>香蕉</option>
+  <option>桔子</option>
+</select>
+<br />
+<br />
+<input type="button" onclick="alertIndex()" value="显示被选水果的 index">
+</form>-->
+<div class="div_ol">
+    <ol class="ol_test">
+        <li>一级列表1</li>
+        <ol>
+            <li>二级列表1</li>
+            <li>二级列表2</li>
+        </ol>
+        <hr />
+        <li>一级列表2</li>        
+        <ol>
+            <li>二级列表1</li>
+            <li>二级列表2</li>
+        </ol>
+        <hr />    
+    </ol>
+</div>
+
+<script>
+
+// function alertIndex()
+//   {
+//     var x=document.getElementById("mySelect").selectedIndex;
+//     var y=document.getElementsByTagName("option");
+//     alert(y[x].text + " has the index of: " + y[x].index);
+//   }
+
+    // function show_coords(event){
+    //     console.log(event);
+    //     x=event.clientX;
+    //     y=event.clientY;
+    //     alert("X 坐标: " + x + ", Y 坐标: " + y)
+    // }
+    // var x = document.getElementsByTagName('p');
+    // // document.write('第二段的 innerHTML 是: ' + x[1].innerHTML);
+    // for(var i = 0; i < x.length; i++){
+    //     document.write(x[i].innerHTML);
+    //     document.write('<br/>');
+    // }
+
+    // function mOver(obj){
+    //     obj.innerHTML='谢谢你';
+    // }
+    // function mOut(obj){
+    //     obj.innerHTML='把鼠标指针移动到上面';
+    // }
+    // function mDown(obj){
+    //     obj.style.backgroundColor="#1ec5e5";
+    //     obj.innerHTML="松开鼠标"
+    // }
+    // function mUp(obj){
+    //     obj.style.backgroundColor="#D94A38";
+    //     obj.innerHTML="mUp"
+    // }
+
+    // function displayDate(){
+    //     document.getElementById('demo').innerHTML = Date();
+    // }
+    // function changetext(id){
+    //     id.innerHTML = 'hello...';
+    // }
+    // function onChange(){
+    //     document.body.style.backgroundColor = 'lavender';
+    // }
+    // function ChangeText(){
+    //     document.getElementById('p1').innerHTML = 'New text!';
+    // }
+    // var x = document.getElementById('intro');
+    // console.log(x);
+    // var attributes = x.attributes;
+    // var idAttr = attributes.id;
+    // // idAttr.nodeValue = 'intro1111';
+    // console.log(attributes)
+    // document.write("<p>来自 intro 段落的文本：" + x.innerHTML + "</p>");
+    // document.write("aaa");
+    // x.innerHTML = 'New text!';
+    // x.style.color = 'blue';
+
+    // var para = document.createElement("p");
+    // var node = document.createTextNode('This is new.');
+    // para.appendChild(node);
+    // var element = document.getElementById('d1');
+    // element.appendChild(para);
+    // var child = document.getElementById('p1');
+    // element.insertBefore(para,child);
+    // element.removeChild(child);
+
+    // replaceChild
+
+    // var parent = document.getElementById('d1');
+    // var child = document.getElementById('p1');
+    // parent.replaceChild(para,child);
+
+
+
+
+
+</script>
+
+
+</body>
+</html>
