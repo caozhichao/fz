@@ -1,0 +1,39 @@
+<!doctype html>
+<html>
+    <head>
+        <title>flexbox布局</title>
+        <!-- 
+            flexbox
+            https://www.jianshu.com/p/4a61a517c792
+            https://www.cnblogs.com/myzhibie/p/4318904.html
+        -->
+        <style>
+            body{
+                margin: 0;
+            }
+           .container{
+               display: flex;
+               border:  1px solid red;
+               height: 600px;   
+               flex-wrap: wrap;        
+               /*justify-content:center;    */
+               align-items: stretch;
+           }     
+           .item{
+               width: 100px;
+               height: 100px;
+               border: 1px solid blue;
+           }           
+        </style>
+    </head>
+    <body>
+        <div class="container">        
+            <div class="item"></div>
+            <div class="item"></div>
+            <div class="item"></div>                
+            <div class="item"></div>
+            <div class="item"></div>
+            <div class="item"></div>                            
+        </div>
+    </body>
+</html>

@@ -3,6 +3,7 @@ bin-debug/
 bin-release/
 doc/inner
 libs/modules
+doc/html/test01/node_modules
 
 
 
