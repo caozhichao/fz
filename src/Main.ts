@@ -160,7 +160,10 @@ class Main extends eg.EgMain {
         // this.addChild(new Examples_concave());
         // this.addChild(new Examples_concave());
 
-        this.addChild(new test.TabBarDemo());
+        // this.addChild(new test.TabBarDemo());
+        // this.addChild(new test.ShakeToolTest());
+        // this.addChild(new DeviceOrientationExample());
+        this.addChild(new test.MotionTest());
 
     }
 
