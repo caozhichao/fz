@@ -10,7 +10,8 @@ module test {
 }
 
 //微信 ios 12.2 设备运动 页面必须在htts下才有效
-
+//h5重力感应测试地址
+// https://wow.techbrood.com/static/20170427/34180.html
 // 摇一摇参考
 
 // https://www.cnblogs.com/lr393993507/p/5553507.html
